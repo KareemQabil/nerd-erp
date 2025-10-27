@@ -42,9 +42,9 @@ export const AppRouter = () => {
           <Route path="/admin" element={<AdminPage />} />
         </Route>
       </Route>
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
       {/* Other Routes */}
-      <Route path="/unauthorized" element={<UnauthorizedPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

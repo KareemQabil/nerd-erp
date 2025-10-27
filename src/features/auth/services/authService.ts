@@ -56,7 +56,7 @@ class AuthService {
    */
   async refresh(): Promise<boolean> {
     try {
-      const response = await apiClient.post<ApiResponse<any>>(
+      const response = await apiClient.get<ApiResponse<any>>(
         "/api/Auth/refresh"
       );
 
@@ -73,7 +73,7 @@ class AuthService {
    */
   async logout(): Promise<void> {
     try {
-      await apiClient.post("/api/Auth/logout");
+      await apiClient.get("/api/Auth/logout");
     } catch (error) {
       console.error("Logout request failed:", error);
       // Even if request fails, cookies may be cleared on server
