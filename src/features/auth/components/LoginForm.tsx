@@ -28,88 +28,60 @@ export function LoginForm(): JSX.Element {
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}>
-      <h2>Login</h2>
+    <div className="flex items-center justify-center min-h-screen bg-background">
+      <div className="w-full max-w-md p-8 space-y-6 bg-card border border-border rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-center text-foreground">Login</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "15px" }}>
-          <label
-            htmlFor="username"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Username
-          </label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            disabled={loading}
-            style={{
-              width: "100%",
-              padding: "8px",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label
-            htmlFor="password"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={loading}
-            style={{
-              width: "100%",
-              padding: "8px",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-        </div>
-
-        {error && (
-          <div
-            style={{
-              color: "#d32f2f",
-              marginBottom: "15px",
-              padding: "8px",
-              backgroundColor: "#ffebee",
-              borderRadius: "4px",
-              fontSize: "14px",
-            }}
-          >
-            {error}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="username"
+              className="block mb-2 text-sm font-medium text-foreground"
+            >
+              Username
+            </label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              disabled={loading}
+              className="w-full px-3 py-2 text-sm border rounded-md bg-background text-foreground border-input focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50 disabled:cursor-not-allowed"
+            />
           </div>
-        )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            width: "100%",
-            padding: "10px",
-            fontSize: "16px",
-            backgroundColor: loading ? "#ccc" : "#1976d2",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: loading ? "not-allowed" : "pointer",
-          }}
-        >
-          {loading ? "Signing in..." : "Sign In"}
-        </button>
-      </form>
+          <div>
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-foreground"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+              className="w-full px-3 py-2 text-sm border rounded-md bg-background text-foreground border-input focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50 disabled:cursor-not-allowed"
+            />
+          </div>
+
+          {error && (
+            <div className="p-3 text-sm rounded-md bg-destructive/10 text-destructive border border-destructive/20">
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full px-4 py-2 text-base font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
