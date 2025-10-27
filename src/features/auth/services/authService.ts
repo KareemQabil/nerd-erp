@@ -27,7 +27,7 @@ class AuthService {
         { username, password }
       );
 
-      if (response.data.success) {
+      if (response.data) {
         // After successful login, server has set cookies
         // Parse the frontend-readable user_data cookie
         const user = this.getFrontendUserFromCookie();
@@ -101,16 +101,6 @@ class AuthService {
     const userFromCookie = this.getFrontendUserFromCookie();
     if (userFromCookie) {
       return userFromCookie;
-    }
-
-    // Fallback: call /me endpoint if available
-    try {
-      const response = await apiClient.get<ApiResponse<User>>("/api/Auth/me");
-      if (response.data.success && response.data.data) {
-        return response.data.data;
-      }
-    } catch (error) {
-      console.error("Failed to get current user:", error);
     }
 
     return null;
