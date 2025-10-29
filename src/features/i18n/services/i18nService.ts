@@ -1,11 +1,11 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { DEFAULT_LANGUAGE, type Language } from '../types/i18n';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { DEFAULT_LANGUAGE, type Language } from "../types/i18n";
 
 // Import translation files
-import enTranslations from '../locales/en.json';
-import arTranslations from '../locales/ar.json';
+import enTranslations from "../locales/en.json";
+import arTranslations from "../locales/ar.json";
 
 /**
  * i18n Service - Generic service for internationalization
@@ -40,8 +40,8 @@ class I18nService {
           escapeValue: false, // React already escapes values
         },
         detection: {
-          order: ['localStorage', 'navigator'],
-          caches: ['localStorage'],
+          order: ["localStorage", "navigator"],
+          caches: ["localStorage"],
         },
       });
 
@@ -65,11 +65,26 @@ class I18nService {
   }
 
   /**
+   * Helper function to map a backend messageKey to a translation key.
+   * Example: 'AUTH_INVALID_CREDENTIALS' -> 'errors.AUTH_INVALID_CREDENTIALS'
+   * @param messageKey The key from the backend API error
+   * @returns A string path to be used with i18n.t()
+   */
+  mapKeyToTranslation = (messageKey?: string): string => {
+    if (!messageKey) {
+      return "errors.UNKNOWN_ERROR";
+    }
+
+    // We will store all error keys under the 'errors' object in our JSON files
+    return `errors.${messageKey}`;
+  };
+
+  /**
    * Update document direction based on current language
    */
   private updateDocumentDirection(): void {
     const currentLang = this.getCurrentLanguage();
-    const direction = currentLang === 'ar' ? 'rtl' : 'ltr';
+    const direction = currentLang === "ar" ? "rtl" : "ltr";
     document.documentElement.dir = direction;
     document.documentElement.lang = currentLang;
   }

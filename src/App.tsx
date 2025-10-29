@@ -4,10 +4,12 @@ import { AuthProvider } from "./contexts/AuthProvider";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import { AppRouter } from "./routes/AppRouter";
 import { I18nProvider } from "@/features/i18n/contexts/I18nProvider";
+import { AlertDisplay } from "./components/shared/alertDisplay";
 
 function App() {
   return (
     <I18nProvider>
+      <AlertDisplay />
       <ThemeProvider defaultTheme="light">
         <AuthProvider>
           <BrowserRouter>

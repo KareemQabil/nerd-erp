@@ -1,16 +1,11 @@
-import apiClient from "../../features/auth/api/axiosInstance";
-import type { User } from "../../features/auth/types/auth";
-import type { ApiResponse } from "@/services/api/types";
-import { FRONTEND_USER_COOKIE, parseCookieJwt } from "@/lib/cookie";
+import apiClient from "@/services/api/axios"; // Make sure path is correct
+import type { User } from "../../features/auth/types/auth"; // Make sure path is correct
+import type { ApiResponse } from "@/services/api/types"; // Make sure path is correct
+import { FRONTEND_USER_COOKIE, parseCookieJwt } from "@/lib/cookie"; // Make sure path is correct
 
 /**
  * Authentication service handling all auth-related API calls.
  * Uses http-only cookies for secure token storage.
- *
- * Security notes:
- * - access_token, refresh_token, refresh_jti are http-only (JS cannot access)
- * - user_data cookie contains non-sensitive user info as JWT (JS can read)
- * - All requests use withCredentials to send cookies automatically
  */
 class AuthService {
   /**
@@ -23,20 +18,25 @@ class AuthService {
    */
   async login(username: string, password: string): Promise<User | null> {
     try {
+      // The interceptor will reject on error, so we only handle success here
       const response = await apiClient.post<ApiResponse<User>>(
         "/api/Auth/login",
         { username, password }
       );
 
-      if (response.data) {
+      // On success, response.data.error is guaranteed to be null by the interceptor.
+      // We can safely check for response.data.data.
+      if (response.data.data) {
         // After successful login, server has set cookies
         // Parse the frontend-readable user_data cookie
         const user = this.getFrontendUserFromCookie();
 
         if (!user) {
-          console.error("Login succeeded but user cookie not found");
-          // Fallback: try to get user from server
-          return this.getCurrentUser();
+          console.warn(
+            "Login succeeded but user cookie not found; using response data."
+          );
+          // Fallback to data from response
+          return response.data.data;
         }
 
         return user;
@@ -44,7 +44,9 @@ class AuthService {
 
       return null;
     } catch (error) {
-      console.error("Login failed:", error);
+      // Errors are now pre-handled and translated by the interceptor.
+      // We just need to log it and return null.
+      console.error("Login failed:", (error as Error).message);
       return null;
     }
   }
@@ -60,12 +62,10 @@ class AuthService {
       const response = await apiClient.get<ApiResponse<any>>(
         "/api/Auth/refresh"
       );
-      if (response.data) {
-        return true;
-      }
-      return false;
+      // The interceptor handles errors, so if we get here, it's a success
+      return !!response.data.data;
     } catch (error) {
-      console.error("Token refresh failed:", error);
+      console.error("Token refresh failed:", (error as Error).message);
       return false;
     }
   }
@@ -77,8 +77,8 @@ class AuthService {
     try {
       await apiClient.get("/api/Auth/logout");
     } catch (error) {
-      console.error("Logout request failed:", error);
-      // Even if request fails, cookies may be cleared on server
+      console.error("Logout request failed:", (error as Error).message);
+      // Even if request fails, we can proceed with client-side cleanup
     }
   }
 
@@ -89,6 +89,7 @@ class AuthService {
    * @returns User object or null if cookie not found/invalid
    */
   getFrontendUserFromCookie(): User | null {
+    // Assuming parseCookieJwt exists and works as intended
     return parseCookieJwt<User>(FRONTEND_USER_COOKIE);
   }
 
@@ -105,6 +106,8 @@ class AuthService {
       return userFromCookie;
     }
 
+    // You might want to add an API call here as a fallback
+    // e.g., return this.fetchProfile();
     return null;
   }
 }

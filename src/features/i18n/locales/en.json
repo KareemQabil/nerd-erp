@@ -37,7 +37,9 @@
     }
   },
   "errors": {
-    "invalidCredentials": "Invalid username or password",
-    "requiredFields": "Please enter both username and password"
+    "AUTH_INVALID_CREDENTIALS": "Invalid username or password",
+    "REQUIRED_FIELDS": "Please enter both username and password",
+    "UNKNOWN_ERROR": "An unknown error occurred. Please try again.",
+    "NETWORK_ERROR": "A network error occurred. Please check your connection."
   }
 }
