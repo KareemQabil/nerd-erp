@@ -1,5 +1,6 @@
-import apiClient from "../api/axiosInstance";
-import type { User, ApiResponse } from "../types/auth";
+import apiClient from "../../features/auth/api/axiosInstance";
+import type { User } from "../../features/auth/types/auth";
+import type { ApiResponse } from "@/services/api/types";
 import { FRONTEND_USER_COOKIE, parseCookieJwt } from "@/lib/cookie";
 
 /**
@@ -59,9 +60,10 @@ class AuthService {
       const response = await apiClient.get<ApiResponse<any>>(
         "/api/Auth/refresh"
       );
-
-      // If refresh succeeds, server has set new cookies
-      return response.data.success;
+      if (response.data) {
+        return true;
+      }
+      return false;
     } catch (error) {
       console.error("Token refresh failed:", error);
       return false;

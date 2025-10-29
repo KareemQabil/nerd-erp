@@ -1,4 +1,4 @@
-import { RoleGuard } from "@/guards/role-guard";
+import { RoleGuard } from "@/components/guards/role-guard";
 import DashboardPage from "@/pages/DashboardPage";
 import LoginPage from "@/pages/LoginPage";
 import ManagerPage from "@/pages/ManagerPage";

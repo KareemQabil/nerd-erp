@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import authService from "../features/auth/services/authService";
+import authService from "../services/auth/authService";
 import type { User } from "../features/auth/types/auth";
 
 /**

@@ -1,0 +1,43 @@
+{
+  "common": {
+    "appName": "My App",
+    "welcome": "Welcome",
+    "logout": "Logout",
+    "login": "Login",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "username": "Username",
+    "password": "Password",
+    "language": "Language"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "management": "Management",
+    "admin": "Admin"
+  },
+  "pages": {
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Welcome to your dashboard. All authenticated employees can see this."
+    },
+    "management": {
+      "title": "Management Portal",
+      "description": "Only Department Managers can see this page."
+    },
+    "admin": {
+      "title": "Admin Panel",
+      "description": "Only System Administrators can see this page."
+    },
+    "login": {
+      "title": "Login",
+      "usernameLabel": "Username",
+      "passwordLabel": "Password",
+      "signInButton": "Sign In",
+      "signingInButton": "Signing in..."
+    }
+  },
+  "errors": {
+    "invalidCredentials": "Invalid username or password",
+    "requiredFields": "Please enter both username and password"
+  }
+}

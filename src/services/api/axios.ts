@@ -59,7 +59,7 @@ apiClient.interceptors.response.use(
           isRefreshing = true;
 
           // Dynamic import to avoid circular dependency
-          refreshPromise = import("../../../services/auth/authService").then(
+          refreshPromise = import("@/services/auth/authService").then(
             (module) => module.default.refresh()
           );
         }

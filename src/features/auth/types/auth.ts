@@ -12,21 +12,3 @@ export interface User {
   iat?: number;
   sub?: string;
 }
-
-/**
- * Standard API error response structure.
- */
-export interface ApiError {
-  message: string;
-  code?: string;
-  details?: Record<string, any>;
-}
-
-/**
- * Generic API response wrapper.
- */
-export interface ApiResponse<T> {
-  data?: T;
-  error?: ApiError;
-  success: boolean;
-}

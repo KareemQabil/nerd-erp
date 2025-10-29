@@ -1,0 +1,43 @@
+{
+  "common": {
+    "appName": "تطبيقي",
+    "welcome": "مرحباً",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول",
+    "signIn": "تسجيل الدخول",
+    "signingIn": "جاري تسجيل الدخول...",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "language": "اللغة"
+  },
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "management": "الإدارة",
+    "admin": "المدير"
+  },
+  "pages": {
+    "dashboard": {
+      "title": "لوحة التحكم",
+      "description": "مرحباً بك في لوحة التحكم الخاصة بك. يمكن لجميع الموظفين المصادق عليهم رؤية هذا."
+    },
+    "management": {
+      "title": "بوابة الإدارة",
+      "description": "فقط مديرو الأقسام يمكنهم رؤية هذه الصفحة."
+    },
+    "admin": {
+      "title": "لوحة الإدارة",
+      "description": "فقط مسؤولو النظام يمكنهم رؤية هذه الصفحة."
+    },
+    "login": {
+      "title": "تسجيل الدخول",
+      "usernameLabel": "اسم المستخدم",
+      "passwordLabel": "كلمة المرور",
+      "signInButton": "تسجيل الدخول",
+      "signingInButton": "جاري تسجيل الدخول..."
+    }
+  },
+  "errors": {
+    "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة",
+    "requiredFields": "يرجى إدخال اسم المستخدم وكلمة المرور"
+  }
+}

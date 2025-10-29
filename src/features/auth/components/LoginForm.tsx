@@ -1,4 +1,5 @@
 import React, { useState, type FormEvent, type JSX } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/useAuth";
 
 /**
@@ -6,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
  * Handles form submission and displays loading/error states.
  */
 export function LoginForm(): JSX.Element {
+  const { t } = useTranslation();
   const { signIn, loading } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,21 +18,21 @@ export function LoginForm(): JSX.Element {
     setError(null);
 
     if (!username || !password) {
-      setError("Please enter both username and password");
+      setError(t('errors.requiredFields'));
       return;
     }
 
     const success = await signIn(username, password);
 
     if (!success) {
-      setError("Invalid username or password");
+      setError(t('errors.invalidCredentials'));
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
       <div className="w-full max-w-md p-8 space-y-6 bg-card border border-border rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-foreground">Login</h2>
+        <h2 className="text-2xl font-bold text-center text-foreground">{t('pages.login.title')}</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -38,7 +40,7 @@ export function LoginForm(): JSX.Element {
               htmlFor="username"
               className="block mb-2 text-sm font-medium text-foreground"
             >
-              Username
+              {t('pages.login.usernameLabel')}
             </label>
             <input
               id="username"
@@ -55,7 +57,7 @@ export function LoginForm(): JSX.Element {
               htmlFor="password"
               className="block mb-2 text-sm font-medium text-foreground"
             >
-              Password
+              {t('pages.login.passwordLabel')}
             </label>
             <input
               id="password"
@@ -78,7 +80,7 @@ export function LoginForm(): JSX.Element {
             disabled={loading}
             className="w-full px-4 py-2 text-base font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? t('pages.login.signingInButton') : t('pages.login.signInButton')}
           </button>
         </form>
       </div>
