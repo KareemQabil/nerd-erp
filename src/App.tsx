@@ -1,10 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
-import "./App.css";
-import { AuthProvider } from "./contexts/AuthProvider";
-import { ThemeProvider } from "./contexts/ThemeProvider";
-import { AppRouter } from "./routes/AppRouter";
+import "@/App.css";
+import { AuthProvider } from "@/contexts/AuthProvider";
+import { ThemeProvider } from "@/contexts/ThemeProvider";
+import { AppRouter } from "@/routes/AppRouter";
 import { I18nProvider } from "@/features/i18n/contexts/I18nProvider";
-import { AlertDisplay } from "./components/shared/alertDisplay";
+import { AlertDisplay } from "@/components/shared/alertDisplay";
+import { Suspense } from "react";
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <AuthProvider>
           <BrowserRouter>
-            <AppRouter />
+            <Suspense fallback={<div>Loading...</div>}>
+              <AppRouter />
+            </Suspense>
           </BrowserRouter>
         </AuthProvider>
       </ThemeProvider>
