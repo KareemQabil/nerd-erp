@@ -5,7 +5,7 @@ import axios, {
 } from "axios";
 import type { ApiResponse, ApiError } from "./types"; // Assuming types.ts is in the same folder
 import alertService from "@/services/alert/alertService"; // Import the new alert service
-import { i18nService } from "@/features/i18n/services/i18nService"; // Import i18n config
+import { i18nService } from "@/core/i18n/services/i18nService"; // Import i18n config
 import { t } from "i18next";
 
 /**

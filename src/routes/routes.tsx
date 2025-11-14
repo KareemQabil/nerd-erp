@@ -2,7 +2,7 @@ import { RoleGuard } from "@/components/guards/role-guard";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { ROLES_CONSTANT } from "@/constants/roles-constant";
 import { Navigate, type RouteObject } from "react-router-dom";
-import { authRoutes } from "@/features/auth/auth.routes";
+import { authRoutes } from "@/features/auth1/auth.routes";
 import { lazy } from "react";
 
 const LazyDashboardPage = lazy(() => import("@/pages/DashboardPage"));

@@ -1,11 +1,12 @@
 import { BrowserRouter } from "react-router-dom";
 import "@/App.css";
-import { AuthProvider } from "@/contexts/AuthProvider";
 import { ThemeProvider } from "@/contexts/ThemeProvider";
-import { AppRouter } from "@/routes/AppRouter";
-import { I18nProvider } from "@/features/i18n/contexts/I18nProvider";
+import { I18nProvider } from "@/core/i18n/contexts/I18nProvider";
 import { AlertDisplay } from "@/components/shared/alertDisplay";
 import { Suspense } from "react";
+import AppRoutes from "@/routes/AppRoutes";
+import { AuthProvider } from "./core/auth/auth.context";
+import { Toaster } from "./components/ui/sonner";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <AuthProvider>
           <BrowserRouter>
             <Suspense fallback={<div>Loading...</div>}>
-              <AppRouter />
+              <AppRoutes />
+              <Toaster />
             </Suspense>
           </BrowserRouter>
         </AuthProvider>
