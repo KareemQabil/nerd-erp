@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { X, Users, List, DollarSign, Scissors } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { CartItem, BillSplit } from '../types/pos.types';
-import { SplitBillService } from '../services/pos.service';
+import React, { useState } from "react";
+import { X, Users, List, DollarSign, Scissors } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import type { CartItem, BillSplit } from "../types/pos.types";
+import { SplitBillService } from "../services/pos.service";
 
 interface SplitBillModalProps {
   isOpen: boolean;
@@ -19,18 +19,18 @@ export function SplitBillModal({
   total,
   onSplitConfirm,
 }: SplitBillModalProps) {
-  const [splitType, setSplitType] = useState<'equal' | 'by_item'>('equal');
+  const [splitType, setSplitType] = useState<"equal" | "by_item">("equal");
   const [numParts, setNumParts] = useState(2);
 
   const handleConfirm = () => {
     let split: BillSplit;
-    
-    if (splitType === 'equal') {
+
+    if (splitType === "equal") {
       split = SplitBillService.createEqualSplit(items, numParts, total);
     } else {
       split = SplitBillService.createItemSplit(items);
     }
-    
+
     onSplitConfirm(split);
     onClose();
   };
@@ -52,7 +52,10 @@ export function SplitBillModal({
               <div className="w-10 h-10 rounded-lg bg-cyan-400/10 flex items-center justify-center">
                 <Scissors className="w-5 h-5 text-cyan-400" />
               </div>
-              <h2 className="font-['Almarai'] text-[var(--on-surface)]" dir="rtl">
+              <h2
+                className="font-['Almarai'] text-[var(--on-surface)]"
+                dir="rtl"
+              >
                 تقسيم الفاتورة
               </h2>
             </div>
@@ -68,17 +71,20 @@ export function SplitBillModal({
           <div className="p-6 space-y-6">
             {/* Split Type Selection */}
             <div className="space-y-3">
-              <label className="font-['Almarai'] text-[var(--on-surface)]" dir="rtl">
+              <label
+                className="font-['Almarai'] text-[var(--on-surface)]"
+                dir="rtl"
+              >
                 طريقة التقسيم
               </label>
-              
+
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={() => setSplitType('equal')}
+                  onClick={() => setSplitType("equal")}
                   className={`p-4 rounded-xl border-2 transition-all ${
-                    splitType === 'equal'
-                      ? 'border-cyan-400 bg-cyan-400/10'
-                      : 'border-[var(--outline-variant)] hover:border-cyan-400/50'
+                    splitType === "equal"
+                      ? "border-cyan-400 bg-cyan-400/10"
+                      : "border-[var(--outline-variant)] hover:border-cyan-400/50"
                   }`}
                 >
                   <div className="flex flex-col items-center gap-2">
@@ -93,11 +99,11 @@ export function SplitBillModal({
                 </button>
 
                 <button
-                  onClick={() => setSplitType('by_item')}
+                  onClick={() => setSplitType("by_item")}
                   className={`p-4 rounded-xl border-2 transition-all ${
-                    splitType === 'by_item'
-                      ? 'border-cyan-400 bg-cyan-400/10'
-                      : 'border-[var(--outline-variant)] hover:border-cyan-400/50'
+                    splitType === "by_item"
+                      ? "border-cyan-400 bg-cyan-400/10"
+                      : "border-[var(--outline-variant)] hover:border-cyan-400/50"
                   }`}
                 >
                   <div className="flex flex-col items-center gap-2">
@@ -114,20 +120,23 @@ export function SplitBillModal({
             </div>
 
             {/* Number of Parts (for equal split) */}
-            {splitType === 'equal' && (
+            {splitType === "equal" && (
               <div className="space-y-3">
-                <label className="font-['Almarai'] text-[var(--on-surface)]" dir="rtl">
+                <label
+                  className="font-['Almarai'] text-[var(--on-surface)]"
+                  dir="rtl"
+                >
                   عدد الأشخاص
                 </label>
                 <div className="flex gap-2">
-                  {[2, 3, 4, 5].map(num => (
+                  {[2, 3, 4, 5].map((num) => (
                     <button
                       key={num}
                       onClick={() => setNumParts(num)}
                       className={`flex-1 py-3 rounded-xl border-2 transition-all font-['Inter'] ${
                         numParts === num
-                          ? 'border-cyan-400 bg-cyan-400/10'
-                          : 'border-[var(--outline-variant)] hover:border-cyan-400/50'
+                          ? "border-cyan-400 bg-cyan-400/10"
+                          : "border-[var(--outline-variant)] hover:border-cyan-400/50"
                       }`}
                     >
                       {num}
@@ -140,19 +149,25 @@ export function SplitBillModal({
             {/* Preview */}
             <div className="p-4 rounded-xl bg-[var(--surface-variant)] space-y-3">
               <div className="flex items-center justify-between text-sm">
-                <span className="font-['Almarai'] text-[var(--on-surface-variant)]" dir="rtl">
+                <span
+                  className="font-['Almarai'] text-[var(--on-surface-variant)]"
+                  dir="rtl"
+                >
                   الإجمالي الكلي
                 </span>
                 <span className="font-['Inter'] text-[var(--on-surface)]">
                   {total.toFixed(2)} ر.س
                 </span>
               </div>
-              
-              {splitType === 'equal' && (
+
+              {splitType === "equal" && (
                 <>
                   <div className="h-px bg-[var(--outline-variant)]" />
                   <div className="flex items-center justify-between text-sm">
-                    <span className="font-['Almarai'] text-[var(--on-surface-variant)]" dir="rtl">
+                    <span
+                      className="font-['Almarai'] text-[var(--on-surface-variant)]"
+                      dir="rtl"
+                    >
                       حصة كل شخص
                     </span>
                     <span className="font-['Inter'] text-cyan-400 font-bold">
@@ -167,9 +182,9 @@ export function SplitBillModal({
             <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
               <DollarSign className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
               <p className="text-sm text-blue-500 font-['Almarai']" dir="rtl">
-                {splitType === 'equal' 
+                {splitType === "equal"
                   ? `سيتم تقسيم الفاتورة بالتساوي على ${numParts} أشخاص`
-                  : 'سيتم تقسيم الفاتورة حسب المنتجات المطلوبة'}
+                  : "سيتم تقسيم الفاتورة حسب المنتجات المطلوبة"}
               </p>
             </div>
           </div>

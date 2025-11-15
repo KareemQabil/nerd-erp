@@ -3,8 +3,8 @@
  * Transfer stock between warehouses
  */
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   X,
   ArrowRightLeft,
@@ -13,8 +13,8 @@ import {
   AlertCircle,
   ArrowRight,
   Save,
-} from 'lucide-react';
-import { Product, Warehouse } from '../types/inventory.types';
+} from "lucide-react";
+import type { Product, Warehouse } from "../types/inventory.types";
 
 interface StockTransferModalProps {
   isOpen: boolean;
@@ -37,12 +37,12 @@ export function StockTransferModal({
   warehouses,
   onTransfer,
 }: StockTransferModalProps) {
-  const [fromWarehouse, setFromWarehouse] = useState('');
-  const [toWarehouse, setToWarehouse] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [notes, setNotes] = useState('');
+  const [fromWarehouse, setFromWarehouse] = useState("");
+  const [toWarehouse, setToWarehouse] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -51,12 +51,12 @@ export function StockTransferModal({
       if (warehouseWithStock) {
         setFromWarehouse(warehouseWithStock.warehouseId);
       } else {
-        setFromWarehouse('');
+        setFromWarehouse("");
       }
-      setToWarehouse('');
-      setQuantity('');
-      setNotes('');
-      setError('');
+      setToWarehouse("");
+      setQuantity("");
+      setNotes("");
+      setError("");
     }
   }, [isOpen, product]);
 
@@ -71,40 +71,40 @@ export function StockTransferModal({
   };
 
   const getFromWarehouseName = () => {
-    if (!fromWarehouse) return '';
+    if (!fromWarehouse) return "";
     const warehouse = warehouses.find((w) => w.id === fromWarehouse);
-    return warehouse?.name || '';
+    return warehouse?.name || "";
   };
 
   const getToWarehouseName = () => {
-    if (!toWarehouse) return '';
+    if (!toWarehouse) return "";
     const warehouse = warehouses.find((w) => w.id === toWarehouse);
-    return warehouse?.name || '';
+    return warehouse?.name || "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Validation
     if (!fromWarehouse) {
-      setError('يرجى اختيار المستودع المصدر');
+      setError("يرجى اختيار المستودع المصدر");
       return;
     }
 
     if (!toWarehouse) {
-      setError('يرجى اختيار المستودع الوجهة');
+      setError("يرجى اختيار المستودع الوجهة");
       return;
     }
 
     if (fromWarehouse === toWarehouse) {
-      setError('لا يمكن النقل إلى نفس المستودع');
+      setError("لا يمكن النقل إلى نفس المستودع");
       return;
     }
 
     const qty = parseFloat(quantity);
     if (!quantity || isNaN(qty) || qty <= 0) {
-      setError('الكمية يجب أن تكون أكبر من صفر');
+      setError("الكمية يجب أن تكون أكبر من صفر");
       return;
     }
 
@@ -119,7 +119,7 @@ export function StockTransferModal({
       await onTransfer(product.id, fromWarehouse, toWarehouse, qty, notes);
       onClose();
     } catch (error) {
-      setError('فشل نقل المخزون');
+      setError("فشل نقل المخزون");
     } finally {
       setIsSubmitting(false);
     }
@@ -130,13 +130,16 @@ export function StockTransferModal({
       const temp = fromWarehouse;
       setFromWarehouse(toWarehouse);
       setToWarehouse(temp);
-      setQuantity('');
-      setError('');
+      setQuantity("");
+      setError("");
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" dir="rtl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8"
+      dir="rtl"
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -164,7 +167,9 @@ export function StockTransferModal({
               <h2 className="text-lg font-['Almarai'] font-bold text-[#e2e2e6]">
                 نقل المخزون بين المستودعات
               </h2>
-              <p className="text-sm text-[#c2c7ce] font-['Almarai']">{product.name}</p>
+              <p className="text-sm text-[#c2c7ce] font-['Almarai']">
+                {product.name}
+              </p>
             </div>
           </div>
           <button
@@ -206,8 +211,8 @@ export function StockTransferModal({
                   value={fromWarehouse}
                   onChange={(e) => {
                     setFromWarehouse(e.target.value);
-                    setQuantity('');
-                    setError('');
+                    setQuantity("");
+                    setError("");
                   }}
                   className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
                   dir="rtl"
@@ -226,8 +231,8 @@ export function StockTransferModal({
                           key={warehouseStock.warehouseId}
                           value={warehouseStock.warehouseId}
                         >
-                          {warehouse?.name || warehouseStock.warehouseName} - متاح:{' '}
-                          {warehouseStock.available} {product.unit}
+                          {warehouse?.name || warehouseStock.warehouseName} -
+                          متاح: {warehouseStock.available} {product.unit}
                         </option>
                       );
                     })}
@@ -260,7 +265,7 @@ export function StockTransferModal({
                   value={toWarehouse}
                   onChange={(e) => {
                     setToWarehouse(e.target.value);
-                    setError('');
+                    setError("");
                   }}
                   className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
                   dir="rtl"
@@ -331,7 +336,9 @@ export function StockTransferModal({
                 <div className="flex items-center justify-between mt-2">
                   <button
                     type="button"
-                    onClick={() => setQuantity(getAvailableQuantity().toString())}
+                    onClick={() =>
+                      setQuantity(getAvailableQuantity().toString())
+                    }
                     disabled={isSubmitting}
                     className="text-xs font-['Almarai'] text-cyan-400 hover:text-cyan-300 transition-colors"
                   >
@@ -367,8 +374,8 @@ export function StockTransferModal({
                   <AlertCircle className="w-5 h-5 text-orange-400" />
                 </div>
                 <p className="text-xs font-['Almarai'] text-orange-300 leading-relaxed">
-                  سيتم تسجيل عملية النقل في سجل الحركات ولن يمكن التراجع عنها. يرجى
-                  التأكد من صحة البيانات قبل التأكيد.
+                  سيتم تسجيل عملية النقل في سجل الحركات ولن يمكن التراجع عنها.
+                  يرجى التأكد من صحة البيانات قبل التأكيد.
                 </p>
               </div>
             </div>
@@ -400,7 +407,7 @@ export function StockTransferModal({
             className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
           >
             <Save className="w-5 h-5" />
-            <span>{isSubmitting ? 'جاري النقل...' : 'تأكيد النقل'}</span>
+            <span>{isSubmitting ? "جاري النقل..." : "تأكيد النقل"}</span>
           </button>
         </div>
       </motion.div>

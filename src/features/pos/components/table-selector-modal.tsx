@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Table } from '../types/pos.types';
+import type { Table } from '../types/pos.types';
 import { TableService } from '../services/pos.service';
 import { X, Users, Clock, DollarSign } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';

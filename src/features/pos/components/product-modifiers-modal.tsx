@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, Plus, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Product, ModifierGroup, ProductModifier } from '../types/pos.types';
+import type { Product, ModifierGroup, ProductModifier } from '../types/pos.types';
 import { ModifierService } from '../services/pos.service';
 
 interface ProductModifiersModalProps {

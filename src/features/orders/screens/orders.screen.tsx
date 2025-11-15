@@ -3,28 +3,42 @@
  * NerdPOS - Matching POS Screen Design
  */
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Order, OrderFilters, OrderStats, OrderStatus } from '../types/orders.types';
-import { OrdersService } from '../services/orders.service';
-import { MainNavigation } from '../../../components/main-navigation';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import type {
+  Order,
+  OrderFilters,
+  OrderStats,
+  OrderStatus,
+} from "../types/orders.types";
+import { OrdersService } from "../services/orders.service";
+import { MainNavigation } from "../../../components/main-navigation";
 import {
-  TrendingUp, DollarSign, ChefHat, Plus, Search, Clock, CheckCircle, XCircle, Package, ShoppingBag
-} from 'lucide-react';
-import { motion } from 'motion/react';
-import { NerdPOSColors } from '../../../core/theme/nerdpos-styles';
+  TrendingUp,
+  DollarSign,
+  ChefHat,
+  Plus,
+  Search,
+  Clock,
+  CheckCircle,
+  XCircle,
+  Package,
+  ShoppingBag,
+} from "lucide-react";
+import { motion } from "motion/react";
+import { NerdPOSColors } from "../../../core/theme/nerdpos-styles";
 
 export default function OrdersScreen() {
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const isRTL = i18n.language === "ar";
   const navigate = useNavigate();
 
   const [orders, setOrders] = useState<Order[]>([]);
   const [stats, setStats] = useState<OrderStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<'all' | OrderStatus>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState<"all" | OrderStatus>("all");
   const [filters, setFilters] = useState<OrderFilters>({});
 
   useEffect(() => {
@@ -36,16 +50,16 @@ export default function OrdersScreen() {
       setLoading(true);
       const filterToApply: OrderFilters = {
         ...filters,
-        status: activeTab === 'all' ? undefined : activeTab
+        status: activeTab === "all" ? undefined : activeTab,
       };
       const [ordersData, statsData] = await Promise.all([
         OrdersService.getOrders(filterToApply),
-        OrdersService.getOrderStats()
+        OrdersService.getOrderStats(),
       ]);
       setOrders(ordersData);
       setStats(statsData);
     } catch (error) {
-      console.error('Error loading orders:', error);
+      console.error("Error loading orders:", error);
     } finally {
       setLoading(false);
     }
@@ -62,57 +76,81 @@ export default function OrdersScreen() {
   };
 
   const filteredOrders = searchQuery
-    ? orders.filter(order =>
-        order.orderNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        order.customer?.toLowerCase().includes(searchQuery.toLowerCase())
+    ? orders.filter(
+        (order) =>
+          order.orderNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          order.customerName?.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : orders;
 
   const getStatusColor = (status: OrderStatus) => {
     switch (status) {
-      case 'completed': return NerdPOSColors.brand.success;
-      case 'preparing': return NerdPOSColors.brand.warning;
-      case 'ready': return NerdPOSColors.brand.info;
-      case 'cancelled': return NerdPOSColors.brand.error;
-      default: return NerdPOSColors.text.secondary;
+      case "completed":
+        return NerdPOSColors.brand.success;
+      case "preparing":
+        return NerdPOSColors.brand.warning;
+      case "ready":
+        return NerdPOSColors.brand.info;
+      case "cancelled":
+        return NerdPOSColors.brand.error;
+      default:
+        return NerdPOSColors.text.secondary;
     }
   };
 
   const getStatusIcon = (status: OrderStatus) => {
     switch (status) {
-      case 'completed': return CheckCircle;
-      case 'preparing': return ChefHat;
-      case 'ready': return Package;
-      case 'cancelled': return XCircle;
-      default: return Clock;
+      case "completed":
+        return CheckCircle;
+      case "preparing":
+        return ChefHat;
+      case "ready":
+        return Package;
+      case "cancelled":
+        return XCircle;
+      default:
+        return Clock;
     }
   };
 
   const getStatusLabel = (status: OrderStatus) => {
     if (!isRTL) return status;
     switch (status) {
-      case 'pending': return 'معلق';
-      case 'preparing': return 'قيد التحضير';
-      case 'ready': return 'جاهز';
-      case 'completed': return 'مكتمل';
-      case 'cancelled': return 'ملغي';
-      default: return status;
+      case "pending":
+        return "معلق";
+      case "preparing":
+        return "قيد التحضير";
+      case "ready":
+        return "جاهز";
+      case "completed":
+        return "مكتمل";
+      case "cancelled":
+        return "ملغي";
+      default:
+        return status;
     }
   };
 
   if (loading) {
     return (
-      <div 
+      <div
         className="min-h-screen flex items-center justify-center"
         style={{ background: NerdPOSColors.background.gradient }}
       >
         <div className="text-center">
-          <div 
+          <div
             className="animate-spin rounded-full h-16 w-16 mx-auto mb-4"
-            style={{ border: `3px solid ${NerdPOSColors.border.subtle}`, borderTop: `3px solid ${NerdPOSColors.brand.primary}` }}
+            style={{
+              border: `3px solid ${NerdPOSColors.border.subtle}`,
+              borderTop: `3px solid ${NerdPOSColors.brand.primary}`,
+            }}
           />
-          <p className="font-['Almarai']" style={{ color: NerdPOSColors.text.secondary, fontSize: '14px' }} dir="auto">
-            {isRTL ? 'جاري التحميل...' : 'Loading...'}
+          <p
+            className="font-['Almarai']"
+            style={{ color: NerdPOSColors.text.secondary, fontSize: "14px" }}
+            dir="auto"
+          >
+            {isRTL ? "جاري التحميل..." : "Loading..."}
           </p>
         </div>
       </div>
@@ -120,32 +158,39 @@ export default function OrdersScreen() {
   }
 
   return (
-    <div 
-      className="min-h-screen" 
+    <div
+      className="min-h-screen"
       style={{ background: NerdPOSColors.background.gradient }}
     >
       <MainNavigation />
 
-      <div className="pt-6 pb-24 px-4" style={{ marginRight: '80px' }} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div
+        className="pt-6 pb-24 px-4"
+        style={{ marginRight: "80px" }}
+        dir={isRTL ? "rtl" : "ltr"}
+      >
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1" dir="auto">
-              {isRTL ? 'إدارة الطلبات' : 'Orders Management'}
+            <h1
+              className="text-2xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1"
+              dir="auto"
+            >
+              {isRTL ? "إدارة الطلبات" : "Orders Management"}
             </h1>
             <p className="text-base text-[#c2c7ce] font-['Almarai']" dir="auto">
-              {isRTL ? 'عرض وإدارة جميع الطلبات' : 'View and manage all orders'}
+              {isRTL ? "عرض وإدارة جميع الطلبات" : "View and manage all orders"}
             </p>
           </div>
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/pos')}
+            onClick={() => navigate("/pos")}
             className="h-12 px-6 bg-cyan-400 text-[#00373a] rounded-xl font-['Almarai'] font-bold flex items-center gap-2 transition-all hover:bg-cyan-300 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
           >
             <Plus className="w-5 h-5" />
-            <span dir="auto">{isRTL ? 'طلب جديد' : 'New Order'}</span>
+            <span dir="auto">{isRTL ? "طلب جديد" : "New Order"}</span>
           </motion.button>
         </div>
 
@@ -156,11 +201,14 @@ export default function OrdersScreen() {
               <div className="flex items-center justify-center gap-2 mb-2">
                 <TrendingUp className="w-5 h-5 text-purple-400" />
               </div>
-              <div className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2" dir="auto">
-                {isRTL ? 'متوسط قيمة الطلب' : 'Avg Order Value'}
+              <div
+                className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2"
+                dir="auto"
+              >
+                {isRTL ? "متوسط قيمة الطلب" : "Avg Order Value"}
               </div>
               <div className="text-2xl font-['Inter'] font-bold text-[#e2e2e6]">
-                {stats.averageOrderValue.toFixed(2)} {isRTL ? 'ر.س' : 'SAR'}
+                {stats.averageOrderValue.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
               </div>
             </div>
 
@@ -168,11 +216,14 @@ export default function OrdersScreen() {
               <div className="flex items-center justify-center gap-2 mb-2">
                 <DollarSign className="w-5 h-5 text-green-400" />
               </div>
-              <div className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2" dir="auto">
-                {isRTL ? 'الإيرادات' : 'Revenue'}
+              <div
+                className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2"
+                dir="auto"
+              >
+                {isRTL ? "الإيرادات" : "Revenue"}
               </div>
               <div className="text-2xl font-['Inter'] font-bold text-[#e2e2e6]">
-                {stats.totalRevenue.toFixed(2)} {isRTL ? 'ر.س' : 'SAR'}
+                {stats.totalRevenue.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
               </div>
             </div>
 
@@ -180,8 +231,11 @@ export default function OrdersScreen() {
               <div className="flex items-center justify-center gap-2 mb-2">
                 <ChefHat className="w-5 h-5 text-orange-400" />
               </div>
-              <div className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2" dir="auto">
-                {isRTL ? 'قيد التحضير' : 'Preparing'}
+              <div
+                className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2"
+                dir="auto"
+              >
+                {isRTL ? "قيد التحضير" : "Preparing"}
               </div>
               <div className="text-2xl font-['Inter'] font-bold text-[#e2e2e6]">
                 {stats.preparing}
@@ -192,8 +246,11 @@ export default function OrdersScreen() {
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.total}
               </div>
-              <div className="text-sm font-['Almarai'] text-[#c2c7ce]" dir="auto">
-                {isRTL ? 'إجمالي الطلبات' : 'Total Orders'}
+              <div
+                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                dir="auto"
+              >
+                {isRTL ? "إجمالي الطلبات" : "Total Orders"}
               </div>
             </div>
           </div>
@@ -206,32 +263,65 @@ export default function OrdersScreen() {
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              placeholder={isRTL ? 'ابحث عن طلب...' : 'Search orders...'}
+              placeholder={isRTL ? "ابحث عن طلب..." : "Search orders..."}
               className="w-full h-12 px-4 pr-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-base text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all"
-              style={{ textAlign: isRTL ? 'right' : 'left' }}
-              dir={isRTL ? 'rtl' : 'ltr'}
+              style={{ textAlign: isRTL ? "right" : "left" }}
+              dir={isRTL ? "rtl" : "ltr"}
             />
-            <Search className="absolute w-5 h-5 text-[#c2c7ce] top-3.5" style={{ [isRTL ? 'right' : 'left']: '16px' }} />
+            <Search
+              className="absolute w-5 h-5 text-[#c2c7ce] top-3.5"
+              style={{ [isRTL ? "right" : "left"]: "16px" }}
+            />
           </div>
         </div>
 
         {/* Tabs - Matching POS category design */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-thin scrollbar-thumb-[rgba(255,255,255,0.1)] scrollbar-track-transparent">
           {[
-            { id: 'all', label: isRTL ? `الكل (${stats?.total || 0})` : `All (${stats?.total || 0})` },
-            { id: 'pending', label: isRTL ? `معلق (${stats?.pending || 0})` : `Pending (${stats?.pending || 0})` },
-            { id: 'preparing', label: isRTL ? `يحضر (${stats?.preparing || 0})` : `Preparing (${stats?.preparing || 0})` },
-            { id: 'ready', label: isRTL ? `جاهز (${stats?.ready || 0})` : `Ready (${stats?.ready || 0})` },
-            { id: 'completed', label: isRTL ? `مكتمل (${stats?.completed || 0})` : `Completed (${stats?.completed || 0})` },
-            { id: 'cancelled', label: isRTL ? `ملغي (${stats?.cancelled || 0})` : `Cancelled (${stats?.cancelled || 0})` },
+            {
+              id: "all",
+              label: isRTL
+                ? `الكل (${stats?.total || 0})`
+                : `All (${stats?.total || 0})`,
+            },
+            {
+              id: "pending",
+              label: isRTL
+                ? `معلق (${stats?.pending || 0})`
+                : `Pending (${stats?.pending || 0})`,
+            },
+            {
+              id: "preparing",
+              label: isRTL
+                ? `يحضر (${stats?.preparing || 0})`
+                : `Preparing (${stats?.preparing || 0})`,
+            },
+            {
+              id: "ready",
+              label: isRTL
+                ? `جاهز (${stats?.ready || 0})`
+                : `Ready (${stats?.ready || 0})`,
+            },
+            {
+              id: "completed",
+              label: isRTL
+                ? `مكتمل (${stats?.completed || 0})`
+                : `Completed (${stats?.completed || 0})`,
+            },
+            {
+              id: "cancelled",
+              label: isRTL
+                ? `ملغي (${stats?.cancelled || 0})`
+                : `Cancelled (${stats?.cancelled || 0})`,
+            },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
               className={`px-6 py-2.5 rounded-xl text-sm font-['Almarai'] transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-cyan-400 text-[#00373a] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]'
-                  : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50'
+                  ? "bg-cyan-400 text-[#00373a] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
+                  : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
               }`}
             >
               <span dir="auto">{tab.label}</span>
@@ -245,11 +335,14 @@ export default function OrdersScreen() {
             <div className="w-24 h-24 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center mb-4">
               <ShoppingBag className="w-12 h-12 text-[#c2c7ce] opacity-50" />
             </div>
-            <h3 className="text-xl font-['Almarai'] text-[#e2e2e6] mb-2" dir="auto">
-              {isRTL ? 'لا توجد طلبات' : 'No Orders'}
+            <h3
+              className="text-xl font-['Almarai'] text-[#e2e2e6] mb-2"
+              dir="auto"
+            >
+              {isRTL ? "لا توجد طلبات" : "No Orders"}
             </h3>
             <p className="text-base text-[#c2c7ce]" dir="auto">
-              {isRTL ? 'لم يتم العثور على أي طلبات' : 'No orders found'}
+              {isRTL ? "لم يتم العثور على أي طلبات" : "No orders found"}
             </p>
           </div>
         ) : (
@@ -267,7 +360,7 @@ export default function OrdersScreen() {
                   whileHover={{ scale: 1.02 }}
                   className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.1)] rounded-xl p-4 hover:border-cyan-400/50 hover:shadow-lg transition-all cursor-pointer"
                   onClick={() => navigate(`/orders/${order.id}`)}
-                  dir={isRTL ? 'rtl' : 'ltr'}
+                  dir={isRTL ? "rtl" : "ltr"}
                 >
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
@@ -276,16 +369,19 @@ export default function OrdersScreen() {
                         <span className="text-lg font-['Inter'] font-bold text-cyan-400">
                           #{order.orderNumber}
                         </span>
-                        <div 
+                        <div
                           className="px-2 py-1 rounded-md flex items-center gap-1"
-                          style={{ 
+                          style={{
                             backgroundColor: `${statusColor}20`,
-                            border: `1px solid ${statusColor}30`
+                            border: `1px solid ${statusColor}30`,
                           }}
                         >
-                          <StatusIcon className="w-3 h-3" style={{ color: statusColor }} />
-                          <span 
-                            className="text-xs font-['Almarai']" 
+                          <StatusIcon
+                            className="w-3 h-3"
+                            style={{ color: statusColor }}
+                          />
+                          <span
+                            className="text-xs font-['Almarai']"
                             style={{ color: statusColor }}
                             dir="auto"
                           >
@@ -296,20 +392,28 @@ export default function OrdersScreen() {
                       <div className="flex items-center gap-2 text-sm text-[#c2c7ce]">
                         <Clock className="w-4 h-4" />
                         <span className="font-['Almarai']" dir="auto">
-                          {isRTL ? 'منذ' : ''} {new Date(order.createdAt).toLocaleTimeString(isRTL ? 'ar' : 'en', { 
-                            hour: '2-digit', 
-                            minute: '2-digit' 
-                          })} {!isRTL ? 'ago' : ''}
+                          {isRTL ? "منذ" : ""}{" "}
+                          {new Date(order.createdAt).toLocaleTimeString(
+                            isRTL ? "ar" : "en",
+                            {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            }
+                          )}{" "}
+                          {!isRTL ? "ago" : ""}
                         </span>
                       </div>
                     </div>
                   </div>
 
                   {/* Customer */}
-                  {order.customer && (
+                  {order.customerName && (
                     <div className="mb-3">
-                      <div className="text-sm font-['Almarai'] text-[#e2e2e6]" dir="auto">
-                        {order.customer}
+                      <div
+                        className="text-sm font-['Almarai'] text-[#e2e2e6]"
+                        dir="auto"
+                      >
+                        {order.customerName}
                       </div>
                     </div>
                   )}
@@ -317,32 +421,46 @@ export default function OrdersScreen() {
                   {/* Items */}
                   <div className="space-y-1.5 mb-3 max-h-24 overflow-y-auto">
                     {order.items.slice(0, 3).map((item, idx) => (
-                      <div key={idx} className="flex items-center justify-between text-sm">
-                        <span className="font-['Almarai'] text-[#c2c7ce]" dir="auto">
-                          {item.quantity}x {item.name}
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between text-sm"
+                      >
+                        <span
+                          className="font-['Almarai'] text-[#c2c7ce]"
+                          dir="auto"
+                        >
+                          {item.quantity}x {item.productName}
                         </span>
                         <span className="font-['Inter'] text-[#e2e2e6]">
-                          {item.total.toFixed(2)} {isRTL ? 'ر.س' : 'SAR'}
+                          {item.total.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
                         </span>
                       </div>
                     ))}
                     {order.items.length > 3 && (
-                      <div className="text-xs text-[#c2c7ce] font-['Almarai']" dir="auto">
-                        {isRTL ? `+${order.items.length - 3} منتجات أخرى` : `+${order.items.length - 3} more items`}
+                      <div
+                        className="text-xs text-[#c2c7ce] font-['Almarai']"
+                        dir="auto"
+                      >
+                        {isRTL
+                          ? `+${order.items.length - 3} منتجات أخرى`
+                          : `+${order.items.length - 3} more items`}
                       </div>
                     )}
                   </div>
 
                   {/* Total */}
-                  <div 
+                  <div
                     className="flex items-center justify-between pt-3 border-t"
-                    style={{ borderColor: 'rgba(255,255,255,0.1)' }}
+                    style={{ borderColor: "rgba(255,255,255,0.1)" }}
                   >
-                    <span className="text-sm font-['Almarai'] text-[#c2c7ce]" dir="auto">
-                      {isRTL ? 'الإجمالي' : 'Total'}
+                    <span
+                      className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                      dir="auto"
+                    >
+                      {isRTL ? "الإجمالي" : "Total"}
                     </span>
                     <span className="text-xl font-['Inter'] font-bold text-[#e2e2e6]">
-                      {order.total.toFixed(2)} {isRTL ? 'ر.س' : 'SAR'}
+                      {order.total.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
                     </span>
                   </div>
                 </motion.div>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Product, Warehouse } from '../types/inventory.types';
-import { X, Plus, Minus, Package, AlertCircle } from 'lucide-react';
-import { motion } from 'motion/react';
+import React, { useState } from "react";
+import type { Product, Warehouse } from "../types/inventory.types";
+import { X, Plus, Minus, Package, AlertCircle } from "lucide-react";
+import { motion } from "motion/react";
 
 interface StockAdjustmentModalProps {
   product: Product;
@@ -10,7 +10,7 @@ interface StockAdjustmentModalProps {
   onAdjust: (adjustments: {
     warehouseId: string;
     quantity: number;
-    type: 'add' | 'remove' | 'set';
+    type: "add" | "remove" | "set";
     reason: string;
   }) => Promise<void>;
 }
@@ -22,16 +22,20 @@ export function StockAdjustmentModal({
   onAdjust,
 }: StockAdjustmentModalProps) {
   const [selectedWarehouse, setSelectedWarehouse] = useState<string>(
-    warehouses[0]?.id || ''
+    warehouses[0]?.id || ""
   );
-  const [adjustmentType, setAdjustmentType] = useState<'add' | 'remove' | 'set'>('add');
-  const [quantity, setQuantity] = useState<string>('');
-  const [reason, setReason] = useState<string>('');
+  const [adjustmentType, setAdjustmentType] = useState<
+    "add" | "remove" | "set"
+  >("add");
+  const [quantity, setQuantity] = useState<string>("");
+  const [reason, setReason] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
 
   const getCurrentStock = () => {
-    const warehouse = product.warehouses.find((w) => w.id === selectedWarehouse);
+    const warehouse = product.warehouses.find(
+      (w) => w.warehouseId === selectedWarehouse
+    );
     return warehouse?.quantity || 0;
   };
 
@@ -40,11 +44,11 @@ export function StockAdjustmentModal({
     const qty = parseFloat(quantity) || 0;
 
     switch (adjustmentType) {
-      case 'add':
+      case "add":
         return current + qty;
-      case 'remove':
+      case "remove":
         return Math.max(0, current - qty);
-      case 'set':
+      case "set":
         return qty;
       default:
         return current;
@@ -53,21 +57,21 @@ export function StockAdjustmentModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     const qty = parseFloat(quantity);
     if (isNaN(qty) || qty <= 0) {
-      setError('الرجاء إدخال كمية صحيحة');
+      setError("الرجاء إدخال كمية صحيحة");
       return;
     }
 
     if (!reason.trim()) {
-      setError('الرجاء إدخال سبب التعديل');
+      setError("الرجاء إدخال سبب التعديل");
       return;
     }
 
-    if (adjustmentType === 'remove' && qty > getCurrentStock()) {
-      setError('الكمية المطلوبة أكبر من المخزون الحالي');
+    if (adjustmentType === "remove" && qty > getCurrentStock()) {
+      setError("الكمية المطلوبة أكبر من المخزون الحالي");
       return;
     }
 
@@ -81,25 +85,28 @@ export function StockAdjustmentModal({
       });
       onClose();
     } catch (err) {
-      setError('حدث خطأ في تعديل المخزون');
+      setError("حدث خطأ في تعديل المخزون");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const predefinedReasons = [
-    'إضافة مشتريات جديدة',
-    'تسوية جرد',
-    'منتجات تالفة',
-    'منتجات منتهية الصلاحية',
-    'تحويل بين المستودعات',
-    'مرتجع من عميل',
-    'عينات',
-    'خطأ في الإدخال',
+    "إضافة مشتريات جديدة",
+    "تسوية جرد",
+    "منتجات تالفة",
+    "منتجات منتهية الصلاحية",
+    "تحويل بين المستودعات",
+    "مرتجع من عميل",
+    "عينات",
+    "خطأ في الإدخال",
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" dir="rtl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8"
+      dir="rtl"
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -127,7 +134,9 @@ export function StockAdjustmentModal({
               <h2 className="text-lg font-['Almarai'] font-bold text-[#e2e2e6]">
                 تعديل المخزون
               </h2>
-              <p className="text-sm text-[#c2c7ce] font-['Almarai']">{product.name}</p>
+              <p className="text-sm text-[#c2c7ce] font-['Almarai']">
+                {product.name}
+              </p>
             </div>
           </div>
           <button
@@ -154,11 +163,13 @@ export function StockAdjustmentModal({
                 required
               >
                 {warehouses.map((warehouse) => {
-                  const productWh = product.warehouses.find((w) => w.id === warehouse.id);
+                  const productWh = product.warehouses.find(
+                    (w) => w.warehouseId === warehouse.id
+                  );
                   return (
                     <option key={warehouse.id} value={warehouse.id}>
-                      {warehouse.name} - الكمية الحالية: {productWh?.quantity || 0}{' '}
-                      {product.unit}
+                      {warehouse.name} - الكمية الحالية:{" "}
+                      {productWh?.quantity || 0} {product.unit}
                     </option>
                   );
                 })}
@@ -168,7 +179,9 @@ export function StockAdjustmentModal({
             {/* Current Stock Display */}
             <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)]">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-['Almarai'] text-[#c2c7ce]">المخزون الحالي</span>
+                <span className="text-sm font-['Almarai'] text-[#c2c7ce]">
+                  المخزون الحالي
+                </span>
                 <span className="text-2xl font-['Arial'] font-bold text-cyan-400">
                   {getCurrentStock()} {product.unit}
                 </span>
@@ -183,39 +196,45 @@ export function StockAdjustmentModal({
               <div className="grid grid-cols-3 gap-3">
                 <button
                   type="button"
-                  onClick={() => setAdjustmentType('add')}
+                  onClick={() => setAdjustmentType("add")}
                   className={`p-4 rounded-xl border transition-all ${
-                    adjustmentType === 'add'
-                      ? 'bg-green-400/10 border-green-400/30 text-green-400'
-                      : 'bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30'
+                    adjustmentType === "add"
+                      ? "bg-green-400/10 border-green-400/30 text-green-400"
+                      : "bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30"
                   }`}
                 >
                   <Plus className="w-6 h-6 mx-auto mb-2" />
-                  <span className="text-sm font-['Almarai'] font-bold block">إضافة</span>
+                  <span className="text-sm font-['Almarai'] font-bold block">
+                    إضافة
+                  </span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => setAdjustmentType('remove')}
+                  onClick={() => setAdjustmentType("remove")}
                   className={`p-4 rounded-xl border transition-all ${
-                    adjustmentType === 'remove'
-                      ? 'bg-red-400/10 border-red-400/30 text-red-400'
-                      : 'bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30'
+                    adjustmentType === "remove"
+                      ? "bg-red-400/10 border-red-400/30 text-red-400"
+                      : "bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30"
                   }`}
                 >
                   <Minus className="w-6 h-6 mx-auto mb-2" />
-                  <span className="text-sm font-['Almarai'] font-bold block">خصم</span>
+                  <span className="text-sm font-['Almarai'] font-bold block">
+                    خصم
+                  </span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => setAdjustmentType('set')}
+                  onClick={() => setAdjustmentType("set")}
                   className={`p-4 rounded-xl border transition-all ${
-                    adjustmentType === 'set'
-                      ? 'bg-orange-400/10 border-orange-400/30 text-orange-400'
-                      : 'bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30'
+                    adjustmentType === "set"
+                      ? "bg-orange-400/10 border-orange-400/30 text-orange-400"
+                      : "bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30"
                   }`}
                 >
                   <Package className="w-6 h-6 mx-auto mb-2" />
-                  <span className="text-sm font-['Almarai'] font-bold block">تعيين</span>
+                  <span className="text-sm font-['Almarai'] font-bold block">
+                    تعيين
+                  </span>
                 </button>
               </div>
             </div>
@@ -258,12 +277,14 @@ export function StockAdjustmentModal({
                       {product.unit}
                     </span>
                     <div className="text-xs font-['Arial'] text-[#c2c7ce] mt-1">
-                      {adjustmentType === 'add' && `+${quantity}`}
-                      {adjustmentType === 'remove' && `-${quantity}`}
-                      {adjustmentType === 'set' &&
-                        `${parseFloat(quantity) - getCurrentStock() > 0 ? '+' : ''}${
-                          parseFloat(quantity) - getCurrentStock()
-                        }`}
+                      {adjustmentType === "add" && `+${quantity}`}
+                      {adjustmentType === "remove" && `-${quantity}`}
+                      {adjustmentType === "set" &&
+                        `${
+                          parseFloat(quantity) - getCurrentStock() > 0
+                            ? "+"
+                            : ""
+                        }${parseFloat(quantity) - getCurrentStock()}`}
                     </div>
                   </div>
                 </div>
@@ -322,16 +343,19 @@ export function StockAdjustmentModal({
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              const form = e.currentTarget.closest('form');
+              const form = e.currentTarget.closest("form");
               if (form) {
-                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                const submitEvent = new Event("submit", {
+                  bubbles: true,
+                  cancelable: true,
+                });
                 form.dispatchEvent(submitEvent);
               }
             }}
             disabled={isSubmitting}
             className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg"
           >
-            {isSubmitting ? 'جاري التعديل...' : 'تأكيد التعديل'}
+            {isSubmitting ? "جاري التعديل..." : "تأكيد التعديل"}
           </button>
         </div>
       </motion.div>

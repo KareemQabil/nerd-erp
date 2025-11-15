@@ -1,26 +1,46 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { InventoryService } from '../services/inventory.service';
-import {
+import React, { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { InventoryService } from "../services/inventory.service";
+import type {
   Product,
   Category,
   Warehouse,
   StockAlert,
   InventoryStats,
   InventoryFilter,
-} from '../types/inventory.types';
-import { MainNavigation } from '../../../components/main-navigation';
-import { LoadingState } from '../../../components/loading-state';
-import { StockAlertCard } from '../components/stock-alert-card';
-import { ProductDetailModal } from '../components/product-detail-modal';
-import { StockAdjustmentModal } from '../components/stock-adjustment-modal';
-import { WarehouseModal } from '../components/warehouse-modal';
-import { WarehouseListModal } from '../components/warehouse-list-modal';
-import { StockTransferModal } from '../components/stock-transfer-modal';
-import { ProductFormModal } from '../components/product-form-modal';
-import { Search, X, Package, TrendingUp, TrendingDown, AlertCircle, Warehouse as WarehouseIcon, Filter, Download, Upload, Plus, BarChart3, Eye, Edit, PackageX, PackageCheck, PackageMinus, RefreshCw, ArrowRightLeft } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+} from "../types/inventory.types";
+import { MainNavigation } from "../../../components/main-navigation";
+import { LoadingState } from "../../../components/loading-state";
+import { StockAlertCard } from "../components/stock-alert-card";
+import { ProductDetailModal } from "../components/product-detail-modal";
+import { StockAdjustmentModal } from "../components/stock-adjustment-modal";
+import { WarehouseModal } from "../components/warehouse-modal";
+import { WarehouseListModal } from "../components/warehouse-list-modal";
+import { StockTransferModal } from "../components/stock-transfer-modal";
+import { ProductFormModal } from "../components/product-form-modal";
+import {
+  Search,
+  X,
+  Package,
+  TrendingUp,
+  TrendingDown,
+  AlertCircle,
+  Warehouse as WarehouseIcon,
+  Filter,
+  Download,
+  Upload,
+  Plus,
+  BarChart3,
+  Eye,
+  Edit,
+  PackageX,
+  PackageCheck,
+  PackageMinus,
+  RefreshCw,
+  ArrowRightLeft,
+} from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 export default function InventoryScreen() {
   const { t } = useTranslation();
@@ -39,27 +59,30 @@ export default function InventoryScreen() {
   const [loading, setLoading] = useState(true);
 
   // Filter State
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [selectedWarehouse, setSelectedWarehouse] = useState<string>('all');
-  const [selectedStockStatus, setSelectedStockStatus] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedWarehouse, setSelectedWarehouse] = useState<string>("all");
+  const [selectedStockStatus, setSelectedStockStatus] = useState<string>("all");
   const [showAlerts, setShowAlerts] = useState(false);
 
   // UI State
   const [feedback, setFeedback] = useState<{
     message: string;
-    type: 'success' | 'error' | 'info';
+    type: "success" | "error" | "info";
   } | null>(null);
 
   // Modals State
   const [productDetailModalOpen, setProductDetailModalOpen] = useState(false);
-  const [stockAdjustmentModalOpen, setStockAdjustmentModalOpen] = useState(false);
+  const [stockAdjustmentModalOpen, setStockAdjustmentModalOpen] =
+    useState(false);
   const [warehouseModalOpen, setWarehouseModalOpen] = useState(false);
   const [warehouseListModalOpen, setWarehouseListModalOpen] = useState(false);
   const [stockTransferModalOpen, setStockTransferModalOpen] = useState(false);
   const [productFormModalOpen, setProductFormModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [selectedWarehouseId, setSelectedWarehouseId] = useState<string | null>(null);
+  const [selectedWarehouseId, setSelectedWarehouseId] = useState<string | null>(
+    null
+  );
 
   // ============================================================
   // DATA LOADING
@@ -81,20 +104,27 @@ export default function InventoryScreen() {
     try {
       const filter: InventoryFilter = {
         search: searchQuery || undefined,
-        category: selectedCategory !== 'all' ? selectedCategory : undefined,
-        warehouse: selectedWarehouse !== 'all' ? selectedWarehouse : undefined,
+        category: selectedCategory !== "all" ? selectedCategory : undefined,
+        warehouse: selectedWarehouse !== "all" ? selectedWarehouse : undefined,
         stockStatus:
-          selectedStockStatus !== 'all' ? (selectedStockStatus as any) : undefined,
+          selectedStockStatus !== "all"
+            ? (selectedStockStatus as any)
+            : undefined,
       };
 
-      const [productsData, categoriesData, warehousesData, alertsData, statsData] =
-        await Promise.all([
-          InventoryService.getProducts(filter),
-          InventoryService.getCategories(),
-          InventoryService.getWarehouses(),
-          InventoryService.getStockAlerts(),
-          InventoryService.getInventoryStats(),
-        ]);
+      const [
+        productsData,
+        categoriesData,
+        warehousesData,
+        alertsData,
+        statsData,
+      ] = await Promise.all([
+        InventoryService.getProducts(filter),
+        InventoryService.getCategories(),
+        InventoryService.getWarehouses(),
+        InventoryService.getStockAlerts(),
+        InventoryService.getInventoryStats(),
+      ]);
 
       setProducts(productsData);
       setCategories(categoriesData);
@@ -102,15 +132,15 @@ export default function InventoryScreen() {
       setAlerts(alertsData);
       setStats(statsData);
     } catch (error) {
-      console.error('Error loading inventory data:', error);
-      showFeedback('حدث خطأ في تحميل البيانات', 'error');
+      console.error("Error loading inventory data:", error);
+      showFeedback("حدث خطأ في تحميل البيانات", "error");
     } finally {
       setLoading(false);
     }
   };
 
   const showFeedback = useCallback(
-    (message: string, type: 'success' | 'error' | 'info' = 'info') => {
+    (message: string, type: "success" | "error" | "info" = "info") => {
       setFeedback({ message, type });
     },
     []
@@ -123,10 +153,12 @@ export default function InventoryScreen() {
   const handleAcknowledgeAlert = async (alertId: string) => {
     try {
       await InventoryService.acknowledgeAlert(alertId);
-      setAlerts(alerts.map((a) => (a.id === alertId ? { ...a, acknowledged: true } : a)));
-      showFeedback('تم وضع علامة على التنبيه', 'success');
+      setAlerts(
+        alerts.map((a) => (a.id === alertId ? { ...a, acknowledged: true } : a))
+      );
+      showFeedback("تم وضع علامة على التنبيه", "success");
     } catch (error) {
-      showFeedback('فشل تحديث التنبيه', 'error');
+      showFeedback("فشل تحديث التنبيه", "error");
     }
   };
 
@@ -136,37 +168,37 @@ export default function InventoryScreen() {
 
   const getStockStatusColor = (status: string) => {
     switch (status) {
-      case 'in-stock':
-        return 'text-green-400';
-      case 'low-stock':
-        return 'text-orange-400';
-      case 'out-of-stock':
-        return 'text-red-400';
+      case "in-stock":
+        return "text-green-400";
+      case "low-stock":
+        return "text-orange-400";
+      case "out-of-stock":
+        return "text-red-400";
       default:
-        return 'text-[#c2c7ce]';
+        return "text-[#c2c7ce]";
     }
   };
 
   const getStockStatusLabel = (status: string) => {
     switch (status) {
-      case 'in-stock':
-        return 'متوفر';
-      case 'low-stock':
-        return 'منخفض';
-      case 'out-of-stock':
-        return 'نفذ';
+      case "in-stock":
+        return "متوفر";
+      case "low-stock":
+        return "منخفض";
+      case "out-of-stock":
+        return "نفذ";
       default:
-        return '';
+        return "";
     }
   };
 
   const getStockStatusIcon = (status: string) => {
     switch (status) {
-      case 'in-stock':
+      case "in-stock":
         return <PackageCheck className="w-4 h-4" />;
-      case 'low-stock':
+      case "low-stock":
         return <PackageMinus className="w-4 h-4" />;
-      case 'out-of-stock':
+      case "out-of-stock":
         return <PackageX className="w-4 h-4" />;
       default:
         return <Package className="w-4 h-4" />;
@@ -224,11 +256,11 @@ export default function InventoryScreen() {
           >
             <div
               className={`px-6 py-3 rounded-xl shadow-lg backdrop-blur-md ${
-                feedback.type === 'success'
-                  ? 'bg-green-500/90 text-white'
-                  : feedback.type === 'error'
-                  ? 'bg-red-500/90 text-white'
-                  : 'bg-cyan-400/90 text-[#00373a]'
+                feedback.type === "success"
+                  ? "bg-green-500/90 text-white"
+                  : feedback.type === "error"
+                  ? "bg-red-500/90 text-white"
+                  : "bg-cyan-400/90 text-[#00373a]"
               }`}
             >
               <p className="font-['Almarai'] font-bold" dir="auto">
@@ -319,7 +351,9 @@ export default function InventoryScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-green-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <PackageCheck className="w-4 h-4 text-green-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">متوفر</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    متوفر
+                  </span>
                 </div>
                 <p className="text-2xl font-['Arial'] font-bold text-green-400 text-right">
                   {stats.inStock}
@@ -329,7 +363,9 @@ export default function InventoryScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <PackageMinus className="w-4 h-4 text-orange-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">منخفض</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    منخفض
+                  </span>
                 </div>
                 <p className="text-2xl font-['Arial'] font-bold text-orange-400 text-right">
                   {stats.lowStock}
@@ -339,7 +375,9 @@ export default function InventoryScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-red-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <PackageX className="w-4 h-4 text-red-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">نفذ</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    نفذ
+                  </span>
                 </div>
                 <p className="text-2xl font-['Arial'] font-bold text-red-400 text-right">
                   {stats.outOfStock}
@@ -366,9 +404,9 @@ export default function InventoryScreen() {
                   </span>
                 </div>
                 <p className="text-xl font-['Arial'] font-bold text-cyan-400 text-right">
-                  {stats.totalValue.toLocaleString('ar-SA', {
+                  {stats.totalValue.toLocaleString("ar-SA", {
                     maximumFractionDigits: 0,
-                  })}{' '}
+                  })}{" "}
                   ر.س
                 </p>
               </div>
@@ -376,12 +414,14 @@ export default function InventoryScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <TrendingDown className="w-4 h-4 text-cyan-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">التكلفة</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    التكلفة
+                  </span>
                 </div>
                 <p className="text-xl font-['Arial'] font-bold text-cyan-400 text-right">
-                  {stats.totalCost.toLocaleString('ar-SA', {
+                  {stats.totalCost.toLocaleString("ar-SA", {
                     maximumFractionDigits: 0,
-                  })}{' '}
+                  })}{" "}
                   ر.س
                 </p>
               </div>
@@ -389,7 +429,9 @@ export default function InventoryScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-red-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <AlertCircle className="w-4 h-4 text-red-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">تنبيهات</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    تنبيهات
+                  </span>
                 </div>
                 <p className="text-2xl font-['Arial'] font-bold text-red-400 text-right">
                   {stats.alerts}
@@ -413,7 +455,7 @@ export default function InventoryScreen() {
               />
               {searchQuery && (
                 <button
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => setSearchQuery("")}
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#c2c7ce] hover:text-[#e2e2e6]"
                 >
                   <X className="w-5 h-5" />
@@ -471,13 +513,14 @@ export default function InventoryScreen() {
           {showAlerts && alerts.length > 0 && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               className="border-b border-[rgba(255,255,255,0.1)] overflow-hidden"
             >
               <div className="px-6 py-4 bg-[rgba(239,68,68,0.05)]">
                 <h3 className="text-lg font-['Almarai'] font-bold text-[#e2e2e6] mb-3">
-                  التنبيهات النشطة ({alerts.filter((a) => !a.acknowledged).length})
+                  التنبيهات النشطة (
+                  {alerts.filter((a) => !a.acknowledged).length})
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {alerts.slice(0, 6).map((alert) => (
@@ -549,7 +592,9 @@ export default function InventoryScreen() {
                                 {product.name}
                               </p>
                               {product.nameEn && (
-                                <p className="text-xs text-[#c2c7ce] text-right">{product.nameEn}</p>
+                                <p className="text-xs text-[#c2c7ce] text-right">
+                                  {product.nameEn}
+                                </p>
                               )}
                             </div>
                           </div>
@@ -634,7 +679,9 @@ export default function InventoryScreen() {
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
                   <Package className="w-16 h-16 text-[#c2c7ce] opacity-50 mx-auto mb-4" />
-                  <p className="text-[#c2c7ce] font-['Almarai']">لا توجد منتجات</p>
+                  <p className="text-[#c2c7ce] font-['Almarai']">
+                    لا توجد منتجات
+                  </p>
                 </div>
               </div>
             )}
@@ -653,10 +700,10 @@ export default function InventoryScreen() {
             }}
             onEdit={() => {
               setProductDetailModalOpen(false);
-              showFeedback('تحرير المنتج قريباً', 'info');
+              showFeedback("تحرير المنتج قريباً", "info");
             }}
             onAdjustStock={async (warehouseId, quantity, type) => {
-              showFeedback('تم تعديل المخزون بنجاح', 'success');
+              showFeedback("تم تعديل المخزون بنجاح", "success");
               await loadData();
             }}
           />
@@ -675,7 +722,7 @@ export default function InventoryScreen() {
             }}
             onAdjust={async (adjustment) => {
               // Here you would call the API to adjust stock
-              showFeedback('تم تعديل المخزون بنجاح', 'success');
+              showFeedback("تم تعديل المخزون بنجاح", "success");
               await loadData();
             }}
           />
@@ -695,23 +742,23 @@ export default function InventoryScreen() {
               try {
                 if (warehouse.id) {
                   await InventoryService.updateWarehouse(warehouse);
-                  showFeedback('تم تحديث المستودع بنجاح', 'success');
+                  showFeedback("تم تحديث المستودع بنجاح", "success");
                 } else {
                   await InventoryService.createWarehouse(warehouse);
-                  showFeedback('تم إضافة المستودع بنجاح', 'success');
+                  showFeedback("تم إضافة المستودع بنجاح", "success");
                 }
                 await loadData();
               } catch (error) {
-                showFeedback('فشل حفظ المستودع', 'error');
+                showFeedback("فشل حفظ المستودع", "error");
               }
             }}
             onDelete={async (warehouseId) => {
               try {
                 await InventoryService.deleteWarehouse(warehouseId);
-                showFeedback('تم حذف المستودع بنجاح', 'success');
+                showFeedback("تم حذف المستودع بنجاح", "success");
                 await loadData();
               } catch (error) {
-                showFeedback('فشل حذف المستودع', 'error');
+                showFeedback("فشل حذف المستودع", "error");
               }
             }}
           />
@@ -752,7 +799,13 @@ export default function InventoryScreen() {
               setStockTransferModalOpen(false);
               setSelectedProduct(null);
             }}
-            onTransfer={async (productId, fromWarehouseId, toWarehouseId, quantity, notes) => {
+            onTransfer={async (
+              productId,
+              fromWarehouseId,
+              toWarehouseId,
+              quantity,
+              notes
+            ) => {
               try {
                 await InventoryService.transferStockWithNotes(
                   productId,
@@ -761,10 +814,10 @@ export default function InventoryScreen() {
                   quantity,
                   notes
                 );
-                showFeedback('تم نقل المخزون بنجاح', 'success');
+                showFeedback("تم نقل المخزون بنجاح", "success");
                 await loadData();
               } catch (error) {
-                showFeedback('فشل نقل المخزون', 'error');
+                showFeedback("فشل نقل المخزون", "error");
               }
             }}
           />
@@ -789,14 +842,14 @@ export default function InventoryScreen() {
               try {
                 if (product.id) {
                   await InventoryService.updateProduct(product);
-                  showFeedback('تم تحديث المنتج بنجاح', 'success');
+                  showFeedback("تم تحديث المنتج بنجاح", "success");
                 } else {
                   await InventoryService.createProduct(product);
-                  showFeedback('تم إضافة المنتج بنجاح', 'success');
+                  showFeedback("تم إضافة المنتج بنجاح", "success");
                 }
                 await loadData();
               } catch (error) {
-                showFeedback('فشل حفظ المنتج', 'error');
+                showFeedback("فشل حفظ المنتج", "error");
               }
             }}
           />

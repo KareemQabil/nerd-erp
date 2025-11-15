@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { TableService } from '../services/table.service';
-import {
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { TableService } from "../services/table.service";
+import type {
   Table,
   Section,
   Floor,
   TableReservation,
   TableStats,
   TableStatus,
-} from '../types/table.types';
-import { MainNavigation } from '../../../components/main-navigation';
-import { LoadingState } from '../../../components/loading-state';
+} from "../types/table.types";
+import { MainNavigation } from "../../../components/main-navigation";
+import { LoadingState } from "../../../components/loading-state";
 import {
   Grid3x3,
   List,
@@ -33,10 +33,10 @@ import {
   Combine,
   Split,
   Settings,
-} from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+} from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
-type ViewMode = 'grid' | 'list';
+type ViewMode = "grid" | "list";
 
 export default function TablesScreen() {
   const { t } = useTranslation();
@@ -52,17 +52,17 @@ export default function TablesScreen() {
   const [stats, setStats] = useState<TableStats | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const [viewMode, setViewMode] = useState<ViewMode>('grid');
-  const [selectedFloor, setSelectedFloor] = useState<string>('all');
-  const [selectedSection, setSelectedSection] = useState<string>('all');
+  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [selectedFloor, setSelectedFloor] = useState<string>("all");
+  const [selectedSection, setSelectedSection] = useState<string>("all");
   const [selectedStatuses, setSelectedStatuses] = useState<TableStatus[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedTable, setSelectedTable] = useState<Table | null>(null);
   const [showReservations, setShowReservations] = useState(false);
 
   const [feedback, setFeedback] = useState<{
     message: string;
-    type: 'success' | 'error' | 'info';
+    type: "success" | "error" | "info";
   } | null>(null);
 
   // ============================================================
@@ -82,19 +82,24 @@ export default function TablesScreen() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const [tablesData, sectionsData, floorsData, reservationsData, statsData] =
-        await Promise.all([
-          TableService.getTables({
-            floor: selectedFloor !== 'all' ? selectedFloor : undefined,
-            section: selectedSection !== 'all' ? selectedSection : undefined,
-            status: selectedStatuses.length > 0 ? selectedStatuses : undefined,
-            search: searchQuery || undefined,
-          }),
-          TableService.getSections(),
-          TableService.getFloors(),
-          TableService.getReservations(),
-          TableService.getTableStats(),
-        ]);
+      const [
+        tablesData,
+        sectionsData,
+        floorsData,
+        reservationsData,
+        statsData,
+      ] = await Promise.all([
+        TableService.getTables({
+          floor: selectedFloor !== "all" ? selectedFloor : undefined,
+          section: selectedSection !== "all" ? selectedSection : undefined,
+          status: selectedStatuses.length > 0 ? selectedStatuses : undefined,
+          search: searchQuery || undefined,
+        }),
+        TableService.getSections(),
+        TableService.getFloors(),
+        TableService.getReservations(),
+        TableService.getTableStats(),
+      ]);
 
       setTables(tablesData);
       setSections(sectionsData);
@@ -102,27 +107,33 @@ export default function TablesScreen() {
       setReservations(reservationsData);
       setStats(statsData);
     } catch (error) {
-      console.error('Error loading tables data:', error);
-      showFeedback('حدث خطأ في تحميل البيانات', 'error');
+      console.error("Error loading tables data:", error);
+      showFeedback("حدث خطأ في تحميل البيانات", "error");
     } finally {
       setLoading(false);
     }
   };
 
-  const showFeedback = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
+  const showFeedback = (
+    message: string,
+    type: "success" | "error" | "info" = "info"
+  ) => {
     setFeedback({ message, type });
   };
 
   // ============================================================
   // HANDLERS
   // ============================================================
-  const handleStatusChange = async (tableId: string, newStatus: TableStatus) => {
+  const handleStatusChange = async (
+    tableId: string,
+    newStatus: TableStatus
+  ) => {
     try {
       await TableService.updateTableStatus(tableId, newStatus);
       await loadData();
-      showFeedback('تم تحديث حالة الطاولة بنجاح', 'success');
+      showFeedback("تم تحديث حالة الطاولة بنجاح", "success");
     } catch (error) {
-      showFeedback('فشل تحديث حالة الطاولة', 'error');
+      showFeedback("فشل تحديث حالة الطاولة", "error");
     }
   };
 
@@ -139,39 +150,39 @@ export default function TablesScreen() {
   // ============================================================
   const getStatusColor = (status: TableStatus) => {
     switch (status) {
-      case 'available':
+      case "available":
         return {
-          bg: 'from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)]',
-          border: 'border-green-400/30',
-          text: 'text-green-400',
+          bg: "from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)]",
+          border: "border-green-400/30",
+          text: "text-green-400",
           icon: <Circle className="w-3 h-3 fill-green-400" />,
         };
-      case 'occupied':
+      case "occupied":
         return {
-          bg: 'from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)]',
-          border: 'border-red-400/30',
-          text: 'text-red-400',
+          bg: "from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)]",
+          border: "border-red-400/30",
+          text: "text-red-400",
           icon: <Circle className="w-3 h-3 fill-red-400" />,
         };
-      case 'reserved':
+      case "reserved":
         return {
-          bg: 'from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)]',
-          border: 'border-orange-400/30',
-          text: 'text-orange-400',
+          bg: "from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)]",
+          border: "border-orange-400/30",
+          text: "text-orange-400",
           icon: <Circle className="w-3 h-3 fill-orange-400" />,
         };
-      case 'cleaning':
+      case "cleaning":
         return {
-          bg: 'from-[rgba(59,130,246,0.1)] to-[rgba(37,99,235,0.05)]',
-          border: 'border-blue-400/30',
-          text: 'text-blue-400',
+          bg: "from-[rgba(59,130,246,0.1)] to-[rgba(37,99,235,0.05)]",
+          border: "border-blue-400/30",
+          text: "text-blue-400",
           icon: <Loader2 className="w-3 h-3 animate-spin" />,
         };
       default:
         return {
-          bg: 'from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0.02)]',
-          border: 'border-[rgba(255,255,255,0.1)]',
-          text: 'text-[#c2c7ce]',
+          bg: "from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0.02)]",
+          border: "border-[rgba(255,255,255,0.1)]",
+          text: "text-[#c2c7ce]",
           icon: <Circle className="w-3 h-3" />,
         };
     }
@@ -179,26 +190,26 @@ export default function TablesScreen() {
 
   const getStatusLabel = (status: TableStatus) => {
     switch (status) {
-      case 'available':
-        return 'متاحة';
-      case 'occupied':
-        return 'مشغولة';
-      case 'reserved':
-        return 'محجوزة';
-      case 'cleaning':
-        return 'تنظيف';
+      case "available":
+        return "متاحة";
+      case "occupied":
+        return "مشغولة";
+      case "reserved":
+        return "محجوزة";
+      case "cleaning":
+        return "تنظيف";
       default:
-        return '';
+        return "";
     }
   };
 
   const getSectionColor = (sectionId: string) => {
     const section = sections.find((s) => s.id === sectionId);
-    return section?.color || '#22d3ee';
+    return section?.color || "#22d3ee";
   };
 
   const getOccupiedDuration = (occupiedAt?: string) => {
-    if (!occupiedAt) return '';
+    if (!occupiedAt) return "";
     const diff = Date.now() - new Date(occupiedAt).getTime();
     const minutes = Math.floor(diff / 60000);
     if (minutes < 60) return `${minutes} دقيقة`;
@@ -225,11 +236,11 @@ export default function TablesScreen() {
           >
             <div
               className={`px-6 py-3 rounded-xl shadow-lg backdrop-blur-md ${
-                feedback.type === 'success'
-                  ? 'bg-green-500/90 text-white'
-                  : feedback.type === 'error'
-                  ? 'bg-red-500/90 text-white'
-                  : 'bg-cyan-400/90 text-[#00373a]'
+                feedback.type === "success"
+                  ? "bg-green-500/90 text-white"
+                  : feedback.type === "error"
+                  ? "bg-red-500/90 text-white"
+                  : "bg-cyan-400/90 text-[#00373a]"
               }`}
             >
               <p className="font-['Almarai'] font-bold" dir="auto">
@@ -275,7 +286,9 @@ export default function TablesScreen() {
               <button className="px-4 py-2 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg transition-all">
                 <div className="flex items-center gap-2">
                   <Plus className="w-5 h-5" />
-                  <span className="font-['Almarai'] font-bold">طاولة جديدة</span>
+                  <span className="font-['Almarai'] font-bold">
+                    طاولة جديدة
+                  </span>
                 </div>
               </button>
             </div>
@@ -299,7 +312,9 @@ export default function TablesScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-green-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <CheckCircle2 className="w-4 h-4 text-green-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">متاحة</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    متاحة
+                  </span>
                 </div>
                 <p className="text-2xl font-['Arial'] font-bold text-green-400 text-right">
                   {stats.available}
@@ -309,7 +324,9 @@ export default function TablesScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-red-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Users className="w-4 h-4 text-red-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">مشغولة</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    مشغولة
+                  </span>
                 </div>
                 <p className="text-2xl font-['Arial'] font-bold text-red-400 text-right">
                   {stats.occupied}
@@ -319,7 +336,9 @@ export default function TablesScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Calendar className="w-4 h-4 text-orange-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">محجوزة</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    محجوزة
+                  </span>
                 </div>
                 <p className="text-2xl font-['Arial'] font-bold text-orange-400 text-right">
                   {stats.reserved}
@@ -329,7 +348,9 @@ export default function TablesScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(59,130,246,0.1)] to-[rgba(37,99,235,0.05)] border border-blue-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Loader2 className="w-4 h-4 text-blue-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">تنظيف</span>
+                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                    تنظيف
+                  </span>
                 </div>
                 <p className="text-2xl font-['Arial'] font-bold text-blue-400 text-right">
                   {stats.cleaning}
@@ -377,7 +398,7 @@ export default function TablesScreen() {
               />
               {searchQuery && (
                 <button
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => setSearchQuery("")}
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#c2c7ce] hover:text-[#e2e2e6]"
                 >
                   <X className="w-5 h-5" />
@@ -418,21 +439,21 @@ export default function TablesScreen() {
             {/* View Mode Toggle */}
             <div className="flex gap-1 p-1 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl">
               <button
-                onClick={() => setViewMode('grid')}
+                onClick={() => setViewMode("grid")}
                 className={`p-2 rounded-lg transition-all ${
-                  viewMode === 'grid'
-                    ? 'bg-cyan-400 text-[#00373a]'
-                    : 'text-[#c2c7ce] hover:bg-[rgba(255,255,255,0.05)]'
+                  viewMode === "grid"
+                    ? "bg-cyan-400 text-[#00373a]"
+                    : "text-[#c2c7ce] hover:bg-[rgba(255,255,255,0.05)]"
                 }`}
               >
                 <Grid3x3 className="w-5 h-5" />
               </button>
               <button
-                onClick={() => setViewMode('list')}
+                onClick={() => setViewMode("list")}
                 className={`p-2 rounded-lg transition-all ${
-                  viewMode === 'list'
-                    ? 'bg-cyan-400 text-[#00373a]'
-                    : 'text-[#c2c7ce] hover:bg-[rgba(255,255,255,0.05)]'
+                  viewMode === "list"
+                    ? "bg-cyan-400 text-[#00373a]"
+                    : "text-[#c2c7ce] hover:bg-[rgba(255,255,255,0.05)]"
                 }`}
               >
                 <List className="w-5 h-5" />
@@ -442,37 +463,37 @@ export default function TablesScreen() {
 
           {/* Status Filter Chips */}
           <div className="flex gap-2 flex-wrap">
-            {(['available', 'occupied', 'reserved', 'cleaning'] as TableStatus[]).map(
-              (status) => {
-                const statusColor = getStatusColor(status);
-                const isSelected = selectedStatuses.includes(status);
-                return (
-                  <button
-                    key={status}
-                    onClick={() => toggleStatusFilter(status)}
-                    className={`px-3 py-1.5 rounded-lg border transition-all ${
-                      isSelected
-                        ? `bg-gradient-to-br ${statusColor.bg} ${statusColor.border} ${statusColor.text}`
-                        : 'bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30'
-                    }`}
-                  >
-                    <div className="flex items-center gap-1.5">
-                      {statusColor.icon}
-                      <span className="text-xs font-['Almarai'] font-bold">
-                        {getStatusLabel(status)}
-                      </span>
-                    </div>
-                  </button>
-                );
-              }
-            )}
+            {(
+              ["available", "occupied", "reserved", "cleaning"] as TableStatus[]
+            ).map((status) => {
+              const statusColor = getStatusColor(status);
+              const isSelected = selectedStatuses.includes(status);
+              return (
+                <button
+                  key={status}
+                  onClick={() => toggleStatusFilter(status)}
+                  className={`px-3 py-1.5 rounded-lg border transition-all ${
+                    isSelected
+                      ? `bg-gradient-to-br ${statusColor.bg} ${statusColor.border} ${statusColor.text}`
+                      : "bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30"
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    {statusColor.icon}
+                    <span className="text-xs font-['Almarai'] font-bold">
+                      {getStatusLabel(status)}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
         {/* Tables Content */}
         <div className="flex-1 px-6 py-4 overflow-auto">
           <LoadingState loading={loading}>
-            {viewMode === 'grid' ? (
+            {viewMode === "grid" ? (
               // Grid View
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
                 {tables.map((table, index) => {
@@ -505,7 +526,7 @@ export default function TablesScreen() {
                           style={{
                             background: `linear-gradient(135deg, ${sectionColor}33, ${sectionColor}11)`,
                             borderColor: `${sectionColor}44`,
-                            borderWidth: '1px',
+                            borderWidth: "1px",
                           }}
                         >
                           <Armchair
@@ -521,10 +542,14 @@ export default function TablesScreen() {
                       </h3>
 
                       <div className="flex items-center justify-between text-xs text-[#c2c7ce] mb-2">
-                        <span className="font-['Almarai']">{section?.name}</span>
+                        <span className="font-['Almarai']">
+                          {section?.name}
+                        </span>
                         <div className="flex items-center gap-1">
                           <Users className="w-3 h-3" />
-                          <span className="font-['Arial']">{table.capacity}</span>
+                          <span className="font-['Arial']">
+                            {table.capacity}
+                          </span>
                         </div>
                       </div>
 
@@ -534,7 +559,7 @@ export default function TablesScreen() {
                         {getStatusLabel(table.status)}
                       </div>
 
-                      {table.status === 'occupied' && table.occupiedAt && (
+                      {table.status === "occupied" && table.occupiedAt && (
                         <div className="mt-2 pt-2 border-t border-[rgba(255,255,255,0.1)] flex items-center gap-1 text-xs text-[#c2c7ce]">
                           <Clock className="w-3 h-3" />
                           <span className="font-['Arial']">
@@ -543,10 +568,10 @@ export default function TablesScreen() {
                         </div>
                       )}
 
-                      {table.status === 'reserved' && table.reservedBy && (
+                      {table.status === "reserved" && table.reservedBy && (
                         <div className="mt-2 pt-2 border-t border-[rgba(255,255,255,0.1)] text-xs">
                           <p className="text-[#c2c7ce] font-['Almarai']">
-                            محجوزة لـ:{' '}
+                            محجوزة لـ:{" "}
                             <span className="text-[#e2e2e6] font-bold">
                               {table.reservedBy}
                             </span>
@@ -575,11 +600,11 @@ export default function TablesScreen() {
                         >
                           <QrCode className="w-4 h-4" />
                         </button>
-                        {table.status === 'occupied' && (
+                        {table.status === "occupied" && (
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              handleStatusChange(table.id, 'available');
+                              handleStatusChange(table.id, "available");
                             }}
                             className="p-2 rounded-lg bg-green-400 text-[#00373a] hover:bg-green-500 transition-all"
                             title="إغلاق الطاولة"
@@ -621,7 +646,9 @@ export default function TablesScreen() {
                   <tbody>
                     {tables.map((table, index) => {
                       const statusColor = getStatusColor(table.status);
-                      const section = sections.find((s) => s.id === table.section);
+                      const section = sections.find(
+                        (s) => s.id === table.section
+                      );
 
                       return (
                         <motion.tr
@@ -643,7 +670,9 @@ export default function TablesScreen() {
                               >
                                 <Armchair
                                   className="w-5 h-5"
-                                  style={{ color: getSectionColor(table.section) }}
+                                  style={{
+                                    color: getSectionColor(table.section),
+                                  }}
                                 />
                               </div>
                               <div>
@@ -698,16 +727,18 @@ export default function TablesScreen() {
                           <td className="px-4 py-4">
                             <div className="flex items-center justify-center gap-2">
                               <button
-                                onClick={() => navigate(`/pos?table=${table.id}`)}
+                                onClick={() =>
+                                  navigate(`/pos?table=${table.id}`)
+                                }
                                 className="p-2 rounded-lg bg-cyan-400 text-[#00373a] hover:bg-cyan-500 transition-all"
                                 title="فتح في نقطة البيع"
                               >
                                 <DoorOpen className="w-4 h-4" />
                               </button>
-                              {table.status === 'occupied' && (
+                              {table.status === "occupied" && (
                                 <button
                                   onClick={() =>
-                                    handleStatusChange(table.id, 'available')
+                                    handleStatusChange(table.id, "available")
                                   }
                                   className="p-2 rounded-lg bg-green-400 text-[#00373a] hover:bg-green-500 transition-all"
                                   title="إغلاق"

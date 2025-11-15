@@ -3,11 +3,11 @@
  * Confirms sending order to kitchen with printer simulation
  */
 
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { X, UtensilsCrossed, Check, AlertCircle, Printer } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { CartItem, OrderType, Table } from '../types/pos.types';
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { X, UtensilsCrossed, Check, AlertCircle, Printer } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import type { CartItem, OrderType, Table } from "../types/pos.types";
 
 interface KitchenSendModalProps {
   isOpen: boolean;
@@ -25,21 +25,21 @@ export function KitchenSendModal({
   table,
 }: KitchenSendModalProps) {
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
-  const [kitchenNotes, setKitchenNotes] = useState('');
+  const isRTL = i18n.language === "ar";
+  const [kitchenNotes, setKitchenNotes] = useState("");
   const [isPrinting, setIsPrinting] = useState(false);
   const [printComplete, setPrintComplete] = useState(false);
 
   const orderNumber = `K${Date.now().toString().slice(-6)}`;
-  const currentTime = new Date().toLocaleTimeString(isRTL ? 'ar-SA' : 'en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
+  const currentTime = new Date().toLocaleTimeString(isRTL ? "ar-SA" : "en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: true,
   });
 
   useEffect(() => {
     if (isOpen) {
-      setKitchenNotes('');
+      setKitchenNotes("");
       setIsPrinting(false);
       setPrintComplete(false);
     }
@@ -49,12 +49,12 @@ export function KitchenSendModal({
 
   const getOrderTypeLabel = (type: OrderType) => {
     switch (type) {
-      case 'dineIn':
-        return isRTL ? 'تناول في المطعم' : 'Dine In';
-      case 'takeaway':
-        return isRTL ? 'تيك أواي' : 'Take Away';
-      case 'delivery':
-        return isRTL ? 'توصيل' : 'Delivery';
+      case "dineIn":
+        return isRTL ? "تناول في المطعم" : "Dine In";
+      case "takeaway":
+        return isRTL ? "تيك أواي" : "Take Away";
+      case "delivery":
+        return isRTL ? "توصيل" : "Delivery";
     }
   };
 
@@ -71,7 +71,7 @@ export function KitchenSendModal({
     // Wait a moment then complete
     setTimeout(() => {
       setPrintComplete(false);
-      setKitchenNotes('');
+      setKitchenNotes("");
       onClose();
     }, 1500);
   };
@@ -80,7 +80,7 @@ export function KitchenSendModal({
     <AnimatePresence>
       <div
         className="fixed inset-0 z-50 flex items-center justify-center p-8"
-        dir={isRTL ? 'rtl' : 'ltr'}
+        dir={isRTL ? "rtl" : "ltr"}
       >
         {/* Backdrop */}
         <motion.div
@@ -110,7 +110,7 @@ export function KitchenSendModal({
             </button>
             <div className="text-center">
               <h2 className="text-xl font-['Almarai'] font-bold text-[#e2e2e6]">
-                {isRTL ? 'إرسال إلى المطبخ' : 'Send to Kitchen'}
+                {isRTL ? "إرسال إلى المطبخ" : "Send to Kitchen"}
               </h2>
               <p className="text-sm text-[#c2c7ce] font-['Almarai'] mt-1">
                 {isRTL ? `طلب رقم ${orderNumber}#` : `Order #${orderNumber}`}
@@ -130,7 +130,7 @@ export function KitchenSendModal({
                   {/* Kitchen Notes */}
                   <div>
                     <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-3 block">
-                      {isRTL ? 'ملاحظات خاصة للمطبخ' : 'Kitchen Special Notes'}
+                      {isRTL ? "ملاحظات خاصة للمطبخ" : "Kitchen Special Notes"}
                     </label>
                     <textarea
                       value={kitchenNotes}
@@ -138,29 +138,29 @@ export function KitchenSendModal({
                       disabled={isPrinting || printComplete}
                       placeholder={
                         isRTL
-                          ? 'مثال: استعجال، طلب مهم، تحضير خاص...'
-                          : 'Example: urgent, important order, special preparation...'
+                          ? "مثال: استعجال، طلب مهم، تحضير خاص..."
+                          : "Example: urgent, important order, special preparation..."
                       }
                       rows={4}
                       className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] placeholder:text-[#6b7280] focus:outline-none focus:border-[#ff6b35]/50 transition-colors resize-none"
-                      dir={isRTL ? 'rtl' : 'ltr'}
+                      dir={isRTL ? "rtl" : "ltr"}
                     />
                     <p className="text-xs text-[#6b7280] font-['Almarai'] mt-2">
                       {isRTL
-                        ? 'ستظهر هذه الملاحظات بشكل بارز في طلب المطبخ'
-                        : 'These notes will appear prominently on kitchen order'}
+                        ? "ستظهر هذه الملاحظات بشكل بارز في طلب المطبخ"
+                        : "These notes will appear prominently on kitchen order"}
                     </p>
                   </div>
 
                   {/* Order Summary */}
                   <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)]">
                     <h3 className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-3">
-                      {isRTL ? 'ملخص الطلب' : 'Order Summary'}
+                      {isRTL ? "ملخص الطلب" : "Order Summary"}
                     </h3>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-['Almarai'] text-[#c2c7ce]">
-                          {isRTL ? 'عدد الأصناف' : 'Items Count'}
+                          {isRTL ? "عدد الأصناف" : "Items Count"}
                         </span>
                         <span className="text-lg font-['Arial'] font-bold text-[#e2e2e6]">
                           {items.length}
@@ -168,7 +168,7 @@ export function KitchenSendModal({
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-['Almarai'] text-[#c2c7ce]">
-                          {isRTL ? 'إجمالي الكمية' : 'Total Quantity'}
+                          {isRTL ? "إجمالي الكمية" : "Total Quantity"}
                         </span>
                         <span className="text-lg font-['Arial'] font-bold text-[#e2e2e6]">
                           {items.reduce((sum, item) => sum + item.quantity, 0)}
@@ -185,8 +185,8 @@ export function KitchenSendModal({
                       </div>
                       <p className="text-xs font-['Almarai'] text-orange-300 leading-relaxed">
                         {isRTL
-                          ? 'سيتم تتبع الطلب مباشرة في المطبخ. تأكد من صحة التفاصيل قبل الإرسال'
-                          : 'Order will be tracked directly in kitchen. Verify details before sending'}
+                          ? "سيتم تتبع الطلب مباشرة في المطبخ. تأكد من صحة التفاصيل قبل الإرسال"
+                          : "Order will be tracked directly in kitchen. Verify details before sending"}
                       </p>
                     </div>
                   </div>
@@ -201,14 +201,16 @@ export function KitchenSendModal({
                         <h1 className="text-4xl font-['Arial'] font-bold text-white mb-2">
                           {orderNumber}#
                         </h1>
-                        <p className="text-sm font-['Arial'] text-white/70">{currentTime}</p>
+                        <p className="text-sm font-['Arial'] text-white/70">
+                          {currentTime}
+                        </p>
                       </div>
                     </div>
 
                     {/* Order Type */}
                     <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
                       <span className="text-sm font-['Almarai'] text-gray-600">
-                        {isRTL ? 'النوع:' : 'Type:'}
+                        {isRTL ? "النوع:" : "Type:"}
                       </span>
                       <span className="text-sm font-['Almarai'] font-bold text-gray-900">
                         {getOrderTypeLabel(orderType)}
@@ -218,7 +220,10 @@ export function KitchenSendModal({
                     {/* Order Items */}
                     <div className="space-y-3">
                       {items.map((item, index) => (
-                        <div key={index} className="p-3 rounded-xl border-2 border-gray-900">
+                        <div
+                          key={index}
+                          className="p-3 rounded-xl border-2 border-gray-900"
+                        >
                           <div className="flex items-start justify-between mb-2">
                             <div className="flex items-start gap-3 flex-1">
                               <div className="w-10 h-10 rounded-lg bg-black flex items-center justify-center flex-shrink-0">
@@ -228,25 +233,30 @@ export function KitchenSendModal({
                               </div>
                               <div className="flex-1">
                                 <h4 className="font-['Almarai'] font-bold text-gray-900">
-                                  {isRTL ? item.product.name : item.product.nameEn || item.product.name}
+                                  {isRTL
+                                    ? item.product.name
+                                    : item.product.nameEn || item.product.name}
                                 </h4>
-                                {item.modifiers && item.modifiers.length > 0 && (
-                                  <div className="mt-2 space-y-1">
-                                    {item.modifiers.map((mod, modIndex) => (
-                                      <div
-                                        key={modIndex}
-                                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-yellow-100 border border-yellow-300 mr-1"
-                                      >
-                                        <span className="text-xs font-['Almarai'] text-yellow-900">
-                                          ✓
-                                        </span>
-                                        <span className="text-xs font-['Almarai'] font-bold text-yellow-900">
-                                          {isRTL ? mod.name : mod.nameEn || mod.name}
-                                        </span>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                {item.modifiers &&
+                                  item.modifiers.length > 0 && (
+                                    <div className="mt-2 space-y-1">
+                                      {item.modifiers.map((mod, modIndex) => (
+                                        <div
+                                          key={modIndex}
+                                          className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-yellow-100 border border-yellow-300 mr-1"
+                                        >
+                                          <span className="text-xs font-['Almarai'] text-yellow-900">
+                                            ✓
+                                          </span>
+                                          <span className="text-xs font-['Almarai'] font-bold text-yellow-900">
+                                            {isRTL
+                                              ? mod.name
+                                              : mod.nameEn || mod.name}
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
                                 {item.notes && (
                                   <p className="text-xs font-['Almarai'] text-gray-600 mt-2">
                                     {item.notes}
@@ -271,7 +281,7 @@ export function KitchenSendModal({
               disabled={isPrinting || printComplete}
               className="flex-1 px-6 py-3 rounded-xl bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] font-['Almarai'] font-bold transition-all disabled:opacity-50"
             >
-              {isRTL ? 'إلغاء' : 'Cancel'}
+              {isRTL ? "إلغاء" : "Cancel"}
             </button>
             <button
               onClick={handleSendToKitchen}
@@ -279,29 +289,35 @@ export function KitchenSendModal({
               className="flex-1 px-6 py-3 rounded-xl font-['Almarai'] font-bold text-white transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-70"
               style={{
                 background: printComplete
-                  ? 'linear-gradient(to bottom, #10b981, #059669)'
-                  : 'linear-gradient(to bottom, #ff6b35, #f7931e)',
+                  ? "linear-gradient(to bottom, #10b981, #059669)"
+                  : "linear-gradient(to bottom, #ff6b35, #f7931e)",
               }}
             >
               {printComplete ? (
                 <>
                   <Check className="w-5 h-5" />
-                  <span>{isRTL ? 'تم الإرسال بنجاح' : 'Sent Successfully'}</span>
+                  <span>
+                    {isRTL ? "تم الإرسال بنجاح" : "Sent Successfully"}
+                  </span>
                 </>
               ) : isPrinting ? (
                 <>
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   >
                     <Printer className="w-5 h-5" />
                   </motion.div>
-                  <span>{isRTL ? 'جاري الإرسال...' : 'Sending...'}</span>
+                  <span>{isRTL ? "جاري الإرسال..." : "Sending..."}</span>
                 </>
               ) : (
                 <>
                   <UtensilsCrossed className="w-5 h-5" />
-                  <span>{isRTL ? 'إرسال إلى المطبخ' : 'Send to Kitchen'}</span>
+                  <span>{isRTL ? "إرسال إلى المطبخ" : "Send to Kitchen"}</span>
                 </>
               )}
             </button>

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Discount } from '../types/pos.types';
-import { DiscountService } from '../services/pos.service';
-import { X, Percent, DollarSign } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import type { Discount } from "../types/pos.types";
+import { DiscountService } from "../services/pos.service";
+import { X, Percent, DollarSign } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface DiscountModalProps {
   isOpen: boolean;
@@ -12,11 +12,18 @@ interface DiscountModalProps {
   subtotal: number;
 }
 
-export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: DiscountModalProps) {
+export function DiscountModal({
+  isOpen,
+  onClose,
+  onApplyDiscount,
+  subtotal,
+}: DiscountModalProps) {
   const { t } = useTranslation();
   const [discounts, setDiscounts] = useState<Discount[]>([]);
-  const [customValue, setCustomValue] = useState<string>('');
-  const [selectedDiscount, setSelectedDiscount] = useState<Discount | null>(null);
+  const [customValue, setCustomValue] = useState<string>("");
+  const [selectedDiscount, setSelectedDiscount] = useState<Discount | null>(
+    null
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -29,13 +36,13 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
       const data = await DiscountService.getDiscounts();
       setDiscounts(data);
     } catch (error) {
-      console.error('Error loading discounts:', error);
+      console.error("Error loading discounts:", error);
     }
   };
 
   const calculateDiscountAmount = (discount: Discount, customVal?: number) => {
     const value = customVal !== undefined ? customVal : discount.value;
-    if (discount.type === 'percentage') {
+    if (discount.type === "percentage") {
       return (subtotal * value) / 100;
     }
     return value;
@@ -43,7 +50,7 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
 
   const handleApply = () => {
     if (selectedDiscount) {
-      if (selectedDiscount.id === 'd10') {
+      if (selectedDiscount.id === "d10") {
         // Custom discount
         const value = parseFloat(customValue);
         if (value > 0) {
@@ -80,10 +87,16 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-[rgba(255,255,255,0.1)]">
                 <div>
-                  <h2 className="text-2xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1" dir="auto">
-                    {t('pos.applyDiscount')}
+                  <h2
+                    className="text-2xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1"
+                    dir="auto"
+                  >
+                    {t("pos.applyDiscount")}
                   </h2>
-                  <p className="text-sm text-[#c2c7ce] font-['Almarai']" dir="auto">
+                  <p
+                    className="text-sm text-[#c2c7ce] font-['Almarai']"
+                    dir="auto"
+                  >
                     اختر نوع الخصم المناسب
                   </p>
                 </div>
@@ -99,8 +112,11 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
               <div className="p-6 space-y-6 max-h-[calc(90vh-200px)] overflow-y-auto">
                 {/* Subtotal Display */}
                 <div className="bg-gradient-to-r from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.1)] border border-cyan-400/30 rounded-2xl p-4 text-center">
-                  <p className="text-sm text-[#c2c7ce] font-['Almarai'] mb-1" dir="auto">
-                    {t('pos.subtotal')}
+                  <p
+                    className="text-sm text-[#c2c7ce] font-['Almarai'] mb-1"
+                    dir="auto"
+                  >
+                    {t("pos.subtotal")}
                   </p>
                   <p className="text-2xl font-['Arial'] font-bold text-[#99f0ff]">
                     {subtotal.toFixed(2)} ر.س
@@ -120,19 +136,21 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
                         onClick={() => setSelectedDiscount(discount)}
                         className={`relative p-4 rounded-2xl transition-all ${
                           isSelected
-                            ? 'bg-gradient-to-b from-[#22d3ee] to-[#006399] text-white shadow-lg'
-                            : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50'
+                            ? "bg-gradient-to-b from-[#22d3ee] to-[#006399] text-white shadow-lg"
+                            : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
                         }`}
                       >
                         <div className="flex flex-col items-center gap-2">
-                          {discount.type === 'percentage' ? (
+                          {discount.type === "percentage" ? (
                             <Percent className="w-6 h-6" />
                           ) : (
                             <DollarSign className="w-6 h-6" />
                           )}
                           <div className="text-center">
                             <p className="text-lg font-['Arial'] font-bold">
-                              {discount.type === 'percentage' ? `${discount.value}%` : `${discount.value} ر.س`}
+                              {discount.type === "percentage"
+                                ? `${discount.value}%`
+                                : `${discount.value} ر.س`}
                             </p>
                             <p className="text-xs font-['Arial'] opacity-70 mt-1">
                               -{discountAmount.toFixed(2)}
@@ -147,22 +165,26 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
                 {/* Custom Discount */}
                 <div className="space-y-3">
                   <button
-                    onClick={() => setSelectedDiscount(discounts.find(d => d.id === 'd10') || null)}
+                    onClick={() =>
+                      setSelectedDiscount(
+                        discounts.find((d) => d.id === "d10") || null
+                      )
+                    }
                     className={`w-full p-4 rounded-2xl transition-all ${
-                      selectedDiscount?.id === 'd10'
-                        ? 'bg-gradient-to-b from-[#22d3ee] to-[#006399] text-white shadow-lg'
-                        : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50'
+                      selectedDiscount?.id === "d10"
+                        ? "bg-gradient-to-b from-[#22d3ee] to-[#006399] text-white shadow-lg"
+                        : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
                     }`}
                   >
                     <span className="font-['Almarai']" dir="auto">
-                      {t('pos.customDiscount')}
+                      {t("pos.customDiscount")}
                     </span>
                   </button>
 
-                  {selectedDiscount?.id === 'd10' && (
+                  {selectedDiscount?.id === "d10" && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
+                      animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       className="space-y-3"
                     >
@@ -179,13 +201,13 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
                           onClick={() => {
                             setSelectedDiscount({
                               ...selectedDiscount,
-                              type: 'percentage',
+                              type: "percentage",
                             });
                           }}
                           className={`flex-1 py-3 rounded-xl font-['Almarai'] transition-all ${
-                            selectedDiscount.type === 'percentage'
-                              ? 'bg-cyan-400 text-[#00373a]'
-                              : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce]'
+                            selectedDiscount.type === "percentage"
+                              ? "bg-cyan-400 text-[#00373a]"
+                              : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce]"
                           }`}
                         >
                           نسبة مئوية %
@@ -194,13 +216,13 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
                           onClick={() => {
                             setSelectedDiscount({
                               ...selectedDiscount,
-                              type: 'fixed',
+                              type: "fixed",
                             });
                           }}
                           className={`flex-1 py-3 rounded-xl font-['Almarai'] transition-all ${
-                            selectedDiscount.type === 'fixed'
-                              ? 'bg-cyan-400 text-[#00373a]'
-                              : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce]'
+                            selectedDiscount.type === "fixed"
+                              ? "bg-cyan-400 text-[#00373a]"
+                              : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce]"
                           }`}
                         >
                           مبلغ ثابت ر.س
@@ -208,11 +230,19 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
                       </div>
                       {customValue && parseFloat(customValue) > 0 && (
                         <div className="bg-gradient-to-r from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.1)] border border-cyan-400/30 rounded-xl p-3 text-center">
-                          <p className="text-sm text-[#c2c7ce] font-['Almarai']" dir="auto">
+                          <p
+                            className="text-sm text-[#c2c7ce] font-['Almarai']"
+                            dir="auto"
+                          >
                             قيمة الخصم
                           </p>
                           <p className="text-xl font-['Arial'] font-bold text-[#99f0ff]">
-                            -{calculateDiscountAmount(selectedDiscount, parseFloat(customValue)).toFixed(2)} ر.س
+                            -
+                            {calculateDiscountAmount(
+                              selectedDiscount,
+                              parseFloat(customValue)
+                            ).toFixed(2)}{" "}
+                            ر.س
                           </p>
                         </div>
                       )}
@@ -223,11 +253,15 @@ export function DiscountModal({ isOpen, onClose, onApplyDiscount, subtotal }: Di
                 {/* Apply Button */}
                 <button
                   onClick={handleApply}
-                  disabled={!selectedDiscount || (selectedDiscount.id === 'd10' && !customValue)}
+                  disabled={
+                    !selectedDiscount ||
+                    (selectedDiscount.id === "d10" && !customValue)
+                  }
                   className={`w-full py-4 rounded-2xl font-['Almarai'] font-bold text-lg transition-all ${
-                    selectedDiscount && (selectedDiscount.id !== 'd10' || customValue)
-                      ? 'bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg'
-                      : 'bg-[rgba(255,255,255,0.05)] text-[#c2c7ce] opacity-50 cursor-not-allowed'
+                    selectedDiscount &&
+                    (selectedDiscount.id !== "d10" || customValue)
+                      ? "bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg"
+                      : "bg-[rgba(255,255,255,0.05)] text-[#c2c7ce] opacity-50 cursor-not-allowed"
                   }`}
                 >
                   <span dir="auto">تطبيق الخصم</span>

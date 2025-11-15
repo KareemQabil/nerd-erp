@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Product } from '../types/inventory.types';
+import React, { useState } from "react";
+import type { Product } from "../types/inventory.types";
 import {
   X,
   Package,
@@ -14,14 +14,18 @@ import {
   Warehouse,
   Plus,
   Minus,
-} from 'lucide-react';
-import { motion } from 'motion/react';
+} from "lucide-react";
+import { motion } from "motion/react";
 
 interface ProductDetailModalProps {
   product: Product;
   onClose: () => void;
   onEdit: () => void;
-  onAdjustStock: (warehouseId: string, quantity: number, type: 'add' | 'remove') => void;
+  onAdjustStock: (
+    warehouseId: string,
+    quantity: number,
+    type: "add" | "remove"
+  ) => void;
 }
 
 export function ProductDetailModal({
@@ -30,20 +34,20 @@ export function ProductDetailModal({
   onEdit,
   onAdjustStock,
 }: ProductDetailModalProps) {
-  const [activeTab, setActiveTab] = useState<'overview' | 'warehouses' | 'history'>(
-    'overview'
-  );
+  const [activeTab, setActiveTab] = useState<
+    "overview" | "warehouses" | "history"
+  >("overview");
 
   const getStockStatusColor = (status: string) => {
     switch (status) {
-      case 'in-stock':
-        return 'text-green-400';
-      case 'low-stock':
-        return 'text-orange-400';
-      case 'out-of-stock':
-        return 'text-red-400';
+      case "in-stock":
+        return "text-green-400";
+      case "low-stock":
+        return "text-orange-400";
+      case "out-of-stock":
+        return "text-red-400";
       default:
-        return 'text-[#c2c7ce]';
+        return "text-[#c2c7ce]";
     }
   };
 
@@ -69,7 +73,10 @@ export function ProductDetailModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" dir="rtl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8"
+      dir="rtl"
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -128,31 +135,41 @@ export function ProductDetailModal({
               <p className="text-2xl font-['Arial'] font-bold text-cyan-400">
                 {getTotalStock()}
               </p>
-              <p className="text-xs font-['Almarai'] text-[#c2c7ce]">{product.unit}</p>
+              <p className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                {product.unit}
+              </p>
             </div>
             <div>
-              <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">قيمة المخزون</p>
+              <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
+                قيمة المخزون
+              </p>
               <p className="text-xl font-['Arial'] font-bold text-green-400">
                 {getTotalValue().toFixed(2)}
               </p>
               <p className="text-xs font-['Almarai'] text-[#c2c7ce]">ر.س</p>
             </div>
             <div>
-              <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">إجمالي التكلفة</p>
+              <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
+                إجمالي التكلفة
+              </p>
               <p className="text-xl font-['Arial'] font-bold text-orange-400">
                 {getTotalCost().toFixed(2)}
               </p>
               <p className="text-xs font-['Almarai'] text-[#c2c7ce]">ر.س</p>
             </div>
             <div>
-              <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">الربح المتوقع</p>
+              <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
+                الربح المتوقع
+              </p>
               <p className="text-xl font-['Arial'] font-bold text-cyan-400">
                 {getProfit().toFixed(2)}
               </p>
               <p className="text-xs font-['Almarai'] text-[#c2c7ce]">ر.س</p>
             </div>
             <div>
-              <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">هامش الربح</p>
+              <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
+                هامش الربح
+              </p>
               <p className="text-xl font-['Arial'] font-bold text-purple-400">
                 {getProfitMargin().toFixed(1)}%
               </p>
@@ -163,31 +180,31 @@ export function ProductDetailModal({
         {/* Tabs */}
         <div className="px-6 border-b border-[rgba(255,255,255,0.1)] flex gap-1 flex-shrink-0">
           <button
-            onClick={() => setActiveTab('overview')}
+            onClick={() => setActiveTab("overview")}
             className={`px-4 py-3 font-['Almarai'] font-bold transition-all ${
-              activeTab === 'overview'
-                ? 'text-cyan-400 border-b-2 border-cyan-400'
-                : 'text-[#c2c7ce] hover:text-[#e2e2e6]'
+              activeTab === "overview"
+                ? "text-cyan-400 border-b-2 border-cyan-400"
+                : "text-[#c2c7ce] hover:text-[#e2e2e6]"
             }`}
           >
             نظرة عامة
           </button>
           <button
-            onClick={() => setActiveTab('warehouses')}
+            onClick={() => setActiveTab("warehouses")}
             className={`px-4 py-3 font-['Almarai'] font-bold transition-all ${
-              activeTab === 'warehouses'
-                ? 'text-cyan-400 border-b-2 border-cyan-400'
-                : 'text-[#c2c7ce] hover:text-[#e2e2e6]'
+              activeTab === "warehouses"
+                ? "text-cyan-400 border-b-2 border-cyan-400"
+                : "text-[#c2c7ce] hover:text-[#e2e2e6]"
             }`}
           >
             المستودعات ({product.warehouses.length})
           </button>
           <button
-            onClick={() => setActiveTab('history')}
+            onClick={() => setActiveTab("history")}
             className={`px-4 py-3 font-['Almarai'] font-bold transition-all ${
-              activeTab === 'history'
-                ? 'text-cyan-400 border-b-2 border-cyan-400'
-                : 'text-[#c2c7ce] hover:text-[#e2e2e6]'
+              activeTab === "history"
+                ? "text-cyan-400 border-b-2 border-cyan-400"
+                : "text-[#c2c7ce] hover:text-[#e2e2e6]"
             }`}
           >
             السجل
@@ -196,7 +213,7 @@ export function ProductDetailModal({
 
         {/* Content - Scrollable */}
         <div className="flex-1 overflow-y-auto p-6">
-          {activeTab === 'overview' && (
+          {activeTab === "overview" && (
             <div className="space-y-6">
               {/* Basic Info */}
               <div className="grid grid-cols-2 gap-6">
@@ -287,11 +304,11 @@ export function ProductDetailModal({
                         product.stockStatus
                       )} bg-[rgba(255,255,255,0.05)]`}
                     >
-                      {product.stockStatus === 'in-stock'
-                        ? 'متوفر'
-                        : product.stockStatus === 'low-stock'
-                        ? 'منخفض'
-                        : 'نفذ'}
+                      {product.stockStatus === "in-stock"
+                        ? "متوفر"
+                        : product.stockStatus === "low-stock"
+                        ? "منخفض"
+                        : "نفذ"}
                     </span>
                   </div>
                 </div>
@@ -311,11 +328,11 @@ export function ProductDetailModal({
             </div>
           )}
 
-          {activeTab === 'warehouses' && (
+          {activeTab === "warehouses" && (
             <div className="space-y-3">
               {product.warehouses.map((warehouse) => (
                 <div
-                  key={warehouse.id}
+                  key={warehouse.warehouseId}
                   className="p-4 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.05)] transition-colors"
                 >
                   <div className="flex items-center justify-between mb-3">
@@ -325,7 +342,7 @@ export function ProductDetailModal({
                       </div>
                       <div>
                         <p className="font-['Almarai'] font-bold text-[#e2e2e6]">
-                          {warehouse.name}
+                          {warehouse.warehouseName}
                         </p>
                         <p className="text-xs text-[#c2c7ce] font-['Almarai']">
                           {warehouse.location}
@@ -345,18 +362,26 @@ export function ProductDetailModal({
                   {/* Quick Adjust */}
                   <div className="flex gap-2">
                     <button
-                      onClick={() => onAdjustStock(warehouse.id, 1, 'add')}
+                      onClick={() =>
+                        onAdjustStock(warehouse.warehouseId, 1, "add")
+                      }
                       className="flex-1 py-2 rounded-lg bg-green-400/10 border border-green-400/30 text-green-400 hover:bg-green-400/20 transition-all flex items-center justify-center gap-2"
                     >
                       <Plus className="w-4 h-4" />
-                      <span className="text-sm font-['Almarai'] font-bold">إضافة</span>
+                      <span className="text-sm font-['Almarai'] font-bold">
+                        إضافة
+                      </span>
                     </button>
                     <button
-                      onClick={() => onAdjustStock(warehouse.id, 1, 'remove')}
+                      onClick={() =>
+                        onAdjustStock(warehouse.warehouseId, 1, "remove")
+                      }
                       className="flex-1 py-2 rounded-lg bg-red-400/10 border border-red-400/30 text-red-400 hover:bg-red-400/20 transition-all flex items-center justify-center gap-2"
                     >
                       <Minus className="w-4 h-4" />
-                      <span className="text-sm font-['Almarai'] font-bold">خصم</span>
+                      <span className="text-sm font-['Almarai'] font-bold">
+                        خصم
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -364,36 +389,36 @@ export function ProductDetailModal({
             </div>
           )}
 
-          {activeTab === 'history' && (
+          {activeTab === "history" && (
             <div className="space-y-3">
               {/* Mock history data */}
               {[
                 {
-                  date: '2024-01-15',
-                  time: '14:30',
-                  type: 'add',
+                  date: "2024-01-15",
+                  time: "14:30",
+                  type: "add",
                   quantity: 50,
-                  warehouse: 'المستودع الرئيسي',
-                  user: 'أحمد محمد',
-                  note: 'إضافة مخزون جديد',
+                  warehouse: "المستودع الرئيسي",
+                  user: "أحمد محمد",
+                  note: "إضافة مخزون جديد",
                 },
                 {
-                  date: '2024-01-14',
-                  time: '10:15',
-                  type: 'remove',
+                  date: "2024-01-14",
+                  time: "10:15",
+                  type: "remove",
                   quantity: 15,
-                  warehouse: 'المستودع الفرعي',
-                  user: 'خالد ��حمد',
-                  note: 'بيع POS',
+                  warehouse: "المستودع الفرعي",
+                  user: "خالد ��حمد",
+                  note: "بيع POS",
                 },
                 {
-                  date: '2024-01-13',
-                  time: '16:45',
-                  type: 'adjust',
+                  date: "2024-01-13",
+                  time: "16:45",
+                  type: "adjust",
                   quantity: -5,
-                  warehouse: 'المستودع الرئيسي',
-                  user: 'أحمد محمد',
-                  note: 'تسوية جرد',
+                  warehouse: "المستودع الرئيسي",
+                  user: "أحمد محمد",
+                  note: "تسوية جرد",
                 },
               ].map((item, index) => (
                 <div
@@ -404,20 +429,20 @@ export function ProductDetailModal({
                     <div className="flex items-start gap-3 flex-1">
                       <div
                         className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                          item.type === 'add'
-                            ? 'bg-green-400/10 border border-green-400/30'
-                            : item.type === 'remove'
-                            ? 'bg-red-400/10 border border-red-400/30'
-                            : 'bg-orange-400/10 border border-orange-400/30'
+                          item.type === "add"
+                            ? "bg-green-400/10 border border-green-400/30"
+                            : item.type === "remove"
+                            ? "bg-red-400/10 border border-red-400/30"
+                            : "bg-orange-400/10 border border-orange-400/30"
                         }`}
                       >
-                        {item.type === 'add' ? (
+                        {item.type === "add" ? (
                           <Plus
                             className={`w-5 h-5 ${
-                              item.type === 'add' ? 'text-green-400' : ''
+                              item.type === "add" ? "text-green-400" : ""
                             }`}
                           />
-                        ) : item.type === 'remove' ? (
+                        ) : item.type === "remove" ? (
                           <Minus className="w-5 h-5 text-red-400" />
                         ) : (
                           <History className="w-5 h-5 text-orange-400" />
@@ -440,14 +465,14 @@ export function ProductDetailModal({
                     <div className="text-left">
                       <p
                         className={`text-xl font-['Arial'] font-bold ${
-                          item.type === 'add'
-                            ? 'text-green-400'
-                            : item.type === 'remove'
-                            ? 'text-red-400'
-                            : 'text-orange-400'
+                          item.type === "add"
+                            ? "text-green-400"
+                            : item.type === "remove"
+                            ? "text-red-400"
+                            : "text-orange-400"
                         }`}
                       >
-                        {item.type === 'add' ? '+' : ''}
+                        {item.type === "add" ? "+" : ""}
                         {item.quantity}
                       </p>
                       <p className="text-xs font-['Almarai'] text-[#c2c7ce]">

@@ -959,7 +959,7 @@ export class SplitBillService {
 
     return {
       id: `split-${Date.now()}`,
-      splitType: "equal",
+      type: "equal",
       parts: splitParts,
       totalAmount: total,
     };
@@ -994,7 +994,7 @@ export class SplitBillService {
 
     return {
       id: `split-${Date.now()}`,
-      splitType: "by_item",
+      type: "by_item",
       parts: splitParts,
       totalAmount: splitParts.reduce((sum, part) => sum + part.amount, 0),
     };

@@ -3,24 +3,40 @@
  * NerdPOS - Matching POS Screen Design
  */
 
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { MainNavigation } from '../../../components/main-navigation';
-import { CustomersService, LOYALTY_PROGRAMS } from '../services/customers.service';
-import { Customer, CustomerStats, LoyaltyTier } from '../types/customers.types';
-import { Users, Search, Plus, TrendingUp, Award, Phone, Mail, ShoppingBag, Star } from 'lucide-react';
-import { motion } from 'motion/react';
-import { NerdPOSColors } from '../../../core/theme/nerdpos-styles';
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { MainNavigation } from "../../../components/main-navigation";
+import {
+  CustomersService,
+  LOYALTY_PROGRAMS,
+} from "../services/customers.service";
+import type {
+  Customer,
+  CustomerStats,
+  LoyaltyTier,
+} from "../types/customers.types";
+import {
+  Users,
+  Search,
+  Plus,
+  Award,
+  Phone,
+  Mail,
+  ShoppingBag,
+  Star,
+} from "lucide-react";
+import { motion } from "motion/react";
+import { NerdPOSColors } from "../../../core/theme/nerdpos-styles";
 
 export default function CustomersScreen() {
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const isRTL = i18n.language === "ar";
 
   const [loading, setLoading] = useState(true);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [stats, setStats] = useState<CustomerStats | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTier, setSelectedTier] = useState<LoyaltyTier | 'all'>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTier, setSelectedTier] = useState<LoyaltyTier | "all">("all");
 
   useEffect(() => {
     loadData();
@@ -36,7 +52,7 @@ export default function CustomersScreen() {
       setCustomers(customersData);
       setStats(statsData);
     } catch (error) {
-      console.error('Error loading customers:', error);
+      console.error("Error loading customers:", error);
     } finally {
       setLoading(false);
     }
@@ -44,12 +60,13 @@ export default function CustomersScreen() {
 
   const filteredCustomers = customers.filter((customer) => {
     const matchesSearch =
-      searchQuery === '' ||
+      searchQuery === "" ||
       customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       customer.phone.includes(searchQuery) ||
       customer.email?.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchesTier = selectedTier === 'all' || customer.loyaltyTier === selectedTier;
+    const matchesTier =
+      selectedTier === "all" || customer.loyaltyTier === selectedTier;
 
     return matchesSearch && matchesTier;
   });
@@ -60,17 +77,24 @@ export default function CustomersScreen() {
 
   if (loading) {
     return (
-      <div 
+      <div
         className="min-h-screen flex items-center justify-center"
         style={{ background: NerdPOSColors.background.gradient }}
       >
         <div className="text-center">
-          <div 
+          <div
             className="animate-spin rounded-full h-16 w-16 mx-auto mb-4"
-            style={{ border: `3px solid ${NerdPOSColors.border.subtle}`, borderTop: `3px solid ${NerdPOSColors.brand.primary}` }}
+            style={{
+              border: `3px solid ${NerdPOSColors.border.subtle}`,
+              borderTop: `3px solid ${NerdPOSColors.brand.primary}`,
+            }}
           />
-          <p className="font-['Almarai']" style={{ color: NerdPOSColors.text.secondary, fontSize: '14px' }} dir="auto">
-            {isRTL ? 'جاري التحميل...' : 'Loading...'}
+          <p
+            className="font-['Almarai']"
+            style={{ color: NerdPOSColors.text.secondary, fontSize: "14px" }}
+            dir="auto"
+          >
+            {isRTL ? "جاري التحميل..." : "Loading..."}
           </p>
         </div>
       </div>
@@ -78,31 +102,40 @@ export default function CustomersScreen() {
   }
 
   return (
-    <div 
-      className="min-h-screen" 
+    <div
+      className="min-h-screen"
       style={{ background: NerdPOSColors.background.gradient }}
     >
       <MainNavigation />
 
-      <div className="pt-6 pb-24 px-4" style={{ marginRight: '80px' }} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div
+        className="pt-6 pb-24 px-4"
+        style={{ marginRight: "80px" }}
+        dir={isRTL ? "rtl" : "ltr"}
+      >
         {/* Header with Action Button */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1 text-right" dir="auto">
-              {isRTL ? 'إدارة العملاء' : 'Customer Management'}
+            <h1
+              className="text-2xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1 text-right"
+              dir="auto"
+            >
+              {isRTL ? "إدارة العملاء" : "Customer Management"}
             </h1>
             <p className="text-base text-[#c2c7ce] font-['Almarai']" dir="auto">
-              {isRTL ? 'إدارة قاعدة بيانات العملاء وبرنامج الولاء' : 'Manage customer database and loyalty program'}
+              {isRTL
+                ? "إدارة قاعدة بيانات العملاء وبرنامج الولاء"
+                : "Manage customer database and loyalty program"}
             </p>
           </div>
-          
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="h-12 px-6 bg-cyan-400 text-[#00373a] rounded-xl font-['Almarai'] font-bold flex items-center gap-2 transition-all hover:bg-cyan-300 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
           >
             <Plus className="w-5 h-5" />
-            <span dir="auto">{isRTL ? 'عميل جديد' : 'New Customer'}</span>
+            <span dir="auto">{isRTL ? "عميل جديد" : "New Customer"}</span>
           </motion.button>
         </div>
 
@@ -114,8 +147,11 @@ export default function CustomersScreen() {
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.totalCustomers}
               </div>
-              <div className="text-sm font-['Almarai'] text-[#c2c7ce]" dir="auto">
-                {isRTL ? 'إجمالي العملاء' : 'Total Customers'}
+              <div
+                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                dir="auto"
+              >
+                {isRTL ? "إجمالي العملاء" : "Total Customers"}
               </div>
             </div>
 
@@ -124,8 +160,11 @@ export default function CustomersScreen() {
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.activeCustomers}
               </div>
-              <div className="text-sm font-['Almarai'] text-[#c2c7ce]" dir="auto">
-                {isRTL ? 'النشطين' : 'Active'}
+              <div
+                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                dir="auto"
+              >
+                {isRTL ? "النشطين" : "Active"}
               </div>
             </div>
 
@@ -134,7 +173,10 @@ export default function CustomersScreen() {
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.vipCustomers}
               </div>
-              <div className="text-sm font-['Almarai'] text-[#c2c7ce]" dir="auto">
+              <div
+                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                dir="auto"
+              >
                 VIP
               </div>
             </div>
@@ -142,10 +184,13 @@ export default function CustomersScreen() {
             {/* Average Orders */}
             <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
-                {stats.averageOrders?.toFixed(1) || '0.0'}
+                {stats.averageOrders?.toFixed(1) || "0.0"}
               </div>
-              <div className="text-sm font-['Almarai'] text-[#c2c7ce]" dir="auto">
-                {isRTL ? 'متوسط الطلبات' : 'Avg Orders'}
+              <div
+                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                dir="auto"
+              >
+                {isRTL ? "متوسط الطلبات" : "Avg Orders"}
               </div>
             </div>
           </div>
@@ -159,12 +204,15 @@ export default function CustomersScreen() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={isRTL ? 'ابحث عن عميل...' : 'Search customer...'}
+              placeholder={isRTL ? "ابحث عن عميل..." : "Search customer..."}
               className="w-full h-12 px-4 pr-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-base text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all"
-              style={{ textAlign: isRTL ? 'right' : 'left' }}
-              dir={isRTL ? 'rtl' : 'ltr'}
+              style={{ textAlign: isRTL ? "right" : "left" }}
+              dir={isRTL ? "rtl" : "ltr"}
             />
-            <Search className="absolute w-5 h-5 text-[#c2c7ce] top-3.5" style={{ [isRTL ? 'right' : 'left']: '16px' }} />
+            <Search
+              className="absolute w-5 h-5 text-[#c2c7ce] top-3.5"
+              style={{ [isRTL ? "right" : "left"]: "16px" }}
+            />
           </div>
 
           {/* Tier Filter Dropdown */}
@@ -173,14 +221,16 @@ export default function CustomersScreen() {
               value={selectedTier}
               onChange={(e) => setSelectedTier(e.target.value as any)}
               className="h-12 px-6 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] text-base font-['Almarai'] hover:border-cyan-400/50 transition-colors appearance-none cursor-pointer min-w-[200px]"
-              style={{ textAlign: isRTL ? 'right' : 'left' }}
-              dir={isRTL ? 'rtl' : 'ltr'}
+              style={{ textAlign: isRTL ? "right" : "left" }}
+              dir={isRTL ? "rtl" : "ltr"}
             >
-              <option value="all">{isRTL ? 'جميع المستويات' : 'All Tiers'}</option>
-              <option value="bronze">{isRTL ? 'برونزي' : 'Bronze'}</option>
-              <option value="silver">{isRTL ? 'فضي' : 'Silver'}</option>
-              <option value="gold">{isRTL ? 'ذهبي' : 'Gold'}</option>
-              <option value="platinum">{isRTL ? 'بلاتيني' : 'Platinum'}</option>
+              <option value="all">
+                {isRTL ? "جميع المستويات" : "All Tiers"}
+              </option>
+              <option value="bronze">{isRTL ? "برونزي" : "Bronze"}</option>
+              <option value="silver">{isRTL ? "فضي" : "Silver"}</option>
+              <option value="gold">{isRTL ? "ذهبي" : "Gold"}</option>
+              <option value="platinum">{isRTL ? "بلاتيني" : "Platinum"}</option>
             </select>
           </div>
         </div>
@@ -191,19 +241,26 @@ export default function CustomersScreen() {
             <div className="w-24 h-24 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center mb-4">
               <Users className="w-12 h-12 text-[#c2c7ce] opacity-50" />
             </div>
-            <h3 className="text-xl font-['Almarai'] text-[#e2e2e6] mb-2" dir="auto">
-              {isRTL ? 'لا توجد نتائج' : 'No Results'}
+            <h3
+              className="text-xl font-['Almarai'] text-[#e2e2e6] mb-2"
+              dir="auto"
+            >
+              {isRTL ? "لا توجد نتائج" : "No Results"}
             </h3>
             <p className="text-base text-[#c2c7ce]" dir="auto">
-              {isRTL ? 'لم يتم العثور على عملاء مطابقين' : 'No matching customers found'}
+              {isRTL
+                ? "لم يتم العثور على عملاء مطابقين"
+                : "No matching customers found"}
             </p>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {filteredCustomers.map((customer, index) => {
               const program = getLoyaltyProgram(customer.loyaltyTier);
-              const isVIP = customer.loyaltyTier === 'gold' || customer.loyaltyTier === 'platinum';
-              
+              const isVIP =
+                customer.loyaltyTier === "gold" ||
+                customer.loyaltyTier === "platinum";
+
               return (
                 <motion.div
                   key={customer.id}
@@ -212,26 +269,33 @@ export default function CustomersScreen() {
                   transition={{ delay: index * 0.03 }}
                   whileHover={{ scale: 1.03 }}
                   className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.1)] rounded-xl p-4 hover:border-cyan-400/50 hover:shadow-lg transition-all cursor-pointer"
-                  style={{ textAlign: isRTL ? 'right' : 'left' }}
-                  dir={isRTL ? 'rtl' : 'ltr'}
+                  style={{ textAlign: isRTL ? "right" : "left" }}
+                  dir={isRTL ? "rtl" : "ltr"}
                 >
                   {/* Header: Name + Avatar */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h3 className="text-base font-['Almarai'] font-bold text-[#e2e2e6] mb-2 line-clamp-1" dir="auto">
+                      <h3
+                        className="text-base font-['Almarai'] font-bold text-[#e2e2e6] mb-2 line-clamp-1"
+                        dir="auto"
+                      >
                         {customer.name}
                       </h3>
                       <button className="w-6 h-6 rounded-md flex items-center justify-center hover:bg-[rgba(255,255,255,0.1)] transition-colors">
                         <Star className="w-4 h-4 text-[#c2c7ce]" />
                       </button>
                     </div>
-                    
+
                     {/* Avatar Circle */}
-                    <div 
+                    <div
                       className="w-12 h-12 rounded-full flex items-center justify-center font-['Almarai'] text-lg font-bold flex-shrink-0"
-                      style={{ 
-                        backgroundColor: isVIP ? (customer.loyaltyTier === 'platinum' ? '#E5E4E2' : '#FFD700') : '#ffffff',
-                        color: isVIP ? '#1a1c1e' : '#1a1c1e'
+                      style={{
+                        backgroundColor: isVIP
+                          ? customer.loyaltyTier === "platinum"
+                            ? "#E5E4E2"
+                            : "#FFD700"
+                          : "#ffffff",
+                        color: isVIP ? "#1a1c1e" : "#1a1c1e",
                       }}
                     >
                       {customer.name.charAt(0)}
@@ -242,12 +306,16 @@ export default function CustomersScreen() {
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center gap-2 text-sm">
                       <Phone className="w-4 h-4 text-[#c2c7ce] flex-shrink-0" />
-                      <span className="font-['Inter'] text-[#e2e2e6] truncate">{customer.phone}</span>
+                      <span className="font-['Inter'] text-[#e2e2e6] truncate">
+                        {customer.phone}
+                      </span>
                     </div>
                     {customer.email && (
                       <div className="flex items-center gap-2 text-sm">
                         <Mail className="w-4 h-4 text-[#c2c7ce] flex-shrink-0" />
-                        <span className="font-['Inter'] text-[#e2e2e6] truncate">{customer.email}</span>
+                        <span className="font-['Inter'] text-[#e2e2e6] truncate">
+                          {customer.email}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -255,22 +323,34 @@ export default function CustomersScreen() {
                   {/* Stats Row - Matching POS design */}
                   <div className="flex items-center justify-between pt-3 border-t border-[rgba(255,255,255,0.1)]">
                     <div className="flex items-center gap-1.5">
-                      <Award className="w-4 h-4" style={{ color: program?.color || '#FFD700' }} />
-                      <span className="text-sm font-['Inter'] font-bold" style={{ color: program?.color || '#FFD700' }}>
+                      <Award
+                        className="w-4 h-4"
+                        style={{ color: program?.color || "#FFD700" }}
+                      />
+                      <span
+                        className="text-sm font-['Inter'] font-bold"
+                        style={{ color: program?.color || "#FFD700" }}
+                      >
                         {customer.loyaltyPoints}
                       </span>
-                      <span className="text-xs font-['Almarai'] text-[#c2c7ce]" dir="auto">
-                        {isRTL ? 'نقطة' : 'pts'}
+                      <span
+                        className="text-xs font-['Almarai'] text-[#c2c7ce]"
+                        dir="auto"
+                      >
+                        {isRTL ? "نقطة" : "pts"}
                       </span>
                     </div>
-                    
+
                     <div className="flex items-center gap-1.5">
                       <ShoppingBag className="w-4 h-4 text-cyan-400" />
                       <span className="text-sm font-['Inter'] font-bold text-[#e2e2e6]">
                         {customer.totalOrders}
                       </span>
-                      <span className="text-xs font-['Almarai'] text-[#c2c7ce]" dir="auto">
-                        {isRTL ? 'طلب' : 'orders'}
+                      <span
+                        className="text-xs font-['Almarai'] text-[#c2c7ce]"
+                        dir="auto"
+                      >
+                        {isRTL ? "طلب" : "orders"}
                       </span>
                     </div>
                   </div>

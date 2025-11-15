@@ -3,8 +3,8 @@
  * View and manage all warehouses
  */
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   X,
   Warehouse as WarehouseIcon,
@@ -14,8 +14,8 @@ import {
   Package,
   TrendingUp,
   CheckCircle,
-} from 'lucide-react';
-import { Warehouse } from '../types/inventory.types';
+} from "lucide-react";
+import type { Warehouse } from "../types/inventory.types";
 
 interface WarehouseListModalProps {
   isOpen: boolean;
@@ -39,19 +39,22 @@ export function WarehouseListModal({
   };
 
   const getUsageColor = (percentage: number) => {
-    if (percentage >= 90) return 'text-red-400';
-    if (percentage >= 70) return 'text-orange-400';
-    return 'text-green-400';
+    if (percentage >= 90) return "text-red-400";
+    if (percentage >= 70) return "text-orange-400";
+    return "text-green-400";
   };
 
   const getUsageBarColor = (percentage: number) => {
-    if (percentage >= 90) return 'from-red-400 to-red-600';
-    if (percentage >= 70) return 'from-orange-400 to-orange-600';
-    return 'from-green-400 to-green-600';
+    if (percentage >= 90) return "from-red-400 to-red-600";
+    if (percentage >= 70) return "from-orange-400 to-orange-600";
+    return "from-green-400 to-green-600";
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" dir="rtl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8"
+      dir="rtl"
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -117,7 +120,9 @@ export function WarehouseListModal({
                 السعة الإجمالية
               </p>
               <p className="text-2xl font-['Arial'] font-bold text-cyan-400">
-                {warehouses.reduce((sum, w) => sum + w.capacity, 0).toLocaleString('ar-SA')}
+                {warehouses
+                  .reduce((sum, w) => sum + w.capacity, 0)
+                  .toLocaleString("ar-SA")}
               </p>
             </div>
             <div className="p-3 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
@@ -125,7 +130,9 @@ export function WarehouseListModal({
                 المستخدم
               </p>
               <p className="text-2xl font-['Arial'] font-bold text-orange-400">
-                {warehouses.reduce((sum, w) => sum + w.used, 0).toLocaleString('ar-SA')}
+                {warehouses
+                  .reduce((sum, w) => sum + w.used, 0)
+                  .toLocaleString("ar-SA")}
               </p>
             </div>
             <div className="p-3 rounded-xl bg-gradient-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-green-400/20">
@@ -135,7 +142,7 @@ export function WarehouseListModal({
               <p className="text-2xl font-['Arial'] font-bold text-green-400">
                 {warehouses
                   .reduce((sum, w) => sum + (w.capacity - w.used), 0)
-                  .toLocaleString('ar-SA')}
+                  .toLocaleString("ar-SA")}
               </p>
             </div>
           </div>
@@ -212,7 +219,9 @@ export function WarehouseListModal({
                             className={`h-full bg-gradient-to-l ${getUsageBarColor(
                               usagePercentage
                             )} transition-all`}
-                            style={{ width: `${Math.min(usagePercentage, 100)}%` }}
+                            style={{
+                              width: `${Math.min(usagePercentage, 100)}%`,
+                            }}
                           />
                         </div>
                       </div>
@@ -227,7 +236,7 @@ export function WarehouseListModal({
                             </span>
                           </div>
                           <p className="text-sm font-['Arial'] font-bold text-[#e2e2e6]">
-                            {warehouse.capacity.toLocaleString('ar-SA')}
+                            {warehouse.capacity.toLocaleString("ar-SA")}
                           </p>
                         </div>
                         <div className="p-2 rounded-lg bg-[rgba(255,255,255,0.03)]">
@@ -238,7 +247,7 @@ export function WarehouseListModal({
                             </span>
                           </div>
                           <p className="text-sm font-['Arial'] font-bold text-[#e2e2e6]">
-                            {warehouse.used.toLocaleString('ar-SA')}
+                            {warehouse.used.toLocaleString("ar-SA")}
                           </p>
                         </div>
                         <div className="p-2 rounded-lg bg-[rgba(255,255,255,0.03)]">
@@ -249,7 +258,9 @@ export function WarehouseListModal({
                             </span>
                           </div>
                           <p className="text-sm font-['Arial'] font-bold text-[#e2e2e6]">
-                            {(warehouse.capacity - warehouse.used).toLocaleString('ar-SA')}
+                            {(
+                              warehouse.capacity - warehouse.used
+                            ).toLocaleString("ar-SA")}
                           </p>
                         </div>
                       </div>
@@ -262,13 +273,17 @@ export function WarehouseListModal({
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
                 <WarehouseIcon className="w-16 h-16 text-[#c2c7ce] opacity-50 mx-auto mb-4" />
-                <p className="text-[#c2c7ce] font-['Almarai'] mb-4">لا توجد مستودعات</p>
+                <p className="text-[#c2c7ce] font-['Almarai'] mb-4">
+                  لا توجد مستودعات
+                </p>
                 <button
                   onClick={onAddWarehouse}
                   className="px-6 py-3 rounded-xl bg-gradient-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 shadow-lg transition-all flex items-center gap-2 mx-auto"
                 >
                   <Plus className="w-5 h-5" />
-                  <span className="font-['Almarai'] font-bold">إضافة مستودع جديد</span>
+                  <span className="font-['Almarai'] font-bold">
+                    إضافة مستودع جديد
+                  </span>
                 </button>
               </div>
             </div>

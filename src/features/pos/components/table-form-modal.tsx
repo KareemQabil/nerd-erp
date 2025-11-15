@@ -3,10 +3,10 @@
  * Add/Edit table with full details
  */
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { X, Save, AlertCircle, Users, MapPin } from 'lucide-react';
-import { Table } from '../types/pos.types';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { X, Save, AlertCircle, Users, MapPin } from "lucide-react";
+import type { Table } from "../types/pos.types";
 
 interface TableFormModalProps {
   isOpen: boolean;
@@ -15,15 +15,20 @@ interface TableFormModalProps {
   onSave: (table: Partial<Table>) => Promise<void>;
 }
 
-export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModalProps) {
+export function TableFormModal({
+  isOpen,
+  onClose,
+  table,
+  onSave,
+}: TableFormModalProps) {
   const [formData, setFormData] = useState({
-    number: '',
-    zone: 'indoor' as 'indoor' | 'outdoor' | 'vip',
-    capacity: '4',
-    status: 'available' as Table['status'],
+    number: "",
+    zone: "indoor" as "indoor" | "outdoor" | "vip",
+    capacity: "4",
+    status: "available" as Table["status"],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const isEditMode = !!table;
 
@@ -31,35 +36,35 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
     if (table) {
       setFormData({
         number: table.number,
-        zone: table.zone,
+        zone: table.zone as "indoor" | "outdoor" | "vip",
         capacity: table.capacity.toString(),
         status: table.status,
       });
     } else {
       setFormData({
-        number: '',
-        zone: 'indoor',
-        capacity: '4',
-        status: 'available',
+        number: "",
+        zone: "indoor",
+        capacity: "4",
+        status: "available",
       });
     }
-    setError('');
+    setError("");
   }, [table, isOpen]);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!formData.number.trim()) {
-      setError('رقم الطاولة مطلوب');
+      setError("رقم الطاولة مطلوب");
       return;
     }
 
     const capacity = parseInt(formData.capacity);
     if (isNaN(capacity) || capacity < 1) {
-      setError('السعة يجب أن تكون رقم أكبر من صفر');
+      setError("السعة يجب أن تكون رقم أكبر من صفر");
       return;
     }
 
@@ -74,14 +79,17 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
       });
       onClose();
     } catch (error) {
-      setError('فشل حفظ الطاولة');
+      setError("فشل حفظ الطاولة");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" dir="rtl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8"
+      dir="rtl"
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -103,10 +111,12 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
         <div className="flex items-center justify-between px-6 py-5 border-b border-[rgba(255,255,255,0.1)]">
           <div>
             <h2 className="text-lg font-['Almarai'] font-bold text-[#e2e2e6]">
-              {isEditMode ? 'تعديل الطاولة' : 'إضافة طاولة جديدة'}
+              {isEditMode ? "تعديل الطاولة" : "إضافة طاولة جديدة"}
             </h2>
             {isEditMode && table && (
-              <p className="text-sm text-[#c2c7ce] font-['Almarai']">طاولة رقم {table.number}</p>
+              <p className="text-sm text-[#c2c7ce] font-['Almarai']">
+                طاولة رقم {table.number}
+              </p>
             )}
           </div>
           <button
@@ -128,7 +138,9 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
             <input
               type="text"
               value={formData.number}
-              onChange={(e) => setFormData({ ...formData, number: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, number: e.target.value })
+              }
               placeholder="مثال: 1 أو A1"
               className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] placeholder:text-[#6b7280] focus:outline-none focus:border-cyan-400/50 transition-colors"
               required
@@ -146,11 +158,11 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
             <div className="grid grid-cols-3 gap-3">
               <button
                 type="button"
-                onClick={() => setFormData({ ...formData, zone: 'indoor' })}
+                onClick={() => setFormData({ ...formData, zone: "indoor" })}
                 className={`px-4 py-3 rounded-xl font-['Almarai'] transition-all ${
-                  formData.zone === 'indoor'
-                    ? 'bg-cyan-400 text-[#00373a] shadow-lg'
-                    : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50'
+                  formData.zone === "indoor"
+                    ? "bg-cyan-400 text-[#00373a] shadow-lg"
+                    : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
                 }`}
                 disabled={isSubmitting}
               >
@@ -158,11 +170,11 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
               </button>
               <button
                 type="button"
-                onClick={() => setFormData({ ...formData, zone: 'outdoor' })}
+                onClick={() => setFormData({ ...formData, zone: "outdoor" })}
                 className={`px-4 py-3 rounded-xl font-['Almarai'] transition-all ${
-                  formData.zone === 'outdoor'
-                    ? 'bg-cyan-400 text-[#00373a] shadow-lg'
-                    : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50'
+                  formData.zone === "outdoor"
+                    ? "bg-cyan-400 text-[#00373a] shadow-lg"
+                    : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
                 }`}
                 disabled={isSubmitting}
               >
@@ -170,11 +182,11 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
               </button>
               <button
                 type="button"
-                onClick={() => setFormData({ ...formData, zone: 'vip' })}
+                onClick={() => setFormData({ ...formData, zone: "vip" })}
                 className={`px-4 py-3 rounded-xl font-['Almarai'] transition-all ${
-                  formData.zone === 'vip'
-                    ? 'bg-cyan-400 text-[#00373a] shadow-lg'
-                    : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50'
+                  formData.zone === "vip"
+                    ? "bg-cyan-400 text-[#00373a] shadow-lg"
+                    : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
                 }`}
                 disabled={isSubmitting}
               >
@@ -194,7 +206,9 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
               min="1"
               max="20"
               value={formData.capacity}
-              onChange={(e) => setFormData({ ...formData, capacity: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, capacity: e.target.value })
+              }
               className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] focus:outline-none focus:border-cyan-400/50 transition-colors"
               required
               disabled={isSubmitting}
@@ -210,11 +224,13 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
-                  onClick={() => setFormData({ ...formData, status: 'available' })}
+                  onClick={() =>
+                    setFormData({ ...formData, status: "available" })
+                  }
                   className={`px-4 py-3 rounded-xl font-['Almarai'] transition-all ${
-                    formData.status === 'available'
-                      ? 'bg-green-500 text-white shadow-lg'
-                      : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-green-500/50'
+                    formData.status === "available"
+                      ? "bg-green-500 text-white shadow-lg"
+                      : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-green-500/50"
                   }`}
                   disabled={isSubmitting}
                 >
@@ -222,11 +238,13 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
                 </button>
                 <button
                   type="button"
-                  onClick={() => setFormData({ ...formData, status: 'reserved' })}
+                  onClick={() =>
+                    setFormData({ ...formData, status: "reserved" })
+                  }
                   className={`px-4 py-3 rounded-xl font-['Almarai'] transition-all ${
-                    formData.status === 'reserved'
-                      ? 'bg-orange-500 text-white shadow-lg'
-                      : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-orange-500/50'
+                    formData.status === "reserved"
+                      ? "bg-orange-500 text-white shadow-lg"
+                      : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-orange-500/50"
                   }`}
                   disabled={isSubmitting}
                 >
@@ -234,11 +252,13 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
                 </button>
                 <button
                   type="button"
-                  onClick={() => setFormData({ ...formData, status: 'cleaning' })}
+                  onClick={() =>
+                    setFormData({ ...formData, status: "cleaning" })
+                  }
                   className={`px-4 py-3 rounded-xl font-['Almarai'] transition-all ${
-                    formData.status === 'cleaning'
-                      ? 'bg-gray-500 text-white shadow-lg'
-                      : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-gray-500/50'
+                    formData.status === "cleaning"
+                      ? "bg-gray-500 text-white shadow-lg"
+                      : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-gray-500/50"
                   }`}
                   disabled={isSubmitting}
                 >
@@ -246,11 +266,13 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
                 </button>
                 <button
                   type="button"
-                  onClick={() => setFormData({ ...formData, status: 'occupied' })}
+                  onClick={() =>
+                    setFormData({ ...formData, status: "occupied" })
+                  }
                   className={`px-4 py-3 rounded-xl font-['Almarai'] transition-all ${
-                    formData.status === 'occupied'
-                      ? 'bg-red-500 text-white shadow-lg'
-                      : 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-red-500/50'
+                    formData.status === "occupied"
+                      ? "bg-red-500 text-white shadow-lg"
+                      : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-red-500/50"
                   }`}
                   disabled={isSubmitting}
                 >
@@ -286,7 +308,13 @@ export function TableFormModal({ isOpen, onClose, table, onSave }: TableFormModa
             className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
           >
             <Save className="w-5 h-5" />
-            <span>{isSubmitting ? 'جاري الحفظ...' : isEditMode ? 'حفظ التعديلات' : 'إضافة الطاولة'}</span>
+            <span>
+              {isSubmitting
+                ? "جاري الحفظ..."
+                : isEditMode
+                ? "حفظ التعديلات"
+                : "إضافة الطاولة"}
+            </span>
           </button>
         </div>
       </motion.div>

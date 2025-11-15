@@ -3,8 +3,8 @@
  * Add/Edit product with full details
  */
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   X,
   Package,
@@ -21,8 +21,13 @@ import {
   TrendingUp,
   TrendingDown,
   Image as ImageIcon,
-} from 'lucide-react';
-import { Product, Category, Warehouse, Supplier } from '../types/inventory.types';
+} from "lucide-react";
+import type {
+  Product,
+  Category,
+  Warehouse,
+  Supplier,
+} from "../types/inventory.types";
 
 interface ProductFormModalProps {
   isOpen: boolean;
@@ -50,25 +55,27 @@ export function ProductFormModal({
   onSave,
 }: ProductFormModalProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    nameEn: '',
-    sku: '',
-    barcode: '',
-    description: '',
-    categoryId: '',
-    price: '',
-    cost: '',
-    unit: 'قطعة',
-    supplierId: '',
-    minStock: '',
-    maxStock: '',
-    reorderPoint: '',
-    status: 'active' as 'active' | 'inactive' | 'discontinued',
+    name: "",
+    nameEn: "",
+    sku: "",
+    barcode: "",
+    description: "",
+    categoryId: "",
+    price: "",
+    cost: "",
+    unit: "قطعة",
+    supplierId: "",
+    minStock: "",
+    maxStock: "",
+    reorderPoint: "",
+    status: "active" as "active" | "inactive" | "discontinued",
   });
 
-  const [warehouseStocks, setWarehouseStocks] = useState<WarehouseStockInput[]>([]);
+  const [warehouseStocks, setWarehouseStocks] = useState<WarehouseStockInput[]>(
+    []
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const isEditMode = !!product;
 
@@ -76,15 +83,15 @@ export function ProductFormModal({
     if (product) {
       setFormData({
         name: product.name,
-        nameEn: product.nameEn || '',
+        nameEn: product.nameEn || "",
         sku: product.sku,
-        barcode: product.barcode || '',
-        description: product.description || '',
+        barcode: product.barcode || "",
+        description: product.description || "",
         categoryId: product.category.id,
         price: product.price.toString(),
         cost: product.cost.toString(),
         unit: product.unit,
-        supplierId: product.supplier?.id || '',
+        supplierId: product.supplier?.id || "",
         minStock: product.minStock.toString(),
         maxStock: product.maxStock.toString(),
         reorderPoint: product.reorderPoint.toString(),
@@ -110,51 +117,51 @@ export function ProductFormModal({
         ]);
       }
       setFormData({
-        name: '',
-        nameEn: '',
+        name: "",
+        nameEn: "",
         sku: `SKU-${Date.now().toString().slice(-6)}`,
-        barcode: '',
-        description: '',
-        categoryId: categories[0]?.id || '',
-        price: '',
-        cost: '',
-        unit: 'قطعة',
-        supplierId: '',
-        minStock: '10',
-        maxStock: '1000',
-        reorderPoint: '50',
-        status: 'active',
+        barcode: "",
+        description: "",
+        categoryId: categories[0]?.id || "",
+        price: "",
+        cost: "",
+        unit: "قطعة",
+        supplierId: "",
+        minStock: "10",
+        maxStock: "1000",
+        reorderPoint: "50",
+        status: "active",
       });
     }
-    setError('');
+    setError("");
   }, [product, isOpen, warehouses, categories]);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Validation
     if (!formData.name.trim()) {
-      setError('اسم المنتج بالعربي مطلوب');
+      setError("اسم المنتج بالعربي مطلوب");
       return;
     }
 
     if (!formData.categoryId) {
-      setError('الفئة مطلوبة');
+      setError("الفئة مطلوبة");
       return;
     }
 
     const price = parseFloat(formData.price);
     if (!formData.price || isNaN(price) || price < 0) {
-      setError('السعر يجب أن يكون رقم صحيح');
+      setError("السعر يجب أن يكون رقم صحيح");
       return;
     }
 
     const cost = parseFloat(formData.cost);
     if (!formData.cost || isNaN(cost) || cost < 0) {
-      setError('التكلفة يجب أن تكون رقم صحيح');
+      setError("التكلفة يجب أن تكون رقم صحيح");
       return;
     }
 
@@ -163,17 +170,17 @@ export function ProductFormModal({
     const reorderPoint = parseInt(formData.reorderPoint);
 
     if (isNaN(minStock) || isNaN(maxStock) || isNaN(reorderPoint)) {
-      setError('قيم المخزون يجب أن تكون أرقام صحيحة');
+      setError("قيم المخزون يجب أن تكون أرقام صحيحة");
       return;
     }
 
     if (minStock > maxStock) {
-      setError('الحد الأدنى يجب أن يكون أقل من الحد الأقصى');
+      setError("الحد الأدنى يجب أن يكون أقل من الحد الأقصى");
       return;
     }
 
     if (warehouseStocks.length === 0) {
-      setError('يجب إضافة مخزون في مستودع واحد على الأقل');
+      setError("يجب إضافة مخزون في مستودع واحد على الأقل");
       return;
     }
 
@@ -201,7 +208,7 @@ export function ProductFormModal({
         warehouses: warehouseStocks.map((ws) => ({
           warehouseId: ws.warehouseId,
           warehouseName:
-            warehouses.find((w) => w.id === ws.warehouseId)?.name || '',
+            warehouses.find((w) => w.id === ws.warehouseId)?.name || "",
           quantity: ws.quantity,
           reserved: ws.reserved,
           available: ws.quantity - ws.reserved,
@@ -209,7 +216,7 @@ export function ProductFormModal({
       });
       onClose();
     } catch (error) {
-      setError('فشل حفظ المنتج');
+      setError("فشل حفظ المنتج");
     } finally {
       setIsSubmitting(false);
     }
@@ -237,14 +244,15 @@ export function ProductFormModal({
 
   const updateWarehouseStock = (
     index: number,
-    field: 'warehouseId' | 'quantity' | 'reserved',
+    field: "warehouseId" | "quantity" | "reserved",
     value: string | number
   ) => {
     const updated = [...warehouseStocks];
-    if (field === 'warehouseId') {
+    if (field === "warehouseId") {
       updated[index].warehouseId = value as string;
     } else {
-      updated[index][field] = typeof value === 'string' ? parseInt(value) || 0 : value;
+      updated[index][field] =
+        typeof value === "string" ? parseInt(value) || 0 : value;
     }
     setWarehouseStocks(updated);
   };
@@ -254,7 +262,10 @@ export function ProductFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" dir="rtl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8"
+      dir="rtl"
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -280,10 +291,12 @@ export function ProductFormModal({
             </div>
             <div>
               <h2 className="text-lg font-['Almarai'] font-bold text-[#e2e2e6]">
-                {isEditMode ? 'تعديل المنتج' : 'إضافة منتج جديد'}
+                {isEditMode ? "تعديل المنتج" : "إضافة منتج جديد"}
               </h2>
               {isEditMode && product && (
-                <p className="text-sm text-[#c2c7ce] font-['Almarai']">{product.name}</p>
+                <p className="text-sm text-[#c2c7ce] font-['Almarai']">
+                  {product.name}
+                </p>
               )}
             </div>
           </div>
@@ -314,7 +327,9 @@ export function ProductFormModal({
                   <input
                     type="text"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     placeholder="مثال: كابتشينو"
                     className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] placeholder:text-[#6b7280] focus:outline-none focus:border-cyan-400/50 transition-colors"
                     dir="rtl"
@@ -331,7 +346,9 @@ export function ProductFormModal({
                   <input
                     type="text"
                     value={formData.nameEn}
-                    onChange={(e) => setFormData({ ...formData, nameEn: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, nameEn: e.target.value })
+                    }
                     placeholder="Example: Cappuccino"
                     className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] placeholder:text-[#6b7280] focus:outline-none focus:border-cyan-400/50 transition-colors"
                     dir="ltr"
@@ -350,7 +367,9 @@ export function ProductFormModal({
                       <input
                         type="text"
                         value={formData.sku}
-                        onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, sku: e.target.value })
+                        }
                         placeholder="SKU-001"
                         className="w-full pr-11 pl-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] placeholder:text-[#6b7280] focus:outline-none focus:border-cyan-400/50 transition-colors"
                         required
@@ -408,7 +427,9 @@ export function ProductFormModal({
                     </label>
                     <select
                       value={formData.unit}
-                      onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, unit: e.target.value })
+                      }
                       className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
                       dir="rtl"
                       required
@@ -438,7 +459,9 @@ export function ProductFormModal({
                         min="0"
                         step="0.01"
                         value={formData.price}
-                        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, price: e.target.value })
+                        }
                         placeholder="0.00"
                         className="w-full pr-11 pl-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] placeholder:text-[#6b7280] focus:outline-none focus:border-cyan-400/50 transition-colors"
                         required
@@ -457,7 +480,9 @@ export function ProductFormModal({
                         min="0"
                         step="0.01"
                         value={formData.cost}
-                        onChange={(e) => setFormData({ ...formData, cost: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, cost: e.target.value })
+                        }
                         placeholder="0.00"
                         className="w-full pr-11 pl-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] placeholder:text-[#6b7280] focus:outline-none focus:border-cyan-400/50 transition-colors"
                         required
@@ -499,7 +524,10 @@ export function ProductFormModal({
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          status: e.target.value as 'active' | 'inactive' | 'discontinued',
+                          status: e.target.value as
+                            | "active"
+                            | "inactive"
+                            | "discontinued",
                         })
                       }
                       className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
@@ -555,7 +583,10 @@ export function ProductFormModal({
                           min="0"
                           value={formData.minStock}
                           onChange={(e) =>
-                            setFormData({ ...formData, minStock: e.target.value })
+                            setFormData({
+                              ...formData,
+                              minStock: e.target.value,
+                            })
                           }
                           className="w-full pr-8 pl-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
                           disabled={isSubmitting}
@@ -573,7 +604,10 @@ export function ProductFormModal({
                           min="0"
                           value={formData.reorderPoint}
                           onChange={(e) =>
-                            setFormData({ ...formData, reorderPoint: e.target.value })
+                            setFormData({
+                              ...formData,
+                              reorderPoint: e.target.value,
+                            })
                           }
                           className="w-full pr-8 pl-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
                           disabled={isSubmitting}
@@ -591,7 +625,10 @@ export function ProductFormModal({
                           min="0"
                           value={formData.maxStock}
                           onChange={(e) =>
-                            setFormData({ ...formData, maxStock: e.target.value })
+                            setFormData({
+                              ...formData,
+                              maxStock: e.target.value,
+                            })
                           }
                           className="w-full pr-8 pl-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
                           disabled={isSubmitting}
@@ -605,13 +642,15 @@ export function ProductFormModal({
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
-                      المخزون في المستودعات <span className="text-red-400">*</span>
+                      المخزون في المستودعات{" "}
+                      <span className="text-red-400">*</span>
                     </label>
                     <button
                       type="button"
                       onClick={addWarehouseStock}
                       disabled={
-                        warehouseStocks.length >= warehouses.length || isSubmitting
+                        warehouseStocks.length >= warehouses.length ||
+                        isSubmitting
                       }
                       className="px-3 py-1 rounded-lg bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] text-xs font-['Almarai'] disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-1"
                     >
@@ -630,7 +669,11 @@ export function ProductFormModal({
                           <select
                             value={ws.warehouseId}
                             onChange={(e) =>
-                              updateWarehouseStock(index, 'warehouseId', e.target.value)
+                              updateWarehouseStock(
+                                index,
+                                "warehouseId",
+                                e.target.value
+                              )
                             }
                             className="px-3 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Almarai'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
                             dir="rtl"
@@ -655,7 +698,11 @@ export function ProductFormModal({
                             min="0"
                             value={ws.quantity}
                             onChange={(e) =>
-                              updateWarehouseStock(index, 'quantity', e.target.value)
+                              updateWarehouseStock(
+                                index,
+                                "quantity",
+                                e.target.value
+                              )
                             }
                             placeholder="الكمية"
                             className="px-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
@@ -667,7 +714,11 @@ export function ProductFormModal({
                             max={ws.quantity}
                             value={ws.reserved}
                             onChange={(e) =>
-                              updateWarehouseStock(index, 'reserved', e.target.value)
+                              updateWarehouseStock(
+                                index,
+                                "reserved",
+                                e.target.value
+                              )
                             }
                             placeholder="محجوز"
                             className="px-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
@@ -676,7 +727,9 @@ export function ProductFormModal({
                           <button
                             type="button"
                             onClick={() => removeWarehouseStock(index)}
-                            disabled={warehouseStocks.length === 1 || isSubmitting}
+                            disabled={
+                              warehouseStocks.length === 1 || isSubmitting
+                            }
                             className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -708,8 +761,12 @@ export function ProductFormModal({
                       <AlertCircle className="w-5 h-5 text-orange-400" />
                     </div>
                     <div className="text-xs font-['Almarai'] text-orange-300 leading-relaxed">
-                      <p className="mb-2">• الحد الأدنى: عند الوصول له يتم إنشاء تنبيه</p>
-                      <p className="mb-2">• نقطة الطلب: الكمية المثالية لطلب مخزون جديد</p>
+                      <p className="mb-2">
+                        • الحد الأدنى: عند الوصول له يتم إنشاء تنبيه
+                      </p>
+                      <p className="mb-2">
+                        • نقطة الطلب: الكمية المثالية لطلب مخزون جديد
+                      </p>
                       <p>• الحد الأقصى: السعة القصوى للمخزون</p>
                     </div>
                   </div>
@@ -746,10 +803,10 @@ export function ProductFormModal({
             <Save className="w-5 h-5" />
             <span>
               {isSubmitting
-                ? 'جاري الحفظ...'
+                ? "جاري الحفظ..."
                 : isEditMode
-                ? 'حفظ التعديلات'
-                : 'إضافة المنتج'}
+                ? "حفظ التعديلات"
+                : "إضافة المنتج"}
             </span>
           </button>
         </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChefHat, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { KitchenService } from '../services/pos.service';
-import { KitchenOrder, KitchenOrderStatus } from '../types/pos.types';
+import type { KitchenOrder, KitchenOrderStatus } from '../types/pos.types';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function KitchenDisplayScreen() {

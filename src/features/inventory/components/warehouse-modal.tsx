@@ -3,8 +3,8 @@
  * Add/Edit warehouse with full details
  */
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   X,
   Warehouse as WarehouseIcon,
@@ -14,8 +14,8 @@ import {
   AlertCircle,
   CheckCircle,
   Trash2,
-} from 'lucide-react';
-import { Warehouse } from '../types/inventory.types';
+} from "lucide-react";
+import type { Warehouse } from "../types/inventory.types";
 
 interface WarehouseModalProps {
   isOpen: boolean;
@@ -33,13 +33,13 @@ export function WarehouseModal({
   onDelete,
 }: WarehouseModalProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    location: '',
-    capacity: '',
+    name: "",
+    location: "",
+    capacity: "",
     isDefault: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const isEditMode = !!warehouse;
@@ -54,13 +54,13 @@ export function WarehouseModal({
       });
     } else {
       setFormData({
-        name: '',
-        location: '',
-        capacity: '',
+        name: "",
+        location: "",
+        capacity: "",
         isDefault: false,
       });
     }
-    setError('');
+    setError("");
     setShowDeleteConfirm(false);
   }, [warehouse, isOpen]);
 
@@ -68,22 +68,22 @@ export function WarehouseModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Validation
     if (!formData.name.trim()) {
-      setError('اسم المستودع مطلوب');
+      setError("اسم المستودع مطلوب");
       return;
     }
 
     if (!formData.location.trim()) {
-      setError('موقع المستودع مطلوب');
+      setError("موقع المستودع مطلوب");
       return;
     }
 
     const capacity = parseFloat(formData.capacity);
     if (!formData.capacity || isNaN(capacity) || capacity <= 0) {
-      setError('السعة يجب أن تكون رقم أكبر من صفر');
+      setError("السعة يجب أن تكون رقم أكبر من صفر");
       return;
     }
 
@@ -99,7 +99,7 @@ export function WarehouseModal({
       });
       onClose();
     } catch (error) {
-      setError('فشل حفظ المستودع');
+      setError("فشل حفظ المستودع");
     } finally {
       setIsSubmitting(false);
     }
@@ -113,7 +113,7 @@ export function WarehouseModal({
       await onDelete(warehouse.id);
       onClose();
     } catch (error) {
-      setError('فشل حذف المستودع');
+      setError("فشل حذف المستودع");
     } finally {
       setIsSubmitting(false);
       setShowDeleteConfirm(false);
@@ -126,7 +126,10 @@ export function WarehouseModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" dir="rtl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8"
+      dir="rtl"
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -152,7 +155,7 @@ export function WarehouseModal({
             </div>
             <div>
               <h2 className="text-lg font-['Almarai'] font-bold text-[#e2e2e6]">
-                {isEditMode ? 'تعديل المستودع' : 'إضافة مستودع جديد'}
+                {isEditMode ? "تعديل المستودع" : "إضافة مستودع جديد"}
               </h2>
               {isEditMode && warehouse && (
                 <p className="text-sm text-[#c2c7ce] font-['Almarai']">
@@ -191,10 +194,10 @@ export function WarehouseModal({
                 </div>
                 <div className="flex items-center justify-between mt-2">
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
-                    مستخدم: {warehouse.used.toLocaleString('ar-SA')}
+                    مستخدم: {warehouse.used.toLocaleString("ar-SA")}
                   </span>
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
-                    السعة: {warehouse.capacity.toLocaleString('ar-SA')}
+                    السعة: {warehouse.capacity.toLocaleString("ar-SA")}
                   </span>
                 </div>
               </div>
@@ -208,7 +211,9 @@ export function WarehouseModal({
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="مثال: المستودع الرئيسي"
                 className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] placeholder:text-[#6b7280] focus:outline-none focus:border-purple-400/50 transition-colors"
                 dir="rtl"
@@ -227,7 +232,9 @@ export function WarehouseModal({
                 <input
                   type="text"
                   value={formData.location}
-                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, location: e.target.value })
+                  }
                   placeholder="مثال: الرياض - حي العليا - شارع التحلية"
                   className="w-full pr-12 pl-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] placeholder:text-[#6b7280] focus:outline-none focus:border-purple-400/50 transition-colors"
                   dir="rtl"
@@ -249,7 +256,9 @@ export function WarehouseModal({
                   min="1"
                   step="1"
                   value={formData.capacity}
-                  onChange={(e) => setFormData({ ...formData, capacity: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, capacity: e.target.value })
+                  }
                   placeholder="أدخل السعة القصوى"
                   className="w-full pr-12 pl-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] placeholder:text-[#6b7280] focus:outline-none focus:border-purple-400/50 transition-colors"
                   dir="rtl"
@@ -328,7 +337,7 @@ export function WarehouseModal({
                 className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-b from-red-500 to-red-600 text-white hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
               >
                 <Trash2 className="w-5 h-5" />
-                <span>{isSubmitting ? 'جاري الحذف...' : 'تأكيد الحذف'}</span>
+                <span>{isSubmitting ? "جاري الحذف..." : "تأكيد الحذف"}</span>
               </button>
             </>
           )}
@@ -351,7 +360,13 @@ export function WarehouseModal({
                 className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
               >
                 <Save className="w-5 h-5" />
-                <span>{isSubmitting ? 'جاري الحفظ...' : isEditMode ? 'حفظ التعديلات' : 'إضافة المستودع'}</span>
+                <span>
+                  {isSubmitting
+                    ? "جاري الحفظ..."
+                    : isEditMode
+                    ? "حفظ التعديلات"
+                    : "إضافة المستودع"}
+                </span>
               </button>
             </>
           )}

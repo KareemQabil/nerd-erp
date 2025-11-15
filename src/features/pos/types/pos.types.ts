@@ -37,7 +37,7 @@ export interface CartItem {
 }
 
 // Product Customization
-export type ModifierCategory = 'size' | 'addon' | 'variation' | 'special';
+export type ModifierCategory = "size" | "addon" | "variation" | "special";
 
 export interface ProductModifier {
   id: string;
@@ -59,7 +59,7 @@ export interface ModifierGroup {
   isRequired: boolean;
 }
 
-export type OrderType = 'dineIn' | 'takeaway' | 'delivery';
+export type OrderType = "dineIn" | "takeaway" | "delivery";
 
 export interface Cart {
   items: CartItem[];
@@ -73,7 +73,7 @@ export interface Cart {
 }
 
 // Table Management
-export type TableStatus = 'available' | 'occupied' | 'reserved' | 'cleaning';
+export type TableStatus = "available" | "occupied" | "reserved" | "cleaning";
 
 export interface Table {
   id: string;
@@ -99,7 +99,16 @@ export interface TableZone {
 }
 
 // Payment
-export type PaymentMethod = 'cash' | 'visa' | 'mada' | 'stcpay' | 'tabby' | 'tamara' | 'applepay' | 'googlepay' | 'giftcard';
+export type PaymentMethod =
+  | "cash"
+  | "visa"
+  | "mada"
+  | "stcpay"
+  | "tabby"
+  | "tamara"
+  | "applepay"
+  | "googlepay"
+  | "giftcard";
 
 export interface Payment {
   id: string;
@@ -149,7 +158,7 @@ export interface WarehouseZone {
   id: string;
   name: string;
   nameEn: string;
-  type: 'refrigerated' | 'frozen' | 'dry' | 'beverages';
+  type: "refrigerated" | "frozen" | "dry" | "beverages";
   capacity: number;
   currentStock: number;
 }
@@ -159,7 +168,7 @@ export interface Discount {
   id: string;
   name: string;
   nameEn: string;
-  type: 'percentage' | 'fixed';
+  type: "percentage" | "fixed";
   value: number;
   icon?: string;
 }
@@ -172,7 +181,7 @@ export interface Customer {
   phone: string;
   email?: string;
   loyaltyPoints?: number;
-  tier?: 'bronze' | 'silver' | 'gold' | 'platinum';
+  tier?: "bronze" | "silver" | "gold" | "platinum";
   totalOrders?: number;
   totalSpent?: number;
 }
@@ -192,8 +201,13 @@ export interface HeldOrder {
 }
 
 // Returns & Exchanges
-export type ReturnReason = 'wrong_item' | 'quality_issue' | 'customer_request' | 'damaged' | 'other';
-export type RefundMethod = 'original' | 'cash' | 'store_credit';
+export type ReturnReason =
+  | "wrong_item"
+  | "quality_issue"
+  | "customer_request"
+  | "damaged"
+  | "other";
+export type RefundMethod = "original" | "cash" | "store_credit";
 
 export interface ReturnItem {
   cartItemId: string;
@@ -217,7 +231,7 @@ export interface ReturnTransaction {
   refundMethod: RefundMethod;
   requiresApproval: boolean;
   approvedBy?: string;
-  status: 'pending' | 'approved' | 'completed' | 'rejected';
+  status: "pending" | "approved" | "completed" | "rejected";
 }
 
 export interface ExchangeTransaction {
@@ -229,12 +243,18 @@ export interface ExchangeTransaction {
   newItems: CartItem[];
   refundAmount: number;
   additionalCharge: number;
-  status: 'pending' | 'completed';
+  status: "pending" | "completed";
 }
 
 // Kitchen Display
-export type KitchenOrderStatus = 'pending' | 'preparing' | 'ready' | 'served';
-export type KitchenStation = 'grill' | 'fryer' | 'salad' | 'dessert' | 'drinks' | 'general';
+export type KitchenOrderStatus = "pending" | "preparing" | "ready" | "served";
+export type KitchenStation =
+  | "grill"
+  | "fryer"
+  | "salad"
+  | "dessert"
+  | "drinks"
+  | "general";
 
 export interface KitchenOrder {
   id: string;
@@ -253,7 +273,7 @@ export interface KitchenOrder {
 // Split Bill
 export interface BillSplit {
   id: string;
-  splitType: 'equal' | 'by_item' | 'by_amount' | 'custom';
+  type: "equal" | "by_item" | "by_amount" | "custom";
   parts: BillSplitPart[];
   totalAmount: number;
 }

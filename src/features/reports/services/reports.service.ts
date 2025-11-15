@@ -3,14 +3,14 @@
  * NerdPOS - Feature-First Architecture
  */
 
-import {
+import type {
   SalesReport,
   InventoryReport,
   CustomerReport,
   EmployeeReport,
   FinancialReport,
   ReportFilters,
-} from '../types/reports.types';
+} from "../types/reports.types";
 
 /**
  * ReportsService
@@ -20,7 +20,9 @@ export class ReportsService {
   /**
    * Generate Sales Report
    */
-  static async generateSalesReport(filters: ReportFilters): Promise<SalesReport> {
+  static async generateSalesReport(
+    filters: ReportFilters
+  ): Promise<SalesReport> {
     // TODO: Replace with actual API call
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -32,14 +34,14 @@ export class ReportsService {
       totalTax: 18876.08,
       netSales: 117390.5,
       byPaymentMethod: [
-        { method: 'cash', amount: 45230.0, count: 180 },
-        { method: 'visa', amount: 52360.5, count: 150 },
-        { method: 'mada', amount: 28250.0, count: 126 },
+        { method: "cash", amount: 45230.0, count: 180 },
+        { method: "visa", amount: 52360.5, count: 150 },
+        { method: "mada", amount: 28250.0, count: 126 },
       ],
       byCategory: [
-        { category: 'مشروبات', amount: 35420.0, count: 245 },
-        { category: 'وجبات رئيسية', amount: 58230.5, count: 156 },
-        { category: 'حلويات', amount: 32190.0, count: 55 },
+        { category: "مشروبات", amount: 35420.0, count: 245 },
+        { category: "وجبات رئيسية", amount: 58230.5, count: 156 },
+        { category: "حلويات", amount: 32190.0, count: 55 },
       ],
       hourlyBreakdown: Array.from({ length: 24 }, (_, hour) => ({
         hour,
@@ -47,9 +49,19 @@ export class ReportsService {
         orders: hour >= 11 && hour <= 22 ? Math.floor(Math.random() * 50) : 0,
       })),
       topProducts: [
-        { productId: '1', name: 'برجر كلاسيك', quantity: 145, revenue: 14500.0 },
-        { productId: '2', name: 'بيتزا مارجريتا', quantity: 98, revenue: 9800.0 },
-        { productId: '3', name: 'عصير برتقال', quantity: 234, revenue: 7020.0 },
+        {
+          productId: "1",
+          name: "برجر كلاسيك",
+          quantity: 145,
+          revenue: 14500.0,
+        },
+        {
+          productId: "2",
+          name: "بيتزا مارجريتا",
+          quantity: 98,
+          revenue: 9800.0,
+        },
+        { productId: "3", name: "عصير برتقال", quantity: 234, revenue: 7020.0 },
       ],
     };
   }
@@ -57,7 +69,9 @@ export class ReportsService {
   /**
    * Generate Inventory Report
    */
-  static async generateInventoryReport(filters: ReportFilters): Promise<InventoryReport> {
+  static async generateInventoryReport(
+    filters: ReportFilters
+  ): Promise<InventoryReport> {
     // TODO: Replace with actual API call
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -67,16 +81,32 @@ export class ReportsService {
       lowStockItems: 23,
       outOfStockItems: 5,
       byCategory: [
-        { category: 'مشروبات', itemCount: 145, value: 45230.0 },
-        { category: 'وجبات', itemCount: 198, value: 158900.0 },
-        { category: 'حلويات', itemCount: 113, value: 81470.0 },
+        { category: "مشروبات", itemCount: 145, value: 45230.0 },
+        { category: "وجبات", itemCount: 198, value: 158900.0 },
+        { category: "حلويات", itemCount: 113, value: 81470.0 },
       ],
       topMoving: [
-        { productId: '1', name: 'برجر كلاسيك', soldQuantity: 145, remainingStock: 85 },
-        { productId: '2', name: 'كولا', soldQuantity: 234, remainingStock: 150 },
+        {
+          productId: "1",
+          name: "برجر كلاسيك",
+          soldQuantity: 145,
+          remainingStock: 85,
+        },
+        {
+          productId: "2",
+          name: "كولا",
+          soldQuantity: 234,
+          remainingStock: 150,
+        },
       ],
       slowMoving: [
-        { productId: '3', name: 'سلطة خاصة', soldQuantity: 12, remainingStock: 45, daysInStock: 45 },
+        {
+          productId: "3",
+          name: "سلطة خاصة",
+          soldQuantity: 12,
+          remainingStock: 45,
+          daysInStock: 45,
+        },
       ],
     };
   }
@@ -84,7 +114,9 @@ export class ReportsService {
   /**
    * Generate Customer Report
    */
-  static async generateCustomerReport(filters: ReportFilters): Promise<CustomerReport> {
+  static async generateCustomerReport(
+    filters: ReportFilters
+  ): Promise<CustomerReport> {
     // TODO: Replace with actual API call
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -94,14 +126,24 @@ export class ReportsService {
       repeatCustomers: 456,
       averageLifetimeValue: 2850.5,
       topCustomers: [
-        { customerId: '1', name: 'أحمد محمد', totalSpent: 18500.0, orderCount: 45 },
-        { customerId: '2', name: 'فاطمة علي', totalSpent: 15200.0, orderCount: 38 },
+        {
+          customerId: "1",
+          name: "أحمد محمد",
+          totalSpent: 18500.0,
+          orderCount: 45,
+        },
+        {
+          customerId: "2",
+          name: "فاطمة علي",
+          totalSpent: 15200.0,
+          orderCount: 38,
+        },
       ],
       loyaltyDistribution: [
-        { tier: 'bronze', count: 565, percentage: 45.2 },
-        { tier: 'silver', count: 375, percentage: 30.0 },
-        { tier: 'gold', count: 250, percentage: 20.0 },
-        { tier: 'platinum', count: 60, percentage: 4.8 },
+        { tier: "bronze", count: 565, percentage: 45.2 },
+        { tier: "silver", count: 375, percentage: 30.0 },
+        { tier: "gold", count: 250, percentage: 20.0 },
+        { tier: "platinum", count: 60, percentage: 4.8 },
       ],
     };
   }
@@ -109,7 +151,9 @@ export class ReportsService {
   /**
    * Generate Employee Report
    */
-  static async generateEmployeeReport(filters: ReportFilters): Promise<EmployeeReport> {
+  static async generateEmployeeReport(
+    filters: ReportFilters
+  ): Promise<EmployeeReport> {
     // TODO: Replace with actual API call
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -119,15 +163,15 @@ export class ReportsService {
       totalOrders: 456,
       topPerformers: [
         {
-          employeeId: '1',
-          name: 'محمد أحمد',
+          employeeId: "1",
+          name: "محمد أحمد",
           sales: 45230.0,
           orders: 156,
           averageOrderValue: 290.0,
         },
         {
-          employeeId: '2',
-          name: 'سارة خالد',
+          employeeId: "2",
+          name: "سارة خالد",
           sales: 38500.5,
           orders: 142,
           averageOrderValue: 271.0,
@@ -144,7 +188,9 @@ export class ReportsService {
   /**
    * Generate Financial Report
    */
-  static async generateFinancialReport(filters: ReportFilters): Promise<FinancialReport> {
+  static async generateFinancialReport(
+    filters: ReportFilters
+  ): Promise<FinancialReport> {
     // TODO: Replace with actual API call
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -161,11 +207,11 @@ export class ReportsService {
         balance: 50000 + Math.random() * 20000,
       })),
       expensesByCategory: [
-        { category: 'الرواتب', amount: 25000.0, percentage: 42.8 },
-        { category: 'المواد الخام', amount: 18450.0, percentage: 31.6 },
-        { category: 'الإيجار', amount: 8000.0, percentage: 13.7 },
-        { category: 'المرافق', amount: 4500.0, percentage: 7.7 },
-        { category: 'أخرى', amount: 2500.0, percentage: 4.2 },
+        { category: "الرواتب", amount: 25000.0, percentage: 42.8 },
+        { category: "المواد الخام", amount: 18450.0, percentage: 31.6 },
+        { category: "الإيجار", amount: 8000.0, percentage: 13.7 },
+        { category: "المرافق", amount: 4500.0, percentage: 7.7 },
+        { category: "أخرى", amount: 2500.0, percentage: 4.2 },
       ],
     };
   }
@@ -176,7 +222,7 @@ export class ReportsService {
   static async exportToPDF(reportType: string, data: any): Promise<Blob> {
     // TODO: Implement PDF generation
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    return new Blob(['PDF content'], { type: 'application/pdf' });
+    return new Blob(["PDF content"], { type: "application/pdf" });
   }
 
   /**
@@ -185,6 +231,6 @@ export class ReportsService {
   static async exportToExcel(reportType: string, data: any): Promise<Blob> {
     // TODO: Implement Excel generation
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    return new Blob(['Excel content'], { type: 'application/vnd.ms-excel' });
+    return new Blob(["Excel content"], { type: "application/vnd.ms-excel" });
   }
 }

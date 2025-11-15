@@ -1,5 +1,5 @@
-import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import React from "react";
+import type { LucideIcon } from "lucide-react";
 
 interface OrderStatsCardProps {
   title: string;
@@ -14,14 +14,14 @@ interface OrderStatsCardProps {
   };
 }
 
-export function OrderStatsCard({ 
-  title, 
-  titleEn, 
-  value, 
-  icon: Icon, 
-  color, 
+export function OrderStatsCard({
+  title,
+  titleEn,
+  value,
+  icon: Icon,
+  color,
   bgColor,
-  trend 
+  trend,
 }: OrderStatsCardProps) {
   return (
     <div className="card">
@@ -30,8 +30,13 @@ export function OrderStatsCard({
           <Icon className={`w-6 h-6 ${color}`} />
         </div>
         {trend && (
-          <div className={`text-sm font-inter ${trend.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-            {trend.isPositive ? '+' : ''}{trend.value}%
+          <div
+            className={`text-sm font-inter ${
+              trend.isPositive ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {trend.isPositive ? "+" : ""}
+            {trend.value}%
           </div>
         )}
       </div>

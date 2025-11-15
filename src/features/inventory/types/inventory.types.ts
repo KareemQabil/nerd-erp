@@ -59,22 +59,23 @@ export interface WarehouseStock {
   quantity: number;
   reserved: number;
   available: number;
+  location?: string;
 }
 
 export interface StockMovement {
   id: string;
   productId: string;
   productName: string;
-  type: "in" | "out" | "transfer" | "adjustment" | "sale";
+  type: "in" | "out" | "transfer" | "adjustment" | "sale" | "return";
   quantity: number;
   fromWarehouse?: string;
   toWarehouse?: string;
-  reason: string;
+  reason?: string;
   reference?: string;
-  user: string;
-  timestamp: Date;
+  user?: string;
+  timestamp?: Date;
   notes?: string;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export interface StockAlert {

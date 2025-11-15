@@ -19,7 +19,7 @@ export interface ReceiptData {
   orderType: OrderType;
   customer?: Customer;
   table?: Table;
-  appliedDiscount?: { discount: Discount; value: number };
+  appliedDiscount?: { discount: Discount; value: number } | null;
   payment?: Payment;
 }
 
