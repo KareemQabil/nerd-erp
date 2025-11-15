@@ -4,8 +4,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { DEFAULT_LANGUAGE, type Language } from "../types/i18n";
 
 // Import translation files
-import enTranslations from "../locales/en.json";
-import arTranslations from "../locales/ar.json";
+import enTranslations from "../locales/en.ts";
+import arTranslations from "../locales/ar.ts";
 
 /**
  * i18n Service - Generic service for internationalization

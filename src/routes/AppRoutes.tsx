@@ -11,7 +11,7 @@ import InventoryScreen from "@/features/inventory/screens/inventory.screen";
 import OrdersScreen from "@/features/orders/screens/orders.screen";
 import CustomersScreen from "@/features/customers/screens/customers.screen";
 import SeatingManagementScreen from "@/features/tables/screens/tables.screen";
-import { BrowserRouter as Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import {
   Building2,
   TrendingUp,
