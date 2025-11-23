@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import "@/App.css";
+// import "@/styles/global.css";
 import { ThemeProvider } from "@/contexts/ThemeProvider";
 import { I18nProvider } from "@/core/i18n/contexts/I18nProvider";
 import { AlertDisplay } from "@/components/shared/alertDisplay";
