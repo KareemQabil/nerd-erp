@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useAuth, MOCK_USERS } from '../../../core/auth/auth.context';
-import { useNavigate } from 'react-router-dom';
-import { Users, UserCheck, UserMinus, Check, X, LogIn, Lock } from 'lucide-react';
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useAuth, MOCK_USERS } from "../../../core/auth/auth.context";
+import { useNavigate } from "react-router-dom";
+import {
+  Users,
+  UserCheck,
+  UserMinus,
+  Check,
+  X,
+  LogIn,
+  Lock,
+} from "lucide-react";
 
 export default function LoginScreen() {
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const isRTL = i18n.language === "ar";
   const { selectedUser, selectUser, login } = useAuth();
   const navigate = useNavigate();
-  const [pin, setPin] = useState('');
-  const [error, setError] = useState('');
+  const [pin, setPin] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleNumberClick = (num: string) => {
@@ -21,48 +29,52 @@ export default function LoginScreen() {
   };
 
   const handleClear = () => {
-    setPin('');
-    setError('');
+    setPin("");
+    setError("");
   };
 
   const handleLogin = async () => {
     if (!selectedUser || pin.length !== 4) return;
-    
+
     setLoading(true);
-    setError('');
-    
+    setError("");
+
     const success = await login(selectedUser.id, pin);
-    
+
     if (success) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     } else {
-      setError(isRTL ? 'رمز PIN خاطئ' : 'Wrong PIN');
-      setPin('');
+      setError(isRTL ? "رمز PIN خاطئ" : "Wrong PIN");
+      setPin("");
     }
-    
+
     setLoading(false);
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #023047 0%, #012030 50%, #001219 100%)' }}
+      style={{ background: "var(--background)" }}
     >
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-[500px] h-[500px] rounded-full opacity-10 blur-3xl"
-             style={{ 
-               background: 'radial-gradient(circle, #22d3ee 0%, transparent 70%)',
-               left: '10%',
-               top: '10%'
-             }} 
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full opacity-10 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
+            left: "10%",
+            top: "10%",
+          }}
         />
-        <div className="absolute w-[400px] h-[400px] rounded-full opacity-10 blur-3xl"
-             style={{ 
-               background: 'radial-gradient(circle, #22d3ee 0%, transparent 70%)',
-               right: '10%',
-               bottom: '10%'
-             }} 
+        <div
+          className="absolute w-[400px] h-[400px] rounded-full opacity-10 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
+            right: "10%",
+            bottom: "10%",
+          }}
         />
       </div>
 
@@ -70,96 +82,100 @@ export default function LoginScreen() {
       <div className="container mx-auto px-8 py-12 relative">
         {/* Header */}
         <div className="flex flex-col items-center gap-6 mb-12">
-          <div 
+          <div
             className="w-20 h-20 rounded-[16.4px] flex items-center justify-center"
-            style={{ 
-              background: 'linear-gradient(135deg, rgba(34,211,238,0.2) 0%, rgba(34,211,238,0.05) 100%)',
-              border: '0.8px solid rgba(34,211,238,0.3)'
+            style={{
+              background: "var(--primary-container)",
+              border: "0.8px solid var(--primary)",
             }}
           >
-            <LogIn className="w-10 h-10" style={{ color: '#22d3ee' }} />
+            <LogIn className="w-10 h-10" style={{ color: "var(--primary)" }} />
           </div>
-          
+
           <div className="text-center">
-            <h1 
+            <h1
               className="mb-3"
-              style={{ 
-                fontSize: '40px',
-                lineHeight: '48px',
-                fontWeight: 'bold',
-                background: 'linear-gradient(180deg, #22d3ee 0%, #0891b2 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
+              style={{
+                fontSize: "40px",
+                lineHeight: "48px",
+                fontWeight: "bold",
+                color: "var(--primary)",
               }}
             >
               NerdPOS
             </h1>
-            
-            <p 
+
+            <p
               className="font-['Almarai']"
-              style={{ 
-                fontSize: '16px',
-                lineHeight: '24px',
-                color: '#c2c7ce'
+              style={{
+                fontSize: "16px",
+                lineHeight: "24px",
+                color: "var(--on-background)",
               }}
               dir="auto"
             >
-              {isRTL ? 'نظام نقاط البيع الاحترافي' : 'Professional Point of Sale System'}
+              {isRTL
+                ? "نظام نقاط البيع الاحترافي"
+                : "Professional Point of Sale System"}
             </p>
           </div>
-          
-          <div 
+
+          <div
             className="w-20 h-1 rounded-full"
-            style={{ background: 'linear-gradient(90deg, #22d3ee 0%, #0891b2 100%)' }}
+            style={{ background: "var(--primary)" }}
           />
         </div>
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-[1200px] mx-auto">
-          
           {/* User Selection Panel */}
           <div
             className="rounded-[16.4px] p-8"
             style={{
-              background: 'linear-gradient(180deg, #1a1c1e 0%, #1d2222 50%, #42474e 100%)',
-              border: '0.8px solid #42474e',
+              background:
+                "linear-gradient(180deg, #1a1c1e 0%, #1d2222 50%, #42474e 100%)",
+              border: "0.8px solid #42474e",
             }}
           >
             {/* Panel Header */}
             <div className="flex flex-col items-center gap-6 mb-8">
-              <div 
+              <div
                 className="w-16 h-16 rounded-[16.4px] flex items-center justify-center"
-                style={{ 
-                  background: 'rgba(34, 211, 238, 0.1)',
+                style={{
+                  background: "var(--primary-container)",
                 }}
               >
-                <Users className="w-8 h-8" style={{ color: '#22d3ee' }} />
+                <Users
+                  className="w-8 h-8"
+                  style={{ color: "var(--primary)" }}
+                />
               </div>
-              
+
               <div className="text-center">
-                <h2 
+                <h2
                   className="font-['Almarai'] mb-2"
-                  style={{ 
-                    fontSize: '20px',
-                    lineHeight: '28px',
-                    color: '#e2e2e6',
-                    fontWeight: 'bold'
+                  style={{
+                    fontSize: "20px",
+                    lineHeight: "28px",
+                    color: "var(--on-surface)",
+                    fontWeight: "bold",
                   }}
                   dir="auto"
                 >
-                  {isRTL ? 'اختر المستخدم' : 'Select User'}
+                  {isRTL ? "اختر المستخدم" : "Select User"}
                 </h2>
-                <p 
+                <p
                   className="font-['Almarai']"
-                  style={{ 
-                    fontSize: '14px',
-                    lineHeight: '20px',
-                    color: '#c2c7ce'
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "20px",
+                    color: "var(--on-surface-variant)",
                   }}
                   dir="auto"
                 >
-                  {isRTL ? 'اختر حسابك للمتابعة' : 'Choose your account to continue'}
+                  {isRTL
+                    ? "اختر حسابك للمتابعة"
+                    : "Choose your account to continue"}
                 </p>
               </div>
             </div>
@@ -171,47 +187,63 @@ export default function LoginScreen() {
                   key={user.id}
                   onClick={() => {
                     selectUser(user);
-                    setPin('');
-                    setError('');
+                    setPin("");
+                    setError("");
                   }}
                   className="w-full rounded-[16.4px] p-5 transition-all"
                   style={{
-                    background: selectedUser?.id === user.id 
-                      ? 'rgba(34, 211, 238, 0.1)' 
-                      : 'rgba(255, 255, 255, 0.03)',
-                    border: selectedUser?.id === user.id 
-                      ? '0.8px solid #22d3ee' 
-                      : '0.8px solid rgba(255, 255, 255, 0.1)',
+                    background:
+                      selectedUser?.id === user.id
+                        ? "var(--primary-container)"
+                        : "var(--surface-variant)",
+                    border:
+                      selectedUser?.id === user.id
+                        ? "0.8px solid var(--primary)"
+                        : "0.8px solid var(--outline-variant)",
                   }}
                 >
-                  <div className="flex items-center gap-4" dir={isRTL ? 'rtl' : 'ltr'}>
+                  <div
+                    className="flex items-center gap-4"
+                    dir={isRTL ? "rtl" : "ltr"}
+                  >
                     {/* Avatar */}
                     <div className="relative flex-shrink-0">
-                      <div 
+                      <div
                         className="w-16 h-16 rounded-full overflow-hidden"
-                        style={{ 
-                          background: 'linear-gradient(135deg, #1a1c1e 0%, #42474e 100%)',
-                          border: '2px solid rgba(34, 211, 238, 0.3)'
+                        style={{
+                          background: "var(--surface)",
+                          border: "2px solid var(--primary)",
                         }}
                       >
                         {user.avatar ? (
-                          <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+                          <img
+                            src={user.avatar}
+                            alt={user.name}
+                            className="w-full h-full object-cover"
+                          />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center"
-                               style={{ color: '#22d3ee', fontSize: '24px', fontWeight: 'bold' }}
+                          <div
+                            className="w-full h-full flex items-center justify-center"
+                            style={{
+                              color: "var(--primary)",
+                              fontSize: "24px",
+                              fontWeight: "bold",
+                            }}
                           >
                             {user.name.charAt(0)}
                           </div>
                         )}
                       </div>
-                      
+
                       {/* Status Badge */}
-                      <div 
+                      <div
                         className="absolute bottom-0 w-6 h-6 rounded-full flex items-center justify-center"
-                        style={{ 
-                          [isRTL ? 'left' : 'right']: 0,
-                          backgroundColor: user.isActive ? '#10b981' : '#7a7f85',
-                          border: '2px solid #1a1c1e'
+                        style={{
+                          [isRTL ? "left" : "right"]: 0,
+                          backgroundColor: user.isActive
+                            ? "#10b981"
+                            : "var(--outline)",
+                          border: "2px solid var(--surface)",
                         }}
                       >
                         {user.isActive ? (
@@ -221,39 +253,48 @@ export default function LoginScreen() {
                         )}
                       </div>
                     </div>
-                    
+
                     {/* User Info */}
-                    <div className={`flex-1 ${isRTL ? 'text-right' : 'text-left'}`}>
-                      <h3 
+                    <div
+                      className={`flex-1 ${isRTL ? "text-right" : "text-left"}`}
+                    >
+                      <h3
                         className="font-['Almarai'] mb-1"
-                        style={{ 
-                          fontSize: '16px',
-                          lineHeight: '24px',
-                          color: '#e2e2e6',
-                          fontWeight: 'bold'
+                        style={{
+                          fontSize: "16px",
+                          lineHeight: "24px",
+                          color: "var(--on-surface)",
+                          fontWeight: "bold",
                         }}
                         dir="auto"
                       >
                         {user.name}
                       </h3>
-                      <p 
+                      <p
                         className="font-['Almarai']"
-                        style={{ 
-                          fontSize: '14px',
-                          lineHeight: '20px',
-                          color: '#c2c7ce'
+                        style={{
+                          fontSize: "14px",
+                          lineHeight: "20px",
+                          color: "var(--on-surface-variant)",
                         }}
                         dir="auto"
                       >
-                        {isRTL ? 
-                          (user.role === 'admin' ? 'مدير' : user.role === 'cashier' ? 'كاشير' : 'مدير عام') 
+                        {isRTL
+                          ? user.role === "admin"
+                            ? "مدير"
+                            : user.role === "cashier"
+                            ? "كاشير"
+                            : "مدير عام"
                           : user.role}
                       </p>
                     </div>
-                    
+
                     {/* Checkmark */}
                     {selectedUser?.id === user.id && (
-                      <Check className="w-6 h-6 flex-shrink-0" style={{ color: '#22d3ee' }} />
+                      <Check
+                        className="w-6 h-6 flex-shrink-0"
+                        style={{ color: "var(--primary)" }}
+                      />
                     )}
                   </div>
                 </button>
@@ -265,48 +306,52 @@ export default function LoginScreen() {
           <div
             className="rounded-[16.4px] p-8"
             style={{
-              background: 'linear-gradient(180deg, #1a1c1e 0%, #1d2222 50%, #42474e 100%)',
-              border: '0.8px solid #42474e',
+              background:
+                "linear-gradient(180deg, #1a1c1e 0%, #1d2222 50%, #42474e 100%)",
+              border: "0.8px solid #42474e",
             }}
           >
             {selectedUser ? (
               <div className="flex flex-col h-full">
                 {/* PIN Header */}
                 <div className="flex flex-col items-center gap-6 mb-8">
-                  <div 
+                  <div
                     className="w-16 h-16 rounded-[16.4px] flex items-center justify-center"
-                    style={{ background: 'rgba(34, 211, 238, 0.1)' }}
+                    style={{ background: "var(--primary-container)" }}
                   >
-                    <Lock className="w-8 h-8" style={{ color: '#22d3ee' }} />
+                    <Lock
+                      className="w-8 h-8"
+                      style={{ color: "var(--primary)" }}
+                    />
                   </div>
-                  
+
                   <div className="text-center">
-                    <h2 
+                    <h2
                       className="font-['Almarai'] mb-2"
-                      style={{ 
-                        fontSize: '20px',
-                        lineHeight: '28px',
-                        color: '#e2e2e6',
-                        fontWeight: 'bold'
+                      style={{
+                        fontSize: "20px",
+                        lineHeight: "28px",
+                        color: "var(--on-surface)",
+                        fontWeight: "bold",
                       }}
                       dir="auto"
                     >
-                      {isRTL ? 'أدخل رمز PIN' : 'Enter PIN'}
+                      {isRTL ? "أدخل رمز PIN" : "Enter PIN"}
                     </h2>
-                    <p 
+                    <p
                       className="font-['Almarai']"
-                      style={{ 
-                        fontSize: '14px',
-                        lineHeight: '20px',
-                        color: '#c2c7ce'
+                      style={{
+                        fontSize: "14px",
+                        lineHeight: "20px",
+                        color: "var(--on-surface-variant)",
                       }}
                       dir="auto"
                     >
-                      {isRTL ? 'الرمز الافتراضي: 1234' : 'Default PIN: 1234'}
+                      {isRTL ? "الرمز الافتراضي: 1234" : "Default PIN: 1234"}
                     </p>
                   </div>
                 </div>
-                
+
                 {/* PIN Dots */}
                 <div className="flex gap-4 justify-center mb-10" dir="ltr">
                   {[0, 1, 2, 3].map((i) => (
@@ -314,18 +359,20 @@ export default function LoginScreen() {
                       key={i}
                       className="w-16 h-20 rounded-[12px] flex items-center justify-center transition-all"
                       style={{
-                        border: i < pin.length 
-                          ? '2px solid #22d3ee' 
-                          : '2px solid rgba(255, 255, 255, 0.1)',
-                        background: i < pin.length 
-                          ? 'rgba(34, 211, 238, 0.1)' 
-                          : 'rgba(255, 255, 255, 0.03)',
+                        border:
+                          i < pin.length
+                            ? "2px solid var(--primary)"
+                            : "2px solid var(--outline-variant)",
+                        background:
+                          i < pin.length
+                            ? "var(--primary-container)"
+                            : "var(--surface-variant)",
                       }}
                     >
                       {i < pin.length && (
-                        <div 
+                        <div
                           className="w-4 h-4 rounded-full"
-                          style={{ backgroundColor: '#22d3ee' }}
+                          style={{ backgroundColor: "var(--primary)" }}
                         />
                       )}
                     </div>
@@ -341,19 +388,22 @@ export default function LoginScreen() {
                       disabled={!selectedUser}
                       className="h-14 rounded-[12px] font-['Inter'] transition-all active:scale-95"
                       style={{
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '0.8px solid rgba(255, 255, 255, 0.1)',
-                        color: '#e2e2e6',
-                        fontSize: '20px',
-                        fontWeight: 'bold',
+                        background: "var(--surface-variant)",
+                        border: "0.8px solid var(--outline-variant)",
+                        color: "var(--on-surface)",
+                        fontSize: "20px",
+                        fontWeight: "bold",
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(34, 211, 238, 0.1)';
-                        e.currentTarget.style.borderColor = 'rgba(34, 211, 238, 0.5)';
+                        e.currentTarget.style.background =
+                          "var(--primary-container)";
+                        e.currentTarget.style.borderColor = "var(--primary)";
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        e.currentTarget.style.background =
+                          "var(--surface-variant)";
+                        e.currentTarget.style.borderColor =
+                          "var(--outline-variant)";
                       }}
                     >
                       {num}
@@ -361,23 +411,26 @@ export default function LoginScreen() {
                   ))}
                   <div /> {/* Empty space */}
                   <button
-                    onClick={() => handleNumberClick('0')}
+                    onClick={() => handleNumberClick("0")}
                     disabled={!selectedUser}
                     className="h-14 rounded-[12px] font-['Inter'] transition-all active:scale-95"
                     style={{
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '0.8px solid rgba(255, 255, 255, 0.1)',
-                      color: '#e2e2e6',
-                      fontSize: '20px',
-                      fontWeight: 'bold',
+                      background: "var(--surface-variant)",
+                      border: "0.8px solid var(--outline-variant)",
+                      color: "var(--on-surface)",
+                      fontSize: "20px",
+                      fontWeight: "bold",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(34, 211, 238, 0.1)';
-                      e.currentTarget.style.borderColor = 'rgba(34, 211, 238, 0.5)';
+                      e.currentTarget.style.background =
+                        "var(--primary-container)";
+                      e.currentTarget.style.borderColor = "var(--primary)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                      e.currentTarget.style.background =
+                        "var(--surface-variant)";
+                      e.currentTarget.style.borderColor =
+                        "var(--outline-variant)";
                     }}
                   >
                     0
@@ -392,54 +445,58 @@ export default function LoginScreen() {
                     disabled={!selectedUser}
                     className="h-14 rounded-[12px] flex items-center justify-center gap-2 font-['Almarai'] transition-all"
                     style={{
-                      background: 'rgba(239, 68, 68, 0.1)',
-                      border: '0.8px solid rgba(239, 68, 68, 0.3)',
-                      color: '#ef4444',
-                      fontSize: '14px',
-                      fontWeight: 'bold',
+                      background: "var(--error-container)",
+                      border: "0.8px solid var(--error)",
+                      color: "var(--error)",
+                      fontSize: "14px",
+                      fontWeight: "bold",
                     }}
                     dir="auto"
                   >
                     <X className="w-5 h-5" />
-                    <span>{isRTL ? 'مسح' : 'Clear'}</span>
+                    <span>{isRTL ? "مسح" : "Clear"}</span>
                   </button>
-                  
+
                   <button
                     onClick={handleLogin}
                     disabled={!selectedUser || pin.length !== 4 || loading}
                     className="h-14 rounded-[12px] flex items-center justify-center gap-2 font-['Almarai'] transition-all"
                     style={{
-                      background: pin.length === 4 
-                        ? 'linear-gradient(135deg, #22d3ee 0%, #0891b2 100%)' 
-                        : 'rgba(34, 211, 238, 0.2)',
-                      border: '0.8px solid rgba(34, 211, 238, 0.3)',
-                      color: pin.length === 4 ? '#001219' : '#22d3ee',
-                      fontSize: '14px',
-                      fontWeight: 'bold',
+                      background:
+                        pin.length === 4
+                          ? "var(--primary)"
+                          : "var(--primary-container)",
+                      border: "0.8px solid var(--primary)",
+                      color:
+                        pin.length === 4
+                          ? "var(--on-primary)"
+                          : "var(--primary)",
+                      fontSize: "14px",
+                      fontWeight: "bold",
                       opacity: pin.length === 4 ? 1 : 0.5,
                     }}
                     dir="auto"
                   >
                     <Check className="w-5 h-5" />
-                    <span>{isRTL ? 'دخول' : 'Login'}</span>
+                    <span>{isRTL ? "دخول" : "Login"}</span>
                   </button>
                 </div>
 
                 {/* Error Message */}
                 {error && (
-                  <div 
+                  <div
                     className="mt-6 p-4 rounded-[12px] text-center"
                     style={{
-                      background: 'rgba(239, 68, 68, 0.1)',
-                      border: '0.8px solid rgba(239, 68, 68, 0.3)',
+                      background: "var(--error-container)",
+                      border: "0.8px solid var(--error)",
                     }}
                   >
-                    <p 
+                    <p
                       className="font-['Almarai']"
-                      style={{ 
-                        fontSize: '14px',
-                        lineHeight: '20px',
-                        color: '#ef4444'
+                      style={{
+                        fontSize: "14px",
+                        lineHeight: "20px",
+                        color: "var(--error)",
                       }}
                       dir="auto"
                     >
@@ -451,59 +508,66 @@ export default function LoginScreen() {
             ) : (
               // No User Selected State
               <div className="flex flex-col items-center justify-center h-full gap-8">
-                <div 
+                <div
                   className="w-24 h-24 rounded-[16.4px] flex items-center justify-center"
-                  style={{ 
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '0.8px solid rgba(255, 255, 255, 0.1)',
+                  style={{
+                    background: "var(--surface-variant)",
+                    border: "0.8px solid var(--outline-variant)",
                   }}
                 >
-                  <Users className="w-12 h-12" style={{ color: '#7a7f85' }} />
+                  <Users
+                    className="w-12 h-12"
+                    style={{ color: "var(--outline)" }}
+                  />
                 </div>
-                
+
                 <div className="text-center">
-                  <h3 
+                  <h3
                     className="font-['Almarai'] mb-2"
-                    style={{ 
-                      fontSize: '20px',
-                      lineHeight: '28px',
-                      color: '#c2c7ce',
-                      fontWeight: 'bold'
+                    style={{
+                      fontSize: "20px",
+                      lineHeight: "28px",
+                      color: "var(--on-surface-variant)",
+                      fontWeight: "bold",
                     }}
                     dir="auto"
                   >
-                    {isRTL ? 'لم يتم اختيار مستخدم' : 'No User Selected'}
+                    {isRTL ? "لم يتم اختيار مستخدم" : "No User Selected"}
                   </h3>
-                  <p 
+                  <p
                     className="font-['Almarai']"
-                    style={{ 
-                      fontSize: '14px',
-                      lineHeight: '20px',
-                      color: '#7a7f85'
+                    style={{
+                      fontSize: "14px",
+                      lineHeight: "20px",
+                      color: "var(--on-surface-variant)",
                     }}
                     dir="auto"
                   >
-                    {isRTL ? 'الرجاء اختيار مستخدم من القائمة' : 'Please select a user from the list'}
+                    {isRTL
+                      ? "الرجاء اختيار مستخدم من القائمة"
+                      : "Please select a user from the list"}
                   </p>
                 </div>
-                
-                <div 
+
+                <div
                   className="w-full p-4 rounded-[12px]"
                   style={{
-                    background: 'rgba(34, 211, 238, 0.1)',
-                    border: '0.8px solid rgba(34, 211, 238, 0.3)',
+                    background: "var(--primary-container)",
+                    border: "0.8px solid var(--primary)",
                   }}
                 >
-                  <p 
+                  <p
                     className="font-['Almarai'] text-center"
-                    style={{ 
-                      fontSize: '14px',
-                      lineHeight: '20px',
-                      color: '#22d3ee'
+                    style={{
+                      fontSize: "14px",
+                      lineHeight: "20px",
+                      color: "var(--primary)",
                     }}
                     dir="auto"
                   >
-                    {isRTL ? '👈 اختر مستخدماً للمتابعة' : 'Select a user to continue 👉'}
+                    {isRTL
+                      ? "👈 اختر مستخدماً للمتابعة"
+                      : "Select a user to continue 👉"}
                   </p>
                 </div>
               </div>
