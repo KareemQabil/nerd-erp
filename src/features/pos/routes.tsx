@@ -5,7 +5,7 @@ import KitchenDisplayScreen from "./screens/kitchen-display.screen";
 import TablesScreen from "./screens/tables.screen";
 import StockScreen from "./screens/stock.screen";
 
-export const PosRoutes = () => {
+const PosRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<POSRefinedScreen />} />
@@ -16,3 +16,5 @@ export const PosRoutes = () => {
     </Routes>
   );
 };
+
+export default PosRoutes;

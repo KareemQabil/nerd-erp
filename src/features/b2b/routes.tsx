@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ComingSoonScreen } from "@/components/coming-soon-screen";
 import { Building2 } from "lucide-react";
 
-export const B2BRoutes = () => {
+const B2BRoutes = () => {
   return (
     <Routes>
       <Route
@@ -26,3 +26,5 @@ export const B2BRoutes = () => {
     </Routes>
   );
 };
+
+export default B2BRoutes;

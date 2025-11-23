@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import LoginScreen from "./screens/login.screen";
 import { useAuth } from "@/core/auth/auth.context";
 
-export const AuthRoutes = () => {
+const AuthRoutes = () => {
   const { user } = useAuth();
 
   if (user) {
@@ -16,3 +16,5 @@ export const AuthRoutes = () => {
     </Routes>
   );
 };
+
+export default AuthRoutes;

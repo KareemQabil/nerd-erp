@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ComingSoonScreen } from "@/components/coming-soon-screen";
 import { ChefHat } from "lucide-react";
 
-export const KitchenRoutes = () => {
+const KitchenRoutes = () => {
   return (
     <Routes>
       <Route
@@ -25,3 +25,5 @@ export const KitchenRoutes = () => {
     </Routes>
   );
 };
+
+export default KitchenRoutes;

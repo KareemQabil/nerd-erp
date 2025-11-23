@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ComingSoonScreen } from "@/components/coming-soon-screen";
 import { TrendingUp } from "lucide-react";
 
-export const ReportsRoutes = () => {
+const ReportsRoutes = () => {
   return (
     <Routes>
       <Route
@@ -28,3 +28,5 @@ export const ReportsRoutes = () => {
     </Routes>
   );
 };
+
+export default ReportsRoutes;

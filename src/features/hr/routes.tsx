@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ComingSoonScreen } from "@/components/coming-soon-screen";
 import { UserCog } from "lucide-react";
 
-export const HRRoutes = () => {
+const HRRoutes = () => {
   return (
     <Routes>
       <Route
@@ -27,3 +27,5 @@ export const HRRoutes = () => {
     </Routes>
   );
 };
+
+export default HRRoutes;

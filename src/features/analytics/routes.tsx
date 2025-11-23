@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ComingSoonScreen } from "@/components/coming-soon-screen";
 import { BarChart3 } from "lucide-react";
 
-export const AnalyticsRoutes = () => {
+const AnalyticsRoutes = () => {
   return (
     <Routes>
       <Route
@@ -26,3 +26,5 @@ export const AnalyticsRoutes = () => {
     </Routes>
   );
 };
+
+export default AnalyticsRoutes;

@@ -1,10 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import InventoryScreen from "./screens/inventory.screen";
 
-export const InventoryRoutes = () => {
+const InventoryRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<InventoryScreen />} />
     </Routes>
   );
 };
+
+export default InventoryRoutes;

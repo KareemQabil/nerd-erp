@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ComingSoonScreen } from "@/components/coming-soon-screen";
 import { Truck } from "lucide-react";
 
-export const DeliveryRoutes = () => {
+const DeliveryRoutes = () => {
   return (
     <Routes>
       <Route
@@ -27,3 +27,5 @@ export const DeliveryRoutes = () => {
     </Routes>
   );
 };
+
+export default DeliveryRoutes;
