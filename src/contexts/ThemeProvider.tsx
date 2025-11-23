@@ -44,14 +44,17 @@ export function ThemeProvider({
 
     root.classList.remove("light", "dark");
     root.classList.add(actualTheme);
+    root.setAttribute("data-theme", actualTheme);
 
     // Listen to system theme changes when theme is "system"
     if (theme === "light") {
       const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
 
       const handleChange = () => {
+        const newTheme = mediaQuery.matches ? "dark" : "light";
         root.classList.remove("light", "dark");
-        root.classList.add(mediaQuery.matches ? "dark" : "light");
+        root.classList.add(newTheme);
+        root.setAttribute("data-theme", newTheme);
       };
 
       mediaQuery.addEventListener("change", handleChange);
