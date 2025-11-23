@@ -6,6 +6,7 @@ type Theme = "light" | "dark";
 interface ThemeProviderContextValue {
   theme: Theme;
   setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
   actualTheme: "light" | "dark";
 }
 
@@ -58,13 +59,18 @@ export function ThemeProvider({
     }
   }, [theme, actualTheme]);
 
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
   const value = useMemo(
     () => ({
       theme,
       setTheme,
+      toggleTheme,
       actualTheme,
     }),
-    [theme, setTheme, actualTheme]
+    [theme, setTheme, toggleTheme, actualTheme]
   );
 
   return (
