@@ -19,7 +19,7 @@ export const RoleGuard = ({ allowedRoles }: { allowedRoles: string[] }) => {
   }
 
   // Check if user's roles include at least one of the allowed roles
-  const hasRequiredRole = user?.roles.some((role) =>
+  const hasRequiredRole = user?.roles.some((role: string) =>
     allowedRoles.includes(role)
   );
 
