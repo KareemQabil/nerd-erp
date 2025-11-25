@@ -52,66 +52,28 @@ export default function LoginScreen() {
   };
 
   return (
-    <div
-      className="min-h-screen relative overflow-hidden"
-      style={{ background: "var(--background)" }}
-    >
+    <div className="min-h-screen relative overflow-hidden bg-background">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute w-[500px] h-[500px] rounded-full opacity-10 blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
-            left: "10%",
-            top: "10%",
-          }}
-        />
-        <div
-          className="absolute w-[400px] h-[400px] rounded-full opacity-10 blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
-            right: "10%",
-            bottom: "10%",
-          }}
-        />
+        <div className="absolute w-[500px] h-[500px] rounded-full opacity-10 blur-3xl bg-[radial-gradient(circle,var(--primary)_0%,transparent_70%)] left-[10%] top-[10%]" />
+        <div className="absolute w-[400px] h-[400px] rounded-full opacity-10 blur-3xl bg-[radial-gradient(circle,var(--primary)_0%,transparent_70%)] right-[10%] bottom-[10%]" />
       </div>
 
       {/* Main Content */}
       <div className="container mx-auto px-8 py-12 relative">
         {/* Header */}
         <div className="flex flex-col items-center gap-6 mb-12">
-          <div
-            className="w-20 h-20 rounded-[16.4px] flex items-center justify-center"
-            style={{
-              background: "var(--primary-container)",
-              border: "0.8px solid var(--primary)",
-            }}
-          >
-            <LogIn className="w-10 h-10" style={{ color: "var(--primary)" }} />
+          <div className="w-20 h-20 rounded-[16.4px] flex items-center justify-center bg-primary-container border border-primary">
+            <LogIn className="w-10 h-10 text-primary" />
           </div>
 
           <div className="text-center">
-            <h1
-              className="mb-3"
-              style={{
-                fontSize: "40px",
-                lineHeight: "48px",
-                fontWeight: "bold",
-                color: "var(--primary)",
-              }}
-            >
+            <h1 className="mb-3 text-[40px] leading-[48px] font-bold text-primary">
               NerdPOS
             </h1>
 
             <p
-              className="font-['Almarai']"
-              style={{
-                fontSize: "16px",
-                lineHeight: "24px",
-                color: "var(--on-background)",
-              }}
+              className="font-['Almarai'] text-base leading-6 text-text-primary"
               dir="auto"
             >
               {isRTL
@@ -120,57 +82,28 @@ export default function LoginScreen() {
             </p>
           </div>
 
-          <div
-            className="w-20 h-1 rounded-full"
-            style={{ background: "var(--primary)" }}
-          />
+          <div className="w-20 h-1 rounded-full bg-primary" />
         </div>
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-[1200px] mx-auto">
           {/* User Selection Panel */}
-          <div
-            className="rounded-[16.4px] p-8"
-            style={{
-              background:
-                "linear-gradient(180deg, #1a1c1e 0%, #1d2222 50%, #42474e 100%)",
-              border: "0.8px solid #42474e",
-            }}
-          >
+          <div className="rounded-[16.4px] p-8 bg-surface border border-border-subtle">
             {/* Panel Header */}
             <div className="flex flex-col items-center gap-6 mb-8">
-              <div
-                className="w-16 h-16 rounded-[16.4px] flex items-center justify-center"
-                style={{
-                  background: "var(--primary-container)",
-                }}
-              >
-                <Users
-                  className="w-8 h-8"
-                  style={{ color: "var(--primary)" }}
-                />
+              <div className="w-16 h-16 rounded-[16.4px] flex items-center justify-center bg-primary-container">
+                <Users className="w-8 h-8 text-primary" />
               </div>
 
               <div className="text-center">
                 <h2
-                  className="font-['Almarai'] mb-2"
-                  style={{
-                    fontSize: "20px",
-                    lineHeight: "28px",
-                    color: "var(--on-surface)",
-                    fontWeight: "bold",
-                  }}
+                  className="font-['Almarai'] mb-2 text-xl leading-7 font-bold text-text-primary"
                   dir="auto"
                 >
                   {isRTL ? "اختر المستخدم" : "Select User"}
                 </h2>
                 <p
-                  className="font-['Almarai']"
-                  style={{
-                    fontSize: "14px",
-                    lineHeight: "20px",
-                    color: "var(--on-surface-variant)",
-                  }}
+                  className="font-['Almarai'] text-sm leading-5 text-text-secondary"
                   dir="auto"
                 >
                   {isRTL
@@ -190,17 +123,11 @@ export default function LoginScreen() {
                     setPin("");
                     setError("");
                   }}
-                  className="w-full rounded-[16.4px] p-5 transition-all"
-                  style={{
-                    background:
-                      selectedUser?.id === user.id
-                        ? "var(--primary-container)"
-                        : "var(--surface-variant)",
-                    border:
-                      selectedUser?.id === user.id
-                        ? "0.8px solid var(--primary)"
-                        : "0.8px solid var(--outline-variant)",
-                  }}
+                  className={`w-full rounded-[16.4px] p-5 transition-all border ${
+                    selectedUser?.id === user.id
+                      ? "bg-primary-container border-primary"
+                      : "bg-surface-variant border-border-subtle"
+                  }`}
                 >
                   <div
                     className="flex items-center gap-4"
@@ -208,13 +135,7 @@ export default function LoginScreen() {
                   >
                     {/* Avatar */}
                     <div className="relative flex-shrink-0">
-                      <div
-                        className="w-16 h-16 rounded-full overflow-hidden"
-                        style={{
-                          background: "var(--surface)",
-                          border: "2px solid var(--primary)",
-                        }}
-                      >
+                      <div className="w-16 h-16 rounded-full overflow-hidden bg-surface border-2 border-primary">
                         {user.avatar ? (
                           <img
                             src={user.avatar}
@@ -222,14 +143,7 @@ export default function LoginScreen() {
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          <div
-                            className="w-full h-full flex items-center justify-center"
-                            style={{
-                              color: "var(--primary)",
-                              fontSize: "24px",
-                              fontWeight: "bold",
-                            }}
-                          >
+                          <div className="w-full h-full flex items-center justify-center text-primary text-2xl font-bold">
                             {user.name.charAt(0)}
                           </div>
                         )}
@@ -237,13 +151,11 @@ export default function LoginScreen() {
 
                       {/* Status Badge */}
                       <div
-                        className="absolute bottom-0 w-6 h-6 rounded-full flex items-center justify-center"
+                        className={`absolute bottom-0 w-6 h-6 rounded-full flex items-center justify-center border-2 border-surface ${
+                          user.isActive ? "bg-success" : "bg-text-muted"
+                        }`}
                         style={{
                           [isRTL ? "left" : "right"]: 0,
-                          backgroundColor: user.isActive
-                            ? "#10b981"
-                            : "var(--outline)",
-                          border: "2px solid var(--surface)",
                         }}
                       >
                         {user.isActive ? (
@@ -259,13 +171,7 @@ export default function LoginScreen() {
                       className={`flex-1 ${isRTL ? "text-right" : "text-left"}`}
                     >
                       <h3
-                        className="font-['Almarai'] mb-1"
-                        style={{
-                          fontSize: "16px",
-                          lineHeight: "24px",
-                          color: "var(--on-surface)",
-                          fontWeight: "bold",
-                        }}
+                        className="font-['Almarai'] mb-1 text-base leading-6 font-bold text-text-primary"
                         dir="auto"
                       >
                         {user.name}
@@ -291,10 +197,7 @@ export default function LoginScreen() {
 
                     {/* Checkmark */}
                     {selectedUser?.id === user.id && (
-                      <Check
-                        className="w-6 h-6 flex-shrink-0"
-                        style={{ color: "var(--primary)" }}
-                      />
+                      <Check className="w-6 h-6 flex-shrink-0 text-primary" />
                     )}
                   </div>
                 </button>
@@ -303,14 +206,7 @@ export default function LoginScreen() {
           </div>
 
           {/* PIN Entry Panel */}
-          <div
-            className="rounded-[16.4px] p-8"
-            style={{
-              background:
-                "linear-gradient(180deg, #1a1c1e 0%, #1d2222 50%, #42474e 100%)",
-              border: "0.8px solid #42474e",
-            }}
-          >
+          <div className="rounded-[16.4px] p-8 bg-surface border border-border-subtle">
             {selectedUser ? (
               <div className="flex flex-col h-full">
                 {/* PIN Header */}
@@ -357,23 +253,14 @@ export default function LoginScreen() {
                   {[0, 1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="w-16 h-20 rounded-[12px] flex items-center justify-center transition-all"
-                      style={{
-                        border:
-                          i < pin.length
-                            ? "2px solid var(--primary)"
-                            : "2px solid var(--outline-variant)",
-                        background:
-                          i < pin.length
-                            ? "var(--primary-container)"
-                            : "var(--surface-variant)",
-                      }}
+                      className={`w-16 h-20 rounded-[12px] flex items-center justify-center transition-all border-2 ${
+                        i < pin.length
+                          ? "border-primary bg-primary-container"
+                          : "border-border-subtle bg-surface-variant"
+                      }`}
                     >
                       {i < pin.length && (
-                        <div
-                          className="w-4 h-4 rounded-full"
-                          style={{ backgroundColor: "var(--primary)" }}
-                        />
+                        <div className="w-4 h-4 rounded-full bg-primary" />
                       )}
                     </div>
                   ))}
@@ -386,25 +273,7 @@ export default function LoginScreen() {
                       key={num}
                       onClick={() => handleNumberClick(num.toString())}
                       disabled={!selectedUser}
-                      className="h-14 rounded-[12px] font-['Inter'] transition-all active:scale-95"
-                      style={{
-                        background: "var(--surface-variant)",
-                        border: "0.8px solid var(--outline-variant)",
-                        color: "var(--on-surface)",
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background =
-                          "var(--primary-container)";
-                        e.currentTarget.style.borderColor = "var(--primary)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background =
-                          "var(--surface-variant)";
-                        e.currentTarget.style.borderColor =
-                          "var(--outline-variant)";
-                      }}
+                      className="h-14 rounded-[12px] font-['Inter'] transition-all active:scale-95 bg-surface-variant border border-border-subtle text-text-primary text-xl font-bold hover:bg-primary-container hover:border-primary hover:text-primary"
                     >
                       {num}
                     </button>
@@ -413,25 +282,7 @@ export default function LoginScreen() {
                   <button
                     onClick={() => handleNumberClick("0")}
                     disabled={!selectedUser}
-                    className="h-14 rounded-[12px] font-['Inter'] transition-all active:scale-95"
-                    style={{
-                      background: "var(--surface-variant)",
-                      border: "0.8px solid var(--outline-variant)",
-                      color: "var(--on-surface)",
-                      fontSize: "20px",
-                      fontWeight: "bold",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background =
-                        "var(--primary-container)";
-                      e.currentTarget.style.borderColor = "var(--primary)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background =
-                        "var(--surface-variant)";
-                      e.currentTarget.style.borderColor =
-                        "var(--outline-variant)";
-                    }}
+                    className="h-14 rounded-[12px] font-['Inter'] transition-all active:scale-95 bg-surface-variant border border-border-subtle text-text-primary text-xl font-bold hover:bg-primary-container hover:border-primary hover:text-primary"
                   >
                     0
                   </button>
@@ -443,14 +294,7 @@ export default function LoginScreen() {
                   <button
                     onClick={handleClear}
                     disabled={!selectedUser}
-                    className="h-14 rounded-[12px] flex items-center justify-center gap-2 font-['Almarai'] transition-all"
-                    style={{
-                      background: "var(--error-container)",
-                      border: "0.8px solid var(--error)",
-                      color: "var(--error)",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                    }}
+                    className="h-14 rounded-[12px] flex items-center justify-center gap-2 font-['Almarai'] transition-all bg-error/10 border border-error text-error text-sm font-bold"
                     dir="auto"
                   >
                     <X className="w-5 h-5" />
@@ -460,21 +304,11 @@ export default function LoginScreen() {
                   <button
                     onClick={handleLogin}
                     disabled={!selectedUser || pin.length !== 4 || loading}
-                    className="h-14 rounded-[12px] flex items-center justify-center gap-2 font-['Almarai'] transition-all"
-                    style={{
-                      background:
-                        pin.length === 4
-                          ? "var(--primary)"
-                          : "var(--primary-container)",
-                      border: "0.8px solid var(--primary)",
-                      color:
-                        pin.length === 4
-                          ? "var(--on-primary)"
-                          : "var(--primary)",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      opacity: pin.length === 4 ? 1 : 0.5,
-                    }}
+                    className={`h-14 rounded-[12px] flex items-center justify-center gap-2 font-['Almarai'] transition-all border border-primary text-sm font-bold ${
+                      pin.length === 4
+                        ? "bg-primary text-on-primary opacity-100"
+                        : "bg-primary-container text-primary opacity-50"
+                    }`}
                     dir="auto"
                   >
                     <Check className="w-5 h-5" />
@@ -484,20 +318,9 @@ export default function LoginScreen() {
 
                 {/* Error Message */}
                 {error && (
-                  <div
-                    className="mt-6 p-4 rounded-[12px] text-center"
-                    style={{
-                      background: "var(--error-container)",
-                      border: "0.8px solid var(--error)",
-                    }}
-                  >
+                  <div className="mt-6 p-4 rounded-[12px] text-center bg-error/10 border border-error">
                     <p
-                      className="font-['Almarai']"
-                      style={{
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                        color: "var(--error)",
-                      }}
+                      className="font-['Almarai'] text-sm leading-5 text-error"
                       dir="auto"
                     >
                       {error}
@@ -508,17 +331,8 @@ export default function LoginScreen() {
             ) : (
               // No User Selected State
               <div className="flex flex-col items-center justify-center h-full gap-8">
-                <div
-                  className="w-24 h-24 rounded-[16.4px] flex items-center justify-center"
-                  style={{
-                    background: "var(--surface-variant)",
-                    border: "0.8px solid var(--outline-variant)",
-                  }}
-                >
-                  <Users
-                    className="w-12 h-12"
-                    style={{ color: "var(--outline)" }}
-                  />
+                <div className="w-24 h-24 rounded-[16.4px] flex items-center justify-center bg-surface-variant border border-border-subtle">
+                  <Users className="w-12 h-12 text-text-muted" />
                 </div>
 
                 <div className="text-center">
@@ -549,20 +363,9 @@ export default function LoginScreen() {
                   </p>
                 </div>
 
-                <div
-                  className="w-full p-4 rounded-[12px]"
-                  style={{
-                    background: "var(--primary-container)",
-                    border: "0.8px solid var(--primary)",
-                  }}
-                >
+                <div className="w-full p-4 rounded-[12px] bg-primary-container border border-primary">
                   <p
-                    className="font-['Almarai'] text-center"
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: "20px",
-                      color: "var(--primary)",
-                    }}
+                    className="font-['Almarai'] text-center text-sm leading-5 text-primary"
                     dir="auto"
                   >
                     {isRTL

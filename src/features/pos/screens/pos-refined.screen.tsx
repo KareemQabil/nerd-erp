@@ -543,7 +543,7 @@ export default function POSRefinedScreen() {
     : products;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#023047] to-[#001219] pr-20">
+    <div className="min-h-screen bg-background pr-20">
       {/* Main Navigation Sidebar */}
       <MainNavigation />
 
@@ -556,10 +556,10 @@ export default function POSRefinedScreen() {
             exit={{ opacity: 0, y: -20 }}
             className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-xl shadow-lg backdrop-blur-sm ${
               feedback.type === "success"
-                ? "bg-green-500/90 text-white"
+                ? "bg-success/90 text-on-primary"
                 : feedback.type === "error"
-                ? "bg-red-500/90 text-white"
-                : "bg-blue-500/90 text-white"
+                ? "bg-error/90 text-on-primary"
+                : "bg-info/90 text-on-primary"
             }`}
           >
             <p className="text-sm font-['Almarai'] font-bold" dir="auto">
@@ -586,8 +586,8 @@ export default function POSRefinedScreen() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-6 py-2.5 rounded-xl text-sm font-['Almarai'] transition-all whitespace-nowrap ${
                   selectedCategory === cat.id
-                    ? "bg-cyan-400 text-[#00373a] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
-                    : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
+                    ? "bg-primary text-on-primary shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
+                    : "bg-surface-overlay border border-border-subtle text-text-secondary hover:border-primary/50"
                 }`}
               >
                 <span dir="auto">{cat.name}</span> ({cat.count})
@@ -607,7 +607,7 @@ export default function POSRefinedScreen() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={`${t("common.search")}... (Ctrl+F)`}
-                className="w-full h-12 px-4 pr-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-base text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all"
+                className="w-full h-12 px-4 pr-12 bg-surface-overlay border border-border-subtle rounded-xl text-base text-text-primary placeholder:text-text-secondary font-['Almarai'] focus:outline-none focus:border-primary/50 transition-all"
                 dir="rtl"
               />
               <Search className="absolute left-4 top-3.5 w-5 h-5 text-[#c2c7ce]" />
@@ -615,7 +615,7 @@ export default function POSRefinedScreen() {
 
             {/* Order Type Dropdown */}
             <div className="relative group">
-              <button className="h-12 px-8 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] text-base font-['Almarai'] hover:border-cyan-400/50 transition-colors flex items-center gap-3 min-w-[180px] justify-between">
+              <button className="h-12 px-8 rounded-xl bg-surface-overlay border border-border-subtle text-text-primary text-base font-['Almarai'] hover:border-primary/50 transition-colors flex items-center gap-3 min-w-[180px] justify-between">
                 <span dir="auto">
                   {orderType === "takeaway" && t("pos.orderType.takeaway")}
                   {orderType === "dineIn" &&
@@ -628,10 +628,10 @@ export default function POSRefinedScreen() {
               </button>
 
               {/* Dropdown */}
-              <div className="absolute left-0 top-full mt-2 w-56 bg-[#1a1c1e] border border-[rgba(255,255,255,0.1)] rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
+              <div className="absolute left-0 top-full mt-2 w-56 bg-surface border border-border-subtle rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
                 <button
                   onClick={() => handleOrderTypeChange("takeaway")}
-                  className="w-full px-5 py-4 text-right hover:bg-[rgba(255,255,255,0.05)] transition-colors first:rounded-t-xl"
+                  className="w-full px-5 py-4 text-right hover:bg-surface-overlay transition-colors first:rounded-t-xl"
                 >
                   <span
                     className="text-base font-['Almarai'] text-[#e2e2e6]"
@@ -642,7 +642,7 @@ export default function POSRefinedScreen() {
                 </button>
                 <button
                   onClick={() => setIsTableModalOpen(true)}
-                  className="w-full px-5 py-4 text-right hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+                  className="w-full px-5 py-4 text-right hover:bg-surface-overlay transition-colors"
                 >
                   <span
                     className="text-base font-['Almarai'] text-[#e2e2e6]"
@@ -653,7 +653,7 @@ export default function POSRefinedScreen() {
                 </button>
                 <button
                   onClick={() => handleOrderTypeChange("delivery")}
-                  className="w-full px-5 py-4 text-right hover:bg-[rgba(255,255,255,0.05)] transition-colors last:rounded-b-xl"
+                  className="w-full px-5 py-4 text-right hover:bg-surface-overlay transition-colors last:rounded-b-xl"
                 >
                   <span
                     className="text-base font-['Almarai'] text-[#e2e2e6]"
@@ -696,7 +696,7 @@ export default function POSRefinedScreen() {
                   whileTap={{ scale: 0.97 }}
                   onClick={() => addToCart(product)}
                   disabled={!product.isAvailable}
-                  className={`bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-right transition-all ${
+                  className={`bg-surface-overlay backdrop-blur-sm border border-border-subtle rounded-xl p-4 text-right transition-all ${
                     product.isAvailable
                       ? "hover:border-cyan-400/50 hover:shadow-lg cursor-pointer"
                       : "opacity-50 cursor-not-allowed"
@@ -704,7 +704,7 @@ export default function POSRefinedScreen() {
                 >
                   {/* Product Image */}
                   {product.imageUrl && (
-                    <div className="w-full aspect-square rounded-lg overflow-hidden mb-3 bg-[rgba(255,255,255,0.03)]">
+                    <div className="w-full aspect-square rounded-lg overflow-hidden mb-3 bg-surface-overlay">
                       <img
                         src={product.imageUrl}
                         alt={product.name}
@@ -726,16 +726,16 @@ export default function POSRefinedScreen() {
 
                   {/* Price & Stock */}
                   <div className="flex items-center justify-between">
-                    <span className="text-lg font-['Arial'] font-bold text-cyan-400">
+                    <span className="text-lg font-['Arial'] font-bold text-primary">
                       {product.price.toFixed(2)} ر.س
                     </span>
                     <span
                       className={`text-xs px-2 py-1 rounded ${
                         product.stock > 10
-                          ? "bg-green-500/20 text-green-400"
+                          ? "bg-success/20 text-success"
                           : product.stock > 0
-                          ? "bg-yellow-500/20 text-yellow-400"
-                          : "bg-red-500/20 text-red-400"
+                          ? "bg-warning/20 text-warning"
+                          : "bg-error/20 text-error"
                       }`}
                     >
                       {product.stock > 0 ? `${product.stock} متوفر` : "نفذ"}

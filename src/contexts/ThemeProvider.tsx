@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
-type Theme = "light" | "dark";
+type Theme = "light" | "dark" | "system";
 
 interface ThemeProviderContextValue {
   theme: Theme;
@@ -21,7 +21,7 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({
   children,
-  defaultTheme = "light",
+  defaultTheme = "system",
 }: ThemeProviderProps) {
   const [theme, setTheme] = useLocalStorageState<Theme>("theme", {
     defaultValue: defaultTheme,
@@ -29,7 +29,7 @@ export function ThemeProvider({
 
   // Get the actual theme based on system preference when theme is "system"
   const getActualTheme = (): "light" | "dark" => {
-    if (theme === "light") {
+    if (theme === "system") {
       return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
@@ -47,7 +47,7 @@ export function ThemeProvider({
     root.setAttribute("data-theme", actualTheme);
 
     // Listen to system theme changes when theme is "system"
-    if (theme === "light") {
+    if (theme === "system") {
       const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
 
       const handleChange = () => {
@@ -63,7 +63,10 @@ export function ThemeProvider({
   }, [theme, actualTheme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    setTheme((prev) => {
+      if (prev === "light") return "dark";
+      return "light";
+    });
   };
 
   const value = useMemo(

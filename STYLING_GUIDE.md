@@ -1,18 +1,52 @@
 # NerdPOS Generic Styling Guide
 
-This guide documents the generic styling system used in the NerdPOS application. It is designed to ensure consistency, maintainability, and ease of refactoring across all screens.
+This guide documents the generic styling system used in the NerdPOS application. It is designed to ensure consistency, maintainability, and ease of refactoring across all screens, supporting multiple themes (Light, Dark, Luxury).
 
-**Source of Truth**: `src/core/theme/nerdpos-styles.ts`
+**Source of Truth**:
+
+1. `src/index.css` (Theme Variables & Tailwind Configuration)
+2. `src/core/theme/nerdpos-styles.ts` (Shared Component Styles)
 
 ## 1. Core Concepts
 
-The styling system is built around three main exports:
+The styling system is built around a **Semantic Theming** approach:
 
-1.  **`NerdPOSLayout`**: Defines structural layout patterns (Page, Header, Stats, Data).
-2.  **`NerdPOSStyles`**: Defines component-level styles (Buttons, Cards, Inputs, Badges).
-3.  **`NerdPOSColors`**: Defines the color palette and theme variables.
+1.  **CSS Variables**: Defined in `src/index.css`, these control the actual colors for each theme.
+2.  **Tailwind Configuration**: The `@theme` block in `src/index.css` maps these variables to Tailwind utilities (e.g., `bg-primary` maps to `var(--primary)`).
+3.  **`NerdPOSStyles`**: A TypeScript object in `nerdpos-styles.ts` that provides pre-configured Tailwind class strings for common components, ensuring they use the semantic classes.
 
-## 2. Layout System (`NerdPOSLayout`)
+## 2. Color System
+
+We use semantic names for colors rather than describing their appearance.
+
+### Brand Colors
+
+- `primary`: Main brand color (Cyan in Dark, Teal in Light, Gold in Luxury).
+- `secondary`: Secondary brand color.
+- `tertiary`: Accent color.
+
+### UI Colors
+
+- `background`: The main page background.
+- `surface`: Card and panel backgrounds.
+- `surface-variant`: Alternative surface color.
+- `surface-overlay`: Semi-transparent overlay for glassmorphism effects.
+- `outline`: Border colors.
+
+### Text Colors
+
+- `text-primary`: High-emphasis text (`--on-background`).
+- `text-secondary`: Medium-emphasis text (`--on-surface-variant`).
+- `text-muted`: Low-emphasis text (`--outline`).
+
+### Status Colors
+
+- `success`: Green/Success state.
+- `warning`: Orange/Warning state.
+- `error`: Red/Error state.
+- `info`: Blue/Info state.
+
+## 3. Layout System (`NerdPOSLayout`)
 
 Use these tokens for high-level structure.
 
@@ -26,6 +60,7 @@ import {
 
 <div
   className={NerdPOSLayout.page.container}
+  // Background is handled by the class now, but inline style can still use the variable if needed
   style={{ background: NerdPOSColors.background.gradient }}
 >
   <MainNavigation />
@@ -45,105 +80,63 @@ import {
 </div>
 ```
 
-### Stats Grid
+## 4. Component Styles (`NerdPOSStyles`)
 
-```tsx
-<div className={NerdPOSLayout.stats.grid}>
-  <div className={NerdPOSStyles.statsCard.base}>{/* Stat Content */}</div>
-</div>
-```
-
-### Filters & Search
-
-```tsx
-<div className={NerdPOSLayout.filters.container}>
-  <div className={NerdPOSLayout.filters.searchWrapper}>
-    <input className={NerdPOSStyles.input.search} />
-  </div>
-  <select className={NerdPOSLayout.filters.select}>
-    <option>Filter Option</option>
-  </select>
-</div>
-```
-
-### Data Display (Tables & Grids)
-
-**Table:**
-
-```tsx
-<div className={NerdPOSLayout.data.tableContainer}>
-  <table>
-    <thead className={NerdPOSLayout.data.tableHeader}>
-      <tr>
-        <th className={NerdPOSLayout.data.th}>Header</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr className={NerdPOSLayout.data.tr}>
-        <td className={NerdPOSLayout.data.td}>Data</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-```
-
-**Grid:**
-
-```tsx
-<div className={NerdPOSLayout.data.grid}>{/* Card Items */}</div>
-```
-
-## 3. Component Styles (`NerdPOSStyles`)
-
-Use these tokens for individual UI elements.
+Use these tokens for individual UI elements. They automatically adapt to the active theme.
 
 ### Buttons
 
-- **Primary**: `NerdPOSStyles.button.primary` (Cyan background, dark text)
-- **Secondary**: `NerdPOSStyles.button.secondary` (Transparent background, border)
-- **Ghost**: `NerdPOSStyles.button.ghost` (Transparent, no border)
+- **Primary**: `NerdPOSStyles.button.primary`
+  - _Uses_: `bg-primary`, `text-on-primary`
+- **Secondary**: `NerdPOSStyles.button.secondary`
+  - _Uses_: `bg-surface-overlay`, `border-border-subtle`, `text-text-primary`
+- **Ghost**: `NerdPOSStyles.button.ghost`
+  - _Uses_: `text-text-secondary`, `hover:bg-surface-overlay`
 
 ### Cards
 
-- **Base**: `NerdPOSStyles.card.base` (Glassmorphism effect)
-- **Hover**: `NerdPOSStyles.card.hover` (Hover glow)
-- **Stats**: `NerdPOSStyles.statsCard.base` (Darker background)
+- **Base**: `NerdPOSStyles.card.base`
+  - _Uses_: `bg-surface-overlay`, `border-border-subtle`
+- **Stats**: `NerdPOSStyles.statsCard.base`
+  - _Uses_: `bg-surface-variant`
 
 ### Inputs
 
 - **Base**: `NerdPOSStyles.input.base`
-- **Search**: `NerdPOSStyles.input.search` (Includes padding for icon)
+  - _Uses_: `bg-surface-overlay`, `text-text-primary`, `placeholder:text-text-muted`
 
 ### Badges
 
 - **Success**: `NerdPOSStyles.badge.success`
+  - _Uses_: `bg-success/20`, `text-success`
 - **Warning**: `NerdPOSStyles.badge.warning`
 - **Error**: `NerdPOSStyles.badge.error`
-- **Info**: `NerdPOSStyles.badge.info`
-
-## 4. Color Palette (`NerdPOSColors`)
-
-Access colors directly for inline styles or custom components.
-
-- `NerdPOSColors.background.gradient`: Main page background.
-- `NerdPOSColors.brand.primary`: Main Cyan color (#22d3ee).
-- `NerdPOSColors.text.primary`: Main text color (#e2e2e6).
-- `NerdPOSColors.text.secondary`: Secondary text color (#c2c7ce).
 
 ## 5. Refactoring Guide
 
-**Goal**: Replace hardcoded Tailwind classes with generic tokens.
+**Goal**: Replace hardcoded hex values and specific color names with semantic tokens.
 
-| Component          | **BEFORE** (Hardcoded)                                           | **AFTER** (Generic)                        |
-| :----------------- | :--------------------------------------------------------------- | :----------------------------------------- |
-| **Page Container** | `className="min-h-screen flex flex-col"`                         | `className={NerdPOSLayout.page.container}` |
-| **Page Title**     | `className="text-3xl font-['Almarai'] font-bold text-[#e2e2e6]"` | `className={NerdPOSLayout.header.title}`   |
-| **Primary Button** | `className="bg-cyan-400 text-[#00373a] rounded-xl ..."`          | `className={NerdPOSStyles.button.primary}` |
-| **Card**           | `className="bg-[rgba(255,255,255,0.05)] border ..."`             | `className={NerdPOSStyles.card.base}`      |
-| **Input**          | `className="bg-[rgba(255,255,255,0.05)] border ..."`             | `className={NerdPOSStyles.input.base}`     |
+| Component          | **BEFORE** (Hardcoded)           | **AFTER** (Generic)    |
+| :----------------- | :------------------------------- | :--------------------- |
+| **Text Color**     | `text-[#e2e2e6]`                 | `text-text-primary`    |
+| **Secondary Text** | `text-[#c2c7ce]`                 | `text-text-secondary`  |
+| **Brand Text**     | `text-cyan-400`                  | `text-primary`         |
+| **Background**     | `bg-[#023047]`                   | `bg-background`        |
+| **Card Bg**        | `bg-[rgba(255,255,255,0.05)]`    | `bg-surface-overlay`   |
+| **Border**         | `border-[rgba(255,255,255,0.1)]` | `border-border-subtle` |
+| **Success Text**   | `text-green-400`                 | `text-success`         |
 
-## 6. Helper Functions
+## 6. Adding New Themes
 
-- `getFlexJustify(isRTL)`: Returns `flex-end` for RTL, `flex-start` for LTR.
-- `getTextAlign(isRTL)`: Returns `right` for RTL, `left` for LTR.
-- `getRTLStyle(isRTL, property, side, value)`: Generates dynamic style objects for margins/padding.
+To add a new theme:
+
+1.  Open `src/index.css`.
+2.  Add a new block for the theme:
+    ```css
+    [data-theme="new-theme"] {
+      --primary: ...;
+      --on-primary: ...;
+      /* ... define all required variables */
+    }
+    ```
+3.  The application will automatically pick up the new colors without changing any TypeScript code.
