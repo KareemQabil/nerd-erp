@@ -41,6 +41,11 @@ import {
   ArrowRightLeft,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import {
+  NerdPOSLayout,
+  NerdPOSStyles,
+  NerdPOSColors,
+} from "../../../core/theme/nerdpos-styles";
 
 export default function InventoryScreen() {
   const { t } = useTranslation();
@@ -241,7 +246,14 @@ export default function InventoryScreen() {
   // ============================================================
 
   return (
-    <div className="min-h-screen bg-[#00161a] flex flex-col pr-20" dir="rtl">
+    <div
+      className={NerdPOSLayout.page.container}
+      style={{
+        background: NerdPOSColors.background.gradient,
+        paddingRight: "80px",
+      }}
+      dir="rtl"
+    >
       {/* Navigation */}
       <MainNavigation />
 
@@ -272,16 +284,14 @@ export default function InventoryScreen() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className={NerdPOSLayout.page.content}>
         {/* Header Section */}
-        <div className="bg-gradient-to-b from-[#001f24] to-[#00161a] border-b border-[rgba(255,255,255,0.1)] px-6 py-6">
+        <div className={NerdPOSLayout.header.container}>
           {/* Title */}
-          <div className="flex items-center justify-between mb-6">
+          <div className={NerdPOSLayout.header.wrapper}>
             <div>
-              <h1 className="text-3xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1">
-                إدارة المخزون
-              </h1>
-              <p className="text-sm font-['Almarai'] text-[#c2c7ce]">
+              <h1 className={NerdPOSLayout.header.title}>إدارة المخزون</h1>
+              <p className={NerdPOSLayout.header.subtitle}>
                 تتبع وإدارة مخزون المنتجات
               </p>
             </div>
@@ -335,8 +345,10 @@ export default function InventoryScreen() {
 
           {/* Stats Cards */}
           {stats && (
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 mb-6">
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
+            <div className={NerdPOSLayout.stats.grid}>
+              <div
+                className={`${NerdPOSLayout.stats.card} bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border-cyan-400/20`}
+              >
                 <div className="flex items-center gap-2 mb-2">
                   <Package className="w-4 h-4 text-cyan-400" />
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
@@ -441,16 +453,18 @@ export default function InventoryScreen() {
           )}
 
           {/* Search and Filters */}
-          <div className="flex gap-3">
+          <div className={NerdPOSLayout.filters.container}>
             {/* Search */}
-            <div className="flex-1 relative">
+            <div className={NerdPOSLayout.filters.searchWrapper}>
               <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#c2c7ce]" />
               <input
                 type="text"
                 placeholder="ابحث بالاسم، الباركود، أو رمز المنتج..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pr-12 pl-12 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+                className={
+                  NerdPOSStyles.input.base + " w-full pr-12 pl-12 py-3"
+                }
                 dir="rtl"
               />
               {searchQuery && (
@@ -467,7 +481,7 @@ export default function InventoryScreen() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+              className={NerdPOSLayout.filters.select}
               dir="rtl"
             >
               <option value="all">كل الفئات</option>
@@ -482,7 +496,7 @@ export default function InventoryScreen() {
             <select
               value={selectedWarehouse}
               onChange={(e) => setSelectedWarehouse(e.target.value)}
-              className="px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+              className={NerdPOSLayout.filters.select}
               dir="rtl"
             >
               <option value="all">كل المستودعات</option>
@@ -497,7 +511,7 @@ export default function InventoryScreen() {
             <select
               value={selectedStockStatus}
               onChange={(e) => setSelectedStockStatus(e.target.value)}
-              className="px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+              className={NerdPOSLayout.filters.select}
               dir="rtl"
             >
               <option value="all">كل الحالات</option>
@@ -537,12 +551,12 @@ export default function InventoryScreen() {
         </AnimatePresence>
 
         {/* Products Table */}
-        <div className="flex-1 px-6 py-4 overflow-auto">
+        <div className={NerdPOSLayout.page.main}>
           <LoadingState loading={loading}>
             {products.length > 0 ? (
-              <div className="bg-[rgba(255,255,255,0.03)] rounded-2xl border border-[rgba(255,255,255,0.1)] overflow-hidden">
+              <div className={NerdPOSLayout.data.tableContainer}>
                 <table className="w-full">
-                  <thead className="bg-[rgba(255,255,255,0.05)]">
+                  <thead className={NerdPOSLayout.data.tableHeader}>
                     <tr>
                       <th className="px-4 py-3 text-right text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
                         المنتج
@@ -580,7 +594,7 @@ export default function InventoryScreen() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.02 }}
-                        className="border-t border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.03)] transition-colors"
+                        className={NerdPOSLayout.data.tr}
                       >
                         <td className="px-4 py-4">
                           <div className="flex items-center gap-3">

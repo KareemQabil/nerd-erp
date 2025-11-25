@@ -27,7 +27,11 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { motion } from "motion/react";
-import { NerdPOSColors } from "../../../core/theme/nerdpos-styles";
+import {
+  NerdPOSColors,
+  NerdPOSLayout,
+  NerdPOSStyles,
+} from "../../../core/theme/nerdpos-styles";
 
 export default function OrdersScreen() {
   const { t, i18n } = useTranslation();
@@ -159,26 +163,23 @@ export default function OrdersScreen() {
 
   return (
     <div
-      className="min-h-screen"
+      className={NerdPOSLayout.page.container}
       style={{ background: NerdPOSColors.background.gradient }}
     >
       <MainNavigation />
 
       <div
-        className="pt-6 pb-24 px-4"
+        className={NerdPOSLayout.page.main}
         style={{ marginRight: "80px" }}
         dir={isRTL ? "rtl" : "ltr"}
       >
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className={NerdPOSLayout.header.wrapper}>
           <div>
-            <h1
-              className="text-2xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1"
-              dir="auto"
-            >
+            <h1 className={NerdPOSLayout.header.title} dir="auto">
               {isRTL ? "إدارة الطلبات" : "Orders Management"}
             </h1>
-            <p className="text-base text-[#c2c7ce] font-['Almarai']" dir="auto">
+            <p className={NerdPOSLayout.header.subtitle} dir="auto">
               {isRTL ? "عرض وإدارة جميع الطلبات" : "View and manage all orders"}
             </p>
           </div>
@@ -187,7 +188,10 @@ export default function OrdersScreen() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/pos")}
-            className="h-12 px-6 bg-cyan-400 text-[#00373a] rounded-xl font-['Almarai'] font-bold flex items-center gap-2 transition-all hover:bg-cyan-300 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
+            className={
+              NerdPOSStyles.button.primary +
+              " h-12 px-6 flex items-center gap-2 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
+            }
           >
             <Plus className="w-5 h-5" />
             <span dir="auto">{isRTL ? "طلب جديد" : "New Order"}</span>
@@ -196,8 +200,8 @@ export default function OrdersScreen() {
 
         {/* Stats Cards */}
         {stats && (
-          <div className="grid grid-cols-4 gap-4 mb-6">
-            <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
+          <div className={NerdPOSLayout.stats.grid + " lg:grid-cols-4"}>
+            <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="flex items-center justify-center gap-2 mb-2">
                 <TrendingUp className="w-5 h-5 text-purple-400" />
               </div>
@@ -212,7 +216,7 @@ export default function OrdersScreen() {
               </div>
             </div>
 
-            <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
+            <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="flex items-center justify-center gap-2 mb-2">
                 <DollarSign className="w-5 h-5 text-green-400" />
               </div>
@@ -227,7 +231,7 @@ export default function OrdersScreen() {
               </div>
             </div>
 
-            <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
+            <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="flex items-center justify-center gap-2 mb-2">
                 <ChefHat className="w-5 h-5 text-orange-400" />
               </div>
@@ -242,7 +246,7 @@ export default function OrdersScreen() {
               </div>
             </div>
 
-            <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
+            <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.total}
               </div>
@@ -257,14 +261,14 @@ export default function OrdersScreen() {
         )}
 
         {/* Search and Filters */}
-        <div className="flex items-center gap-4 mb-6">
-          <div className="flex-1 relative">
+        <div className={NerdPOSLayout.filters.container}>
+          <div className={NerdPOSLayout.filters.searchWrapper}>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder={isRTL ? "ابحث عن طلب..." : "Search orders..."}
-              className="w-full h-12 px-4 pr-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-base text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all"
+              className={NerdPOSStyles.input.search}
               style={{ textAlign: isRTL ? "right" : "left" }}
               dir={isRTL ? "rtl" : "ltr"}
             />
@@ -321,7 +325,7 @@ export default function OrdersScreen() {
               className={`px-6 py-2.5 rounded-xl text-sm font-['Almarai'] transition-all whitespace-nowrap ${
                 activeTab === tab.id
                   ? "bg-cyan-400 text-[#00373a] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
-                  : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
+                  : NerdPOSStyles.button.secondary
               }`}
             >
               <span dir="auto">{tab.label}</span>
@@ -358,7 +362,12 @@ export default function OrdersScreen() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.03 }}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.1)] rounded-xl p-4 hover:border-cyan-400/50 hover:shadow-lg transition-all cursor-pointer"
+                  className={
+                    NerdPOSStyles.card.base +
+                    " " +
+                    NerdPOSStyles.card.hover +
+                    " p-4 cursor-pointer"
+                  }
                   onClick={() => navigate(`/orders/${order.id}`)}
                   dir={isRTL ? "rtl" : "ltr"}
                 >

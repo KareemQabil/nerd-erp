@@ -6,66 +6,66 @@
 export const NerdPOSColors = {
   // Background
   background: {
-    primary: '#023047',
-    gradient: 'linear-gradient(180deg, #023047 0%, #012030 50%, #001219 100%)',
-    card: 'rgba(255,255,255,0.05)',
-    cardHover: 'rgba(255,255,255,0.08)',
-    surface: '#1a1c1e',
-    surfaceAlt: '#2a2d32',
+    primary: "#023047",
+    gradient: "linear-gradient(180deg, #023047 0%, #012030 50%, #001219 100%)",
+    card: "rgba(255,255,255,0.05)",
+    cardHover: "rgba(255,255,255,0.08)",
+    surface: "#1a1c1e",
+    surfaceAlt: "#2a2d32",
   },
-  
+
   // Brand
   brand: {
-    primary: '#22d3ee', // Cyan
-    primaryDark: '#0891b2',
-    success: '#10b981',
-    warning: '#f59e0b',
-    error: '#ef4444',
-    info: '#22d3ee',
-    purple: '#8b5cf6',
+    primary: "#22d3ee", // Cyan
+    primaryDark: "#0891b2",
+    success: "#10b981",
+    warning: "#f59e0b",
+    error: "#ef4444",
+    info: "#22d3ee",
+    purple: "#8b5cf6",
   },
-  
+
   // Text
   text: {
-    primary: '#e2e2e6',
-    secondary: '#c2c7ce',
-    disabled: '#7a7f85',
-    muted: '#9ca3af',
+    primary: "#e2e2e6",
+    secondary: "#c2c7ce",
+    disabled: "#7a7f85",
+    muted: "#9ca3af",
   },
-  
+
   // Borders
   border: {
-    default: 'rgba(255,255,255,0.1)',
-    hover: 'rgba(34,211,238,0.5)',
-    focus: '#22d3ee',
-    subtle: 'rgba(255,255,255,0.05)',
+    default: "rgba(255,255,255,0.1)",
+    hover: "rgba(34,211,238,0.5)",
+    focus: "#22d3ee",
+    subtle: "rgba(255,255,255,0.05)",
   },
-  
+
   // Special
   badge: {
-    gold: '#FFD700',
-    silver: '#C0C0C0',
-    bronze: '#CD7F32',
-    platinum: '#E5E4E2',
+    gold: "#FFD700",
+    silver: "#C0C0C0",
+    bronze: "#CD7F32",
+    platinum: "#E5E4E2",
   },
 };
 
 export const NerdPOSRadius = {
-  xs: '6px',
-  sm: '8px',
-  md: '10px',
-  lg: '12px',
-  xl: '16px',
-  xxl: '20px',
+  xs: "6px",
+  sm: "8px",
+  md: "10px",
+  lg: "12px",
+  xl: "16px",
+  xxl: "20px",
 };
 
 export const NerdPOSSpacing = {
-  xs: '8px',
-  sm: '12px',
-  md: '16px',
-  lg: '24px',
-  xl: '32px',
-  xxl: '48px',
+  xs: "8px",
+  sm: "12px",
+  md: "16px",
+  lg: "24px",
+  xl: "32px",
+  xxl: "48px",
 };
 
 export const NerdPOSTypography = {
@@ -75,15 +75,15 @@ export const NerdPOSTypography = {
     english: "'Inter', sans-serif",
   },
   fontSize: {
-    xs: '10px',
-    sm: '12px',
-    base: '14px',
-    lg: '16px',
-    xl: '18px',
-    xxl: '20px',
-    '3xl': '24px',
-    '4xl': '28px',
-    '5xl': '32px',
+    xs: "10px",
+    sm: "12px",
+    base: "14px",
+    lg: "16px",
+    xl: "18px",
+    xxl: "20px",
+    "3xl": "24px",
+    "4xl": "28px",
+    "5xl": "32px",
   },
   fontWeight: {
     normal: 400,
@@ -101,26 +101,26 @@ export const NerdPOSStyles = {
     hover: `hover:border-cyan-400/50 hover:shadow-lg transition-all`,
     active: `border-cyan-400 bg-[rgba(34,211,238,0.1)]`,
   },
-  
+
   // Stats card (like dashboard cards)
   statsCard: {
     base: `bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-6`,
     gradient: `bg-gradient-to-br from-[#2a2d32] to-[#1a1c1e] border border-[rgba(255,255,255,0.1)] rounded-xl p-6`,
   },
-  
+
   // Button styles
   button: {
     primary: `bg-cyan-400 text-[#00373a] rounded-xl font-['Almarai'] font-bold transition-all hover:bg-cyan-300 active:scale-95`,
     secondary: `bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] rounded-xl font-['Almarai'] hover:border-cyan-400/50 transition-all`,
     ghost: `bg-transparent text-[#c2c7ce] rounded-xl font-['Almarai'] hover:bg-[rgba(255,255,255,0.05)] transition-all`,
   },
-  
+
   // Input styles
   input: {
     base: `bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all`,
     search: `w-full h-12 px-4 pr-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-base text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all`,
   },
-  
+
   // Badge styles
   badge: {
     success: `bg-green-500/20 border border-green-500/30 text-green-400 rounded-lg px-3 py-1 text-sm font-['Almarai']`,
@@ -129,15 +129,15 @@ export const NerdPOSStyles = {
     info: `bg-cyan-400/20 border border-cyan-400/30 text-cyan-400 rounded-lg px-3 py-1 text-sm font-['Almarai']`,
     gold: `bg-[#FFD700]/20 border border-[#FFD700]/30 text-[#FFD700] rounded-lg px-3 py-1 text-sm font-['Almarai']`,
   },
-  
+
   // Avatar styles
   avatar: {
     base: `rounded-full flex items-center justify-center font-['Almarai'] font-bold`,
     sizes: {
-      sm: 'w-8 h-8 text-sm',
-      md: 'w-12 h-12 text-lg',
-      lg: 'w-16 h-16 text-xl',
-      xl: 'w-20 h-20 text-2xl',
+      sm: "w-8 h-8 text-sm",
+      md: "w-12 h-12 text-lg",
+      lg: "w-16 h-16 text-xl",
+      xl: "w-20 h-20 text-2xl",
     },
   },
 };
@@ -146,11 +146,13 @@ export const NerdPOSStyles = {
 export const getBackgroundGradient = () => NerdPOSColors.background.gradient;
 
 // Helper function to get card style
-export const getCardStyle = (variant: 'default' | 'stats' | 'gradient' = 'default') => {
+export const getCardStyle = (
+  variant: "default" | "stats" | "gradient" = "default"
+) => {
   switch (variant) {
-    case 'stats':
+    case "stats":
       return NerdPOSStyles.statsCard.base;
-    case 'gradient':
+    case "gradient":
       return NerdPOSStyles.statsCard.gradient;
     default:
       return NerdPOSStyles.card.base;
@@ -158,13 +160,56 @@ export const getCardStyle = (variant: 'default' | 'stats' | 'gradient' = 'defaul
 };
 
 // Helper function for RTL-aware spacing
-export const getRTLStyle = (isRTL: boolean, property: 'margin' | 'padding', side: 'left' | 'right', value: string) => {
-  const actualSide = isRTL ? (side === 'left' ? 'right' : 'left') : side;
-  return { [`${property}${actualSide.charAt(0).toUpperCase()}${actualSide.slice(1)}`]: value };
+export const getRTLStyle = (
+  isRTL: boolean,
+  property: "margin" | "padding",
+  side: "left" | "right",
+  value: string
+) => {
+  const actualSide = isRTL ? (side === "left" ? "right" : "left") : side;
+  return {
+    [`${property}${actualSide.charAt(0).toUpperCase()}${actualSide.slice(1)}`]:
+      value,
+  };
 };
 
 // Helper for text alignment
-export const getTextAlign = (isRTL: boolean): 'left' | 'right' => isRTL ? 'right' : 'left';
+export const getTextAlign = (isRTL: boolean): "left" | "right" =>
+  isRTL ? "right" : "left";
 
 // Helper for flex justify
-export const getFlexJustify = (isRTL: boolean): 'flex-start' | 'flex-end' => isRTL ? 'flex-end' : 'flex-start';
+export const getFlexJustify = (isRTL: boolean): "flex-start" | "flex-end" =>
+  isRTL ? "flex-end" : "flex-start";
+
+export const NerdPOSLayout = {
+  page: {
+    container: `min-h-screen flex flex-col transition-colors duration-300`,
+    content: `flex-1 flex flex-col`,
+    main: `flex-1 px-6 py-4 overflow-auto`,
+  },
+  header: {
+    container: `border-b border-[rgba(255,255,255,0.1)] px-6 py-6 transition-all`,
+    wrapper: `flex items-center justify-between mb-6`,
+    title: `text-3xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1`,
+    subtitle: `text-sm font-['Almarai'] text-[#c2c7ce]`,
+    actions: `flex gap-3`,
+  },
+  stats: {
+    grid: `grid grid-cols-2 md:grid-cols-4  gap-3 mb-6`,
+    card: `p-4 rounded-xl border transition-all duration-200 hover:scale-105`,
+  },
+  filters: {
+    container: `flex gap-3 items-center mb-6`,
+    searchWrapper: `flex-1 relative`,
+    select: `px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors cursor-pointer`,
+  },
+  data: {
+    grid: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4`,
+    tableContainer: `bg-[rgba(255,255,255,0.03)] rounded-2xl border border-[rgba(255,255,255,0.1)] overflow-hidden`,
+    tableHeader: `bg-[rgba(255,255,255,0.05)]`,
+    th: `px-4 py-3 text-sm font-['Almarai'] font-bold text-[#e2e2e6]`,
+    tr: `border-t border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.03)] transition-colors`,
+    td: `px-4 py-4`,
+    emptyState: `flex items-center justify-center h-full min-h-[400px]`,
+  },
+};

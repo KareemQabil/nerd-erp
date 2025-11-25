@@ -26,7 +26,11 @@ import {
   Star,
 } from "lucide-react";
 import { motion } from "motion/react";
-import { NerdPOSColors } from "../../../core/theme/nerdpos-styles";
+import {
+  NerdPOSColors,
+  NerdPOSLayout,
+  NerdPOSStyles,
+} from "../../../core/theme/nerdpos-styles";
 
 export default function CustomersScreen() {
   const { t, i18n } = useTranslation();
@@ -103,26 +107,26 @@ export default function CustomersScreen() {
 
   return (
     <div
-      className="min-h-screen"
+      className={NerdPOSLayout.page.container}
       style={{ background: NerdPOSColors.background.gradient }}
     >
       <MainNavigation />
 
       <div
-        className="pt-6 pb-24 px-4"
+        className={NerdPOSLayout.page.main}
         style={{ marginRight: "80px" }}
         dir={isRTL ? "rtl" : "ltr"}
       >
         {/* Header with Action Button */}
-        <div className="flex items-center justify-between mb-6">
+        <div className={NerdPOSLayout.header.wrapper}>
           <div>
             <h1
-              className="text-2xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1 text-right"
+              className={NerdPOSLayout.header.title + " text-right"}
               dir="auto"
             >
               {isRTL ? "إدارة العملاء" : "Customer Management"}
             </h1>
-            <p className="text-base text-[#c2c7ce] font-['Almarai']" dir="auto">
+            <p className={NerdPOSLayout.header.subtitle} dir="auto">
               {isRTL
                 ? "إدارة قاعدة بيانات العملاء وبرنامج الولاء"
                 : "Manage customer database and loyalty program"}
@@ -132,7 +136,10 @@ export default function CustomersScreen() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="h-12 px-6 bg-cyan-400 text-[#00373a] rounded-xl font-['Almarai'] font-bold flex items-center gap-2 transition-all hover:bg-cyan-300 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
+            className={
+              NerdPOSStyles.button.primary +
+              " h-12 px-6 flex items-center gap-2 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
+            }
           >
             <Plus className="w-5 h-5" />
             <span dir="auto">{isRTL ? "عميل جديد" : "New Customer"}</span>
@@ -141,9 +148,9 @@ export default function CustomersScreen() {
 
         {/* Stats Cards - Matching POS design */}
         {stats && (
-          <div className="grid grid-cols-4 gap-4 mb-6">
+          <div className={NerdPOSLayout.stats.grid + " lg:grid-cols-4"}>
             {/* Total Customers */}
-            <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
+            <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.totalCustomers}
               </div>
@@ -156,7 +163,7 @@ export default function CustomersScreen() {
             </div>
 
             {/* Active Customers */}
-            <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
+            <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.activeCustomers}
               </div>
@@ -169,7 +176,7 @@ export default function CustomersScreen() {
             </div>
 
             {/* VIP */}
-            <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
+            <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.vipCustomers}
               </div>
@@ -182,7 +189,7 @@ export default function CustomersScreen() {
             </div>
 
             {/* Average Orders */}
-            <div className="bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-4 text-center">
+            <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
                 {stats.averageOrders?.toFixed(1) || "0.0"}
               </div>
@@ -197,15 +204,15 @@ export default function CustomersScreen() {
         )}
 
         {/* Search and Filters - Matching POS design */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className={NerdPOSLayout.filters.container}>
           {/* Search */}
-          <div className="flex-1 relative">
+          <div className={NerdPOSLayout.filters.searchWrapper}>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={isRTL ? "ابحث عن عميل..." : "Search customer..."}
-              className="w-full h-12 px-4 pr-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-base text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all"
+              className={NerdPOSStyles.input.search}
               style={{ textAlign: isRTL ? "right" : "left" }}
               dir={isRTL ? "rtl" : "ltr"}
             />
@@ -220,7 +227,7 @@ export default function CustomersScreen() {
             <select
               value={selectedTier}
               onChange={(e) => setSelectedTier(e.target.value as any)}
-              className="h-12 px-6 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] text-base font-['Almarai'] hover:border-cyan-400/50 transition-colors appearance-none cursor-pointer min-w-[200px]"
+              className={NerdPOSLayout.filters.select + " h-12 min-w-[200px]"}
               style={{ textAlign: isRTL ? "right" : "left" }}
               dir={isRTL ? "rtl" : "ltr"}
             >
@@ -254,7 +261,12 @@ export default function CustomersScreen() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div
+            className={
+              NerdPOSLayout.data.grid +
+              " grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+            }
+          >
             {filteredCustomers.map((customer, index) => {
               const program = getLoyaltyProgram(customer.loyaltyTier);
               const isVIP =
@@ -268,7 +280,12 @@ export default function CustomersScreen() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.03 }}
                   whileHover={{ scale: 1.03 }}
-                  className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.1)] rounded-xl p-4 hover:border-cyan-400/50 hover:shadow-lg transition-all cursor-pointer"
+                  className={
+                    NerdPOSStyles.card.base +
+                    " " +
+                    NerdPOSStyles.card.hover +
+                    " p-4 cursor-pointer"
+                  }
                   style={{ textAlign: isRTL ? "right" : "left" }}
                   dir={isRTL ? "rtl" : "ltr"}
                 >
