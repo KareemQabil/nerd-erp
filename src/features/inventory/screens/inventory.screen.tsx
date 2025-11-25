@@ -345,7 +345,7 @@ export default function InventoryScreen() {
 
           {/* Stats Cards */}
           {stats && (
-            <div className={NerdPOSLayout.stats.grid}>
+            <div className={NerdPOSLayout.stats.grid + " lg:grid-cols-8"}>
               <div
                 className={`${NerdPOSLayout.stats.card} bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border-cyan-400/20`}
               >
