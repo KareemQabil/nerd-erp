@@ -2,32 +2,77 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
+@theme {
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-secondary: var(--secondary);
+  --color-on-secondary: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
+  --color-tertiary: var(--tertiary);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-on-tertiary-container: var(--on-tertiary-container);
+  --color-error: var(--error);
+  --color-on-error: var(--on-error);
+  --color-error-container: var(--error-container);
+  --color-on-error-container: var(--on-error-container);
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
+  --color-surface: var(--surface);
+  --color-on-surface: var(--on-surface);
+  --color-surface-variant: var(--surface-variant);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  
+  /* Custom semantic colors */
+  --color-surface-overlay: var(--surface-overlay);
+  --color-border-subtle: var(--border-subtle);
+  --color-text-primary: var(--on-background);
+  --color-text-secondary: var(--on-surface-variant);
+  --color-text-muted: var(--outline);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+}
+
 @layer base {
   :root {
     --primary: #00acc1;
-    --on-primary: #fff;
+    --on-primary: #ffffff;
     --primary-container: #e0f7fa;
-    --on-primary-container: #0d3b52;
+    --on-primary-container: #006064;
     --secondary: #0d3b52;
-    --on-secondary: #fff;
+    --on-secondary: #ffffff;
     --secondary-container: #e3f2fd;
     --on-secondary-container: #0d3b52;
     --tertiary: #00897b;
-    --on-tertiary: #fff;
+    --on-tertiary: #ffffff;
     --tertiary-container: #e0f2f1;
     --on-tertiary-container: #004d40;
-    --error: #d32f2f;
-    --on-error: #fff;
-    --error-container: #ffebee;
-    --on-error-container: #b71c1c;
+    --error: #ba1a1a;
+    --on-error: #ffffff;
+    --error-container: #ffdad6;
+    --on-error-container: #410002;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --info: #00acc1;
     --background: #f8fafb;
-    --on-background: #0d3b52;
-    --surface: #fff;
-    --on-surface: #0d3b52;
-    --surface-variant: #f0f4f8;
-    --on-surface-variant: #546e7a;
-    --outline: #b0bec5;
-    --outline-variant: #e1e8ed;
+    --on-background: #191c1d;
+    --surface: #ffffff;
+    --on-surface: #191c1d;
+    --surface-variant: #e1e8ed;
+    --on-surface-variant: #444748;
+    --outline: #747775;
+    --outline-variant: #c4c7c5;
+
+    /* Custom additions */
+    --bg-gradient: linear-gradient(180deg, #f8fafb 0%, #eef2f6 100%);
+    --surface-overlay: rgba(0, 0, 0, 0.05);
+    --border-subtle: rgba(0, 0, 0, 0.1);
   }
 
   [data-theme="dark"] {
@@ -40,21 +85,29 @@
     --secondary-container: #3a4857;
     --on-secondary-container: #d5e4f7;
     --tertiary: #006399;
-    --on-tertiary: #fff;
+    --on-tertiary: #ffffff;
     --tertiary-container: #004a75;
     --on-tertiary-container: #cde5ff;
     --error: #ffb4ab;
     --on-error: #690005;
     --error-container: #93000a;
     --on-error-container: #ffdad6;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --info: #22d3ee;
     --background: #023047;
     --on-background: #e2e2e6;
     --surface: #1a1c1e;
     --on-surface: #e2e2e6;
     --surface-variant: #42474e;
     --on-surface-variant: #c2c7ce;
-    --outline: #72787e;
+    --outline: #8c9198;
     --outline-variant: #42474e;
+
+    /* Custom additions */
+    --bg-gradient: linear-gradient(180deg, #023047 0%, #012030 50%, #001219 100%);
+    --surface-overlay: rgba(255, 255, 255, 0.05);
+    --border-subtle: rgba(255, 255, 255, 0.1);
   }
 
   [data-theme="luxury"] {
@@ -74,6 +127,9 @@
     --on-error: #000;
     --error-container: #3d1a1a;
     --on-error-container: #ffb3b3;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --info: gold;
     --background: #000;
     --on-background: #fff;
     --surface: #0a0a0a;
@@ -82,6 +138,11 @@
     --on-surface-variant: #d4af37;
     --outline: #4a4a4a;
     --outline-variant: #2a2a2a;
+    
+    /* Custom additions */
+    --bg-gradient: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+    --surface-overlay: rgba(255, 215, 0, 0.05);
+    --border-subtle: rgba(255, 215, 0, 0.2);
   }
 
   * {
@@ -123,16 +184,18 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #ffffff0d;
+    background: var(--surface-overlay);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #22d3ee4d;
+    background: var(--primary);
+    opacity: 0.5;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #22d3ee80;
+    background: var(--primary);
+    opacity: 0.8;
   }
 
   * {

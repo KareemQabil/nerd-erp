@@ -12,7 +12,7 @@ function App() {
   return (
     <I18nProvider>
       <AlertDisplay />
-      <ThemeProvider defaultTheme="light">
+      <ThemeProvider defaultTheme="dark">
         <AuthProvider>
           <BrowserRouter>
             <Suspense fallback={<div>Loading...</div>}>

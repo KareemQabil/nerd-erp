@@ -132,18 +132,6 @@ export default function CustomersScreen() {
                 : "Manage customer database and loyalty program"}
             </p>
           </div>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={
-              NerdPOSStyles.button.primary +
-              " h-12 px-6 flex items-center gap-2 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
-            }
-          >
-            <Plus className="w-5 h-5" />
-            <span dir="auto">{isRTL ? "عميل جديد" : "New Customer"}</span>
-          </motion.button>
         </div>
 
         {/* Stats Cards - Matching POS design */}
@@ -151,11 +139,11 @@ export default function CustomersScreen() {
           <div className={NerdPOSLayout.stats.grid + " lg:grid-cols-4"}>
             {/* Total Customers */}
             <div className={NerdPOSStyles.statsCard.base + " text-center"}>
-              <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
+              <div className="text-4xl font-['Inter'] font-bold text-text-primary mb-2">
                 {stats.totalCustomers}
               </div>
               <div
-                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                className="text-sm font-['Almarai'] text-text-secondary"
                 dir="auto"
               >
                 {isRTL ? "إجمالي العملاء" : "Total Customers"}
@@ -164,11 +152,11 @@ export default function CustomersScreen() {
 
             {/* Active Customers */}
             <div className={NerdPOSStyles.statsCard.base + " text-center"}>
-              <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
+              <div className="text-4xl font-['Inter'] font-bold text-text-primary mb-2">
                 {stats.activeCustomers}
               </div>
               <div
-                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                className="text-sm font-['Almarai'] text-text-secondary"
                 dir="auto"
               >
                 {isRTL ? "النشطين" : "Active"}
@@ -177,11 +165,11 @@ export default function CustomersScreen() {
 
             {/* VIP */}
             <div className={NerdPOSStyles.statsCard.base + " text-center"}>
-              <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
+              <div className="text-4xl font-['Inter'] font-bold text-text-primary mb-2">
                 {stats.vipCustomers}
               </div>
               <div
-                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                className="text-sm font-['Almarai'] text-text-secondary"
                 dir="auto"
               >
                 VIP
@@ -190,11 +178,11 @@ export default function CustomersScreen() {
 
             {/* Average Orders */}
             <div className={NerdPOSStyles.statsCard.base + " text-center"}>
-              <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
+              <div className="text-4xl font-['Inter'] font-bold text-text-primary mb-2">
                 {stats.averageOrders?.toFixed(1) || "0.0"}
               </div>
               <div
-                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                className="text-sm font-['Almarai'] text-text-secondary"
                 dir="auto"
               >
                 {isRTL ? "متوسط الطلبات" : "Avg Orders"}
@@ -217,7 +205,7 @@ export default function CustomersScreen() {
               dir={isRTL ? "rtl" : "ltr"}
             />
             <Search
-              className="absolute w-5 h-5 text-[#c2c7ce] top-3.5"
+              className="absolute w-5 h-5 text-text-secondary top-3.5"
               style={{ [isRTL ? "right" : "left"]: "16px" }}
             />
           </div>
@@ -245,16 +233,16 @@ export default function CustomersScreen() {
         {/* Customers Grid - Matching POS product grid layout */}
         {filteredCustomers.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-24 h-24 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center mb-4">
-              <Users className="w-12 h-12 text-[#c2c7ce] opacity-50" />
+            <div className="w-24 h-24 rounded-full bg-surface-overlay flex items-center justify-center mb-4">
+              <Users className="w-12 h-12 text-text-secondary opacity-50" />
             </div>
             <h3
-              className="text-xl font-['Almarai'] text-[#e2e2e6] mb-2"
+              className="text-xl font-['Almarai'] text-text-primary mb-2"
               dir="auto"
             >
               {isRTL ? "لا توجد نتائج" : "No Results"}
             </h3>
-            <p className="text-base text-[#c2c7ce]" dir="auto">
+            <p className="text-base text-text-secondary" dir="auto">
               {isRTL
                 ? "لم يتم العثور على عملاء مطابقين"
                 : "No matching customers found"}
@@ -293,13 +281,13 @@ export default function CustomersScreen() {
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <h3
-                        className="text-base font-['Almarai'] font-bold text-[#e2e2e6] mb-2 line-clamp-1"
+                        className="text-base font-['Almarai'] font-bold text-text-primary mb-2 line-clamp-1"
                         dir="auto"
                       >
                         {customer.name}
                       </h3>
-                      <button className="w-6 h-6 rounded-md flex items-center justify-center hover:bg-[rgba(255,255,255,0.1)] transition-colors">
-                        <Star className="w-4 h-4 text-[#c2c7ce]" />
+                      <button className="w-6 h-6 rounded-md flex items-center justify-center hover:bg-surface-overlay transition-colors">
+                        <Star className="w-4 h-4 text-text-secondary" />
                       </button>
                     </div>
 
@@ -322,15 +310,15 @@ export default function CustomersScreen() {
                   {/* Contact Info */}
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="w-4 h-4 text-[#c2c7ce] flex-shrink-0" />
-                      <span className="font-['Inter'] text-[#e2e2e6] truncate">
+                      <Phone className="w-4 h-4 text-text-secondary flex-shrink-0" />
+                      <span className="font-['Inter'] text-text-primary truncate">
                         {customer.phone}
                       </span>
                     </div>
                     {customer.email && (
                       <div className="flex items-center gap-2 text-sm">
-                        <Mail className="w-4 h-4 text-[#c2c7ce] flex-shrink-0" />
-                        <span className="font-['Inter'] text-[#e2e2e6] truncate">
+                        <Mail className="w-4 h-4 text-text-secondary flex-shrink-0" />
+                        <span className="font-['Inter'] text-text-primary truncate">
                           {customer.email}
                         </span>
                       </div>
@@ -338,7 +326,7 @@ export default function CustomersScreen() {
                   </div>
 
                   {/* Stats Row - Matching POS design */}
-                  <div className="flex items-center justify-between pt-3 border-t border-[rgba(255,255,255,0.1)]">
+                  <div className="flex items-center justify-between pt-3 border-t border-border-subtle">
                     <div className="flex items-center gap-1.5">
                       <Award
                         className="w-4 h-4"
@@ -351,7 +339,7 @@ export default function CustomersScreen() {
                         {customer.loyaltyPoints}
                       </span>
                       <span
-                        className="text-xs font-['Almarai'] text-[#c2c7ce]"
+                        className="text-xs font-['Almarai'] text-text-secondary"
                         dir="auto"
                       >
                         {isRTL ? "نقطة" : "pts"}
@@ -359,12 +347,12 @@ export default function CustomersScreen() {
                     </div>
 
                     <div className="flex items-center gap-1.5">
-                      <ShoppingBag className="w-4 h-4 text-cyan-400" />
-                      <span className="text-sm font-['Inter'] font-bold text-[#e2e2e6]">
+                      <ShoppingBag className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-['Inter'] font-bold text-text-primary">
                         {customer.totalOrders}
                       </span>
                       <span
-                        className="text-xs font-['Almarai'] text-[#c2c7ce]"
+                        className="text-xs font-['Almarai'] text-text-secondary"
                         dir="auto"
                       >
                         {isRTL ? "طلب" : "orders"}

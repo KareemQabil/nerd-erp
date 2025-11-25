@@ -6,39 +6,39 @@
 export const NerdPOSColors = {
   // Background
   background: {
-    primary: "#023047",
-    gradient: "linear-gradient(180deg, #023047 0%, #012030 50%, #001219 100%)",
-    card: "rgba(255,255,255,0.05)",
-    cardHover: "rgba(255,255,255,0.08)",
-    surface: "#1a1c1e",
-    surfaceAlt: "#2a2d32",
+    primary: "var(--background)",
+    gradient: "var(--bg-gradient)",
+    card: "var(--surface-overlay)",
+    cardHover: "var(--surface-overlay)",
+    surface: "var(--surface)",
+    surfaceAlt: "var(--surface-variant)",
   },
 
   // Brand
   brand: {
-    primary: "#22d3ee", // Cyan
-    primaryDark: "#0891b2",
-    success: "#10b981",
-    warning: "#f59e0b",
-    error: "#ef4444",
-    info: "#22d3ee",
-    purple: "#8b5cf6",
+    primary: "var(--primary)",
+    primaryDark: "var(--primary-container)",
+    success: "var(--success)",
+    warning: "var(--warning)",
+    error: "var(--error)",
+    info: "var(--info)",
+    purple: "#8b5cf6", // Keeping as specific accent
   },
 
   // Text
   text: {
-    primary: "#e2e2e6",
-    secondary: "#c2c7ce",
-    disabled: "#7a7f85",
-    muted: "#9ca3af",
+    primary: "var(--on-background)",
+    secondary: "var(--on-surface-variant)",
+    disabled: "var(--outline)",
+    muted: "var(--outline-variant)",
   },
 
   // Borders
   border: {
-    default: "rgba(255,255,255,0.1)",
-    hover: "rgba(34,211,238,0.5)",
-    focus: "#22d3ee",
-    subtle: "rgba(255,255,255,0.05)",
+    default: "var(--border-subtle)",
+    hover: "var(--primary)",
+    focus: "var(--primary)",
+    subtle: "var(--border-subtle)",
   },
 
   // Special
@@ -97,36 +97,36 @@ export const NerdPOSTypography = {
 export const NerdPOSStyles = {
   // Card styles (like POS product cards and customer cards)
   card: {
-    base: `bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.1)] rounded-xl`,
-    hover: `hover:border-cyan-400/50 hover:shadow-lg transition-all`,
-    active: `border-cyan-400 bg-[rgba(34,211,238,0.1)]`,
+    base: `bg-surface-overlay backdrop-blur-sm border border-border-subtle rounded-xl`,
+    hover: `hover:border-primary/50 hover:shadow-lg transition-all`,
+    active: `border-primary bg-primary/10`,
   },
 
   // Stats card (like dashboard cards)
   statsCard: {
-    base: `bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-xl p-6`,
-    gradient: `bg-gradient-to-br from-[#2a2d32] to-[#1a1c1e] border border-[rgba(255,255,255,0.1)] rounded-xl p-6`,
+    base: `bg-surface-variant border border-border-subtle rounded-xl p-6`,
+    gradient: `bg-gradient-to-br from-surface-variant to-surface border border-border-subtle rounded-xl p-6`,
   },
 
   // Button styles
   button: {
-    primary: `bg-cyan-400 text-[#00373a] rounded-xl font-['Almarai'] font-bold transition-all hover:bg-cyan-300 active:scale-95`,
-    secondary: `bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] rounded-xl font-['Almarai'] hover:border-cyan-400/50 transition-all`,
-    ghost: `bg-transparent text-[#c2c7ce] rounded-xl font-['Almarai'] hover:bg-[rgba(255,255,255,0.05)] transition-all`,
+    primary: `bg-primary text-on-primary rounded-xl font-['Almarai'] font-bold transition-all hover:bg-primary/90 active:scale-95`,
+    secondary: `bg-surface-overlay border border-border-subtle text-on-background rounded-xl font-['Almarai'] hover:border-primary/50 transition-all`,
+    ghost: `bg-transparent text-text-secondary rounded-xl font-['Almarai'] hover:bg-surface-overlay transition-all`,
   },
 
   // Input styles
   input: {
-    base: `bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all`,
-    search: `w-full h-12 px-4 pr-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-base text-[#e2e2e6] placeholder:text-[#c2c7ce] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-all`,
+    base: `bg-surface-overlay border border-border-subtle rounded-xl text-on-background placeholder:text-text-muted font-['Almarai'] focus:outline-none focus:border-primary/50 transition-all`,
+    search: `w-full h-12 px-4 pr-12 bg-surface-overlay border border-border-subtle rounded-xl text-base text-on-background placeholder:text-text-muted font-['Almarai'] focus:outline-none focus:border-primary/50 transition-all`,
   },
 
   // Badge styles
   badge: {
-    success: `bg-green-500/20 border border-green-500/30 text-green-400 rounded-lg px-3 py-1 text-sm font-['Almarai']`,
-    warning: `bg-orange-500/20 border border-orange-500/30 text-orange-400 rounded-lg px-3 py-1 text-sm font-['Almarai']`,
-    error: `bg-red-500/20 border border-red-500/30 text-red-400 rounded-lg px-3 py-1 text-sm font-['Almarai']`,
-    info: `bg-cyan-400/20 border border-cyan-400/30 text-cyan-400 rounded-lg px-3 py-1 text-sm font-['Almarai']`,
+    success: `bg-success/20 border border-success/30 text-success rounded-lg px-3 py-1 text-sm font-['Almarai']`,
+    warning: `bg-warning/20 border border-warning/30 text-warning rounded-lg px-3 py-1 text-sm font-['Almarai']`,
+    error: `bg-error/20 border border-error/30 text-error rounded-lg px-3 py-1 text-sm font-['Almarai']`,
+    info: `bg-info/20 border border-info/30 text-info rounded-lg px-3 py-1 text-sm font-['Almarai']`,
     gold: `bg-[#FFD700]/20 border border-[#FFD700]/30 text-[#FFD700] rounded-lg px-3 py-1 text-sm font-['Almarai']`,
   },
 
@@ -183,15 +183,15 @@ export const getFlexJustify = (isRTL: boolean): "flex-start" | "flex-end" =>
 
 export const NerdPOSLayout = {
   page: {
-    container: `min-h-screen flex flex-col transition-colors duration-300`,
+    container: `min-h-screen flex flex-col transition-colors duration-300 bg-background text-on-background`,
     content: `flex-1 flex flex-col`,
     main: `flex-1 px-6 py-4 overflow-auto`,
   },
   header: {
-    container: `border-b border-[rgba(255,255,255,0.1)] px-6 py-6 transition-all`,
+    container: `border-b border-border-subtle px-6 py-6 transition-all`,
     wrapper: `flex items-center justify-between mb-6`,
-    title: `text-3xl font-['Almarai'] font-bold text-[#e2e2e6] mb-1`,
-    subtitle: `text-sm font-['Almarai'] text-[#c2c7ce]`,
+    title: `text-3xl font-['Almarai'] font-bold text-on-background mb-1`,
+    subtitle: `text-sm font-['Almarai'] text-text-secondary`,
     actions: `flex gap-3`,
   },
   stats: {
@@ -201,14 +201,14 @@ export const NerdPOSLayout = {
   filters: {
     container: `flex gap-3 items-center mb-6`,
     searchWrapper: `flex-1 relative`,
-    select: `px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors cursor-pointer`,
+    select: `px-4 py-3 bg-surface-overlay border border-border-subtle rounded-xl text-on-background font-['Almarai'] focus:outline-none focus:border-primary/50 transition-colors cursor-pointer`,
   },
   data: {
     grid: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4`,
-    tableContainer: `bg-[rgba(255,255,255,0.03)] rounded-2xl border border-[rgba(255,255,255,0.1)] overflow-hidden`,
-    tableHeader: `bg-[rgba(255,255,255,0.05)]`,
-    th: `px-4 py-3 text-sm font-['Almarai'] font-bold text-[#e2e2e6]`,
-    tr: `border-t border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.03)] transition-colors`,
+    tableContainer: `bg-surface-overlay rounded-2xl border border-border-subtle overflow-hidden`,
+    tableHeader: `bg-surface-overlay`,
+    th: `px-4 py-3 text-sm font-['Almarai'] font-bold text-on-background`,
+    tr: `border-t border-border-subtle hover:bg-surface-overlay transition-colors`,
     td: `px-4 py-4`,
     emptyState: `flex items-center justify-center h-full min-h-[400px]`,
   },

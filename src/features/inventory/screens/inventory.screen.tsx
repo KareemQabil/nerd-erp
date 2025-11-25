@@ -174,13 +174,13 @@ export default function InventoryScreen() {
   const getStockStatusColor = (status: string) => {
     switch (status) {
       case "in-stock":
-        return "text-green-400";
+        return "text-success";
       case "low-stock":
-        return "text-orange-400";
+        return "text-warning";
       case "out-of-stock":
-        return "text-red-400";
+        return "text-error";
       default:
-        return "text-[#c2c7ce]";
+        return "text-text-secondary";
     }
   };
 
@@ -272,7 +272,7 @@ export default function InventoryScreen() {
                   ? "bg-green-500/90 text-white"
                   : feedback.type === "error"
                   ? "bg-red-500/90 text-white"
-                  : "bg-cyan-400/90 text-[#00373a]"
+                  : "bg-cyan-400/90 text-on-primary"
               }`}
             >
               <p className="font-['Almarai'] font-bold" dir="auto">
@@ -298,7 +298,7 @@ export default function InventoryScreen() {
             <div className="flex gap-3">
               <button
                 onClick={() => setShowAlerts(!showAlerts)}
-                className="relative px-4 py-2 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] hover:border-cyan-400/50 transition-all"
+                className="relative px-4 py-2 rounded-xl bg-surface-overlay border border-border-subtle text-text-primary hover:border-primary/50 transition-all"
               >
                 <div className="flex items-center gap-2">
                   <AlertCircle className="w-5 h-5" />
@@ -310,10 +310,10 @@ export default function InventoryScreen() {
                   )}
                 </div>
               </button>
-              <button className="px-4 py-2 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] hover:border-cyan-400/50 transition-all">
+              <button className="px-4 py-2 rounded-xl bg-surface-overlay border border-border-subtle text-text-primary hover:border-primary/50 transition-all">
                 <Download className="w-5 h-5" />
               </button>
-              <button className="px-4 py-2 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] hover:border-cyan-400/50 transition-all">
+              <button className="px-4 py-2 rounded-xl bg-surface-overlay border border-border-subtle text-text-primary hover:border-primary/50 transition-all">
                 <Upload className="w-5 h-5" />
               </button>
               <button
@@ -327,7 +327,7 @@ export default function InventoryScreen() {
               </button>
               <button
                 onClick={handleOpenProductFormModal}
-                className="px-4 py-2 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg transition-all"
+                className="px-4 py-2 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-on-primary hover:opacity-90 shadow-lg transition-all"
               >
                 <div className="flex items-center gap-2">
                   <Plus className="w-5 h-5" />
@@ -336,7 +336,7 @@ export default function InventoryScreen() {
               </button>
               <button
                 onClick={handleRefresh}
-                className="px-4 py-2 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] hover:border-cyan-400/50 transition-all"
+                className="px-4 py-2 rounded-xl bg-surface-overlay border border-border-subtle text-text-primary hover:border-primary/50 transition-all"
               >
                 <RefreshCw className="w-5 h-5" />
               </button>
@@ -347,51 +347,51 @@ export default function InventoryScreen() {
           {stats && (
             <div className={NerdPOSLayout.stats.grid + " lg:grid-cols-8"}>
               <div
-                className={`${NerdPOSLayout.stats.card} bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border-cyan-400/20`}
+                className={`${NerdPOSLayout.stats.card} bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border-primary/20`}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <Package className="w-4 h-4 text-cyan-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                  <Package className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-['Almarai'] text-text-secondary">
                     إجمالي المنتجات
                   </span>
                 </div>
-                <p className="text-2xl font-['Arial'] font-bold text-cyan-400 text-right">
+                <p className="text-2xl font-['Arial'] font-bold text-primary text-right">
                   {stats.totalProducts}
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-green-400/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-success/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <PackageCheck className="w-4 h-4 text-green-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                  <PackageCheck className="w-4 h-4 text-success" />
+                  <span className="text-xs font-['Almarai'] text-text-secondary">
                     متوفر
                   </span>
                 </div>
-                <p className="text-2xl font-['Arial'] font-bold text-green-400 text-right">
+                <p className="text-2xl font-['Arial'] font-bold text-success text-right">
                   {stats.inStock}
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-warning/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <PackageMinus className="w-4 h-4 text-orange-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                  <PackageMinus className="w-4 h-4 text-warning" />
+                  <span className="text-xs font-['Almarai'] text-text-secondary">
                     منخفض
                   </span>
                 </div>
-                <p className="text-2xl font-['Arial'] font-bold text-orange-400 text-right">
+                <p className="text-2xl font-['Arial'] font-bold text-warning text-right">
                   {stats.lowStock}
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-red-400/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-error/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <PackageX className="w-4 h-4 text-red-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                  <PackageX className="w-4 h-4 text-error" />
+                  <span className="text-xs font-['Almarai'] text-text-secondary">
                     نفذ
                   </span>
                 </div>
-                <p className="text-2xl font-['Arial'] font-bold text-red-400 text-right">
+                <p className="text-2xl font-['Arial'] font-bold text-error text-right">
                   {stats.outOfStock}
                 </p>
               </div>
@@ -399,7 +399,7 @@ export default function InventoryScreen() {
               <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <WarehouseIcon className="w-4 h-4 text-purple-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                  <span className="text-xs font-['Almarai'] text-text-secondary">
                     المستودعات
                   </span>
                 </div>
@@ -408,14 +408,14 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-primary/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="w-4 h-4 text-cyan-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-['Almarai'] text-text-secondary">
                     قيمة المخزون
                   </span>
                 </div>
-                <p className="text-xl font-['Arial'] font-bold text-cyan-400 text-right">
+                <p className="text-xl font-['Arial'] font-bold text-primary text-right">
                   {stats.totalValue.toLocaleString("ar-SA", {
                     maximumFractionDigits: 0,
                   })}{" "}
@@ -423,14 +423,14 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-primary/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingDown className="w-4 h-4 text-cyan-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                  <TrendingDown className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-['Almarai'] text-text-secondary">
                     التكلفة
                   </span>
                 </div>
-                <p className="text-xl font-['Arial'] font-bold text-cyan-400 text-right">
+                <p className="text-xl font-['Arial'] font-bold text-primary text-right">
                   {stats.totalCost.toLocaleString("ar-SA", {
                     maximumFractionDigits: 0,
                   })}{" "}
@@ -438,14 +438,14 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-red-400/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-error/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <AlertCircle className="w-4 h-4 text-red-400" />
-                  <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
+                  <AlertCircle className="w-4 h-4 text-error" />
+                  <span className="text-xs font-['Almarai'] text-text-secondary">
                     تنبيهات
                   </span>
                 </div>
-                <p className="text-2xl font-['Arial'] font-bold text-red-400 text-right">
+                <p className="text-2xl font-['Arial'] font-bold text-error text-right">
                   {stats.alerts}
                 </p>
               </div>
@@ -456,7 +456,7 @@ export default function InventoryScreen() {
           <div className={NerdPOSLayout.filters.container}>
             {/* Search */}
             <div className={NerdPOSLayout.filters.searchWrapper}>
-              <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#c2c7ce]" />
+              <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-secondary" />
               <input
                 type="text"
                 placeholder="ابحث بالاسم، الباركود، أو رمز المنتج..."
@@ -470,7 +470,7 @@ export default function InventoryScreen() {
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#c2c7ce] hover:text-[#e2e2e6]"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary hover:text-text-primary"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -529,10 +529,10 @@ export default function InventoryScreen() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="border-b border-[rgba(255,255,255,0.1)] overflow-hidden"
+              className="border-b border-border-subtle overflow-hidden"
             >
               <div className="px-6 py-4 bg-[rgba(239,68,68,0.05)]">
-                <h3 className="text-lg font-['Almarai'] font-bold text-[#e2e2e6] mb-3">
+                <h3 className="text-lg font-['Almarai'] font-bold text-text-primary mb-3">
                   التنبيهات النشطة (
                   {alerts.filter((a) => !a.acknowledged).length})
                 </h3>
@@ -558,31 +558,31 @@ export default function InventoryScreen() {
                 <table className="w-full">
                   <thead className={NerdPOSLayout.data.tableHeader}>
                     <tr>
-                      <th className="px-4 py-3 text-right text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-right text-sm font-['Almarai'] font-bold text-text-primary">
                         المنتج
                       </th>
-                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-text-primary">
                         رمز المنتج
                       </th>
-                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-text-primary">
                         الفئة
                       </th>
-                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-text-primary">
                         الكمية
                       </th>
-                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-text-primary">
                         الحالة
                       </th>
-                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-text-primary">
                         السعر
                       </th>
-                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-text-primary">
                         التكلفة
                       </th>
-                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-text-primary">
                         المستودعات
                       </th>
-                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
+                      <th className="px-4 py-3 text-center text-sm font-['Almarai'] font-bold text-text-primary">
                         الإجراءات
                       </th>
                     </tr>
@@ -598,15 +598,15 @@ export default function InventoryScreen() {
                       >
                         <td className="px-4 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-lg bg-[rgba(255,255,255,0.05)] flex items-center justify-center">
-                              <Package className="w-6 h-6 text-cyan-400" />
+                            <div className="w-12 h-12 rounded-lg bg-surface-overlay flex items-center justify-center">
+                              <Package className="w-6 h-6 text-primary" />
                             </div>
                             <div>
-                              <p className="font-['Almarai'] font-bold text-[#e2e2e6] text-right">
+                              <p className="font-['Almarai'] font-bold text-text-primary text-right">
                                 {product.name}
                               </p>
                               {product.nameEn && (
-                                <p className="text-xs text-[#c2c7ce] text-right">
+                                <p className="text-xs text-text-secondary text-right">
                                   {product.nameEn}
                                 </p>
                               )}
@@ -614,21 +614,21 @@ export default function InventoryScreen() {
                           </div>
                         </td>
                         <td className="px-4 py-4 text-center">
-                          <span className="text-sm font-['Arial'] text-[#c2c7ce]">
+                          <span className="text-sm font-['Arial'] text-text-secondary">
                             {product.sku}
                           </span>
                         </td>
                         <td className="px-4 py-4 text-center">
-                          <span className="text-sm font-['Almarai'] text-[#c2c7ce]">
+                          <span className="text-sm font-['Almarai'] text-text-secondary">
                             {product.category.name}
                           </span>
                         </td>
                         <td className="px-4 py-4 text-center">
                           <div>
-                            <span className="text-lg font-['Arial'] font-bold text-[#e2e2e6]">
+                            <span className="text-lg font-['Arial'] font-bold text-text-primary">
                               {getTotalStock(product)}
                             </span>
-                            <span className="text-xs font-['Almarai'] text-[#c2c7ce] mr-1">
+                            <span className="text-xs font-['Almarai'] text-text-secondary mr-1">
                               {product.unit}
                             </span>
                           </div>
@@ -637,7 +637,7 @@ export default function InventoryScreen() {
                           <div
                             className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg ${getStockStatusColor(
                               product.stockStatus
-                            )} bg-[rgba(255,255,255,0.05)]`}
+                            )} bg-surface-overlay`}
                           >
                             {getStockStatusIcon(product.stockStatus)}
                             <span className="text-sm font-['Almarai'] font-bold">
@@ -646,41 +646,41 @@ export default function InventoryScreen() {
                           </div>
                         </td>
                         <td className="px-4 py-4 text-center">
-                          <span className="font-['Arial'] font-bold text-cyan-400">
+                          <span className="font-['Arial'] font-bold text-primary">
                             {product.price.toFixed(2)}
                           </span>
                         </td>
                         <td className="px-4 py-4 text-center">
-                          <span className="font-['Arial'] text-[#c2c7ce]">
+                          <span className="font-['Arial'] text-text-secondary">
                             {product.cost.toFixed(2)}
                           </span>
                         </td>
                         <td className="px-4 py-4 text-center">
-                          <span className="text-sm font-['Arial'] text-[#c2c7ce]">
+                          <span className="text-sm font-['Arial'] text-text-secondary">
                             {product.warehouses.length}
                           </span>
                         </td>
                         <td className="px-4 py-4">
                           <div className="flex items-center justify-center gap-2">
                             <button
-                              className="p-2 rounded-lg bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] transition-colors"
+                              className="p-2 rounded-lg bg-surface-overlay hover:bg-[rgba(255,255,255,0.1)] transition-colors"
                               title="عرض"
                               onClick={() => handleProductDetail(product)}
                             >
-                              <Eye className="w-4 h-4 text-[#c2c7ce]" />
+                              <Eye className="w-4 h-4 text-text-secondary" />
                             </button>
                             <button
-                              className="p-2 rounded-lg bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] transition-colors"
+                              className="p-2 rounded-lg bg-surface-overlay hover:bg-[rgba(255,255,255,0.1)] transition-colors"
                               title="تعديل"
                             >
-                              <Edit className="w-4 h-4 text-[#c2c7ce]" />
+                              <Edit className="w-4 h-4 text-text-secondary" />
                             </button>
                             <button
-                              className="p-2 rounded-lg bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] transition-colors"
+                              className="p-2 rounded-lg bg-surface-overlay hover:bg-[rgba(255,255,255,0.1)] transition-colors"
                               title="تعديل المخزون"
                               onClick={() => handleStockAdjustment(product)}
                             >
-                              <PackageCheck className="w-4 h-4 text-[#c2c7ce]" />
+                              <PackageCheck className="w-4 h-4 text-text-secondary" />
                             </button>
                           </div>
                         </td>
@@ -692,8 +692,8 @@ export default function InventoryScreen() {
             ) : (
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
-                  <Package className="w-16 h-16 text-[#c2c7ce] opacity-50 mx-auto mb-4" />
-                  <p className="text-[#c2c7ce] font-['Almarai']">
+                  <Package className="w-16 h-16 text-text-secondary opacity-50 mx-auto mb-4" />
+                  <p className="text-text-secondary font-['Almarai']">
                     لا توجد منتجات
                   </p>
                 </div>

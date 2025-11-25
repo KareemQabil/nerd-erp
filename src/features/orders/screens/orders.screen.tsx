@@ -206,52 +206,52 @@ export default function OrdersScreen() {
                 <TrendingUp className="w-5 h-5 text-purple-400" />
               </div>
               <div
-                className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2"
+                className="text-sm font-['Almarai'] text-text-secondary mb-2"
                 dir="auto"
               >
                 {isRTL ? "متوسط قيمة الطلب" : "Avg Order Value"}
               </div>
-              <div className="text-2xl font-['Inter'] font-bold text-[#e2e2e6]">
+              <div className="text-2xl font-['Inter'] font-bold text-text-primary">
                 {stats.averageOrderValue.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
               </div>
             </div>
 
             <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="flex items-center justify-center gap-2 mb-2">
-                <DollarSign className="w-5 h-5 text-green-400" />
+                <DollarSign className="w-5 h-5 text-success" />
               </div>
               <div
-                className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2"
+                className="text-sm font-['Almarai'] text-text-secondary mb-2"
                 dir="auto"
               >
                 {isRTL ? "الإيرادات" : "Revenue"}
               </div>
-              <div className="text-2xl font-['Inter'] font-bold text-[#e2e2e6]">
+              <div className="text-2xl font-['Inter'] font-bold text-text-primary">
                 {stats.totalRevenue.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
               </div>
             </div>
 
             <div className={NerdPOSStyles.statsCard.base + " text-center"}>
               <div className="flex items-center justify-center gap-2 mb-2">
-                <ChefHat className="w-5 h-5 text-orange-400" />
+                <ChefHat className="w-5 h-5 text-warning" />
               </div>
               <div
-                className="text-sm font-['Almarai'] text-[#c2c7ce] mb-2"
+                className="text-sm font-['Almarai'] text-text-secondary mb-2"
                 dir="auto"
               >
                 {isRTL ? "قيد التحضير" : "Preparing"}
               </div>
-              <div className="text-2xl font-['Inter'] font-bold text-[#e2e2e6]">
+              <div className="text-2xl font-['Inter'] font-bold text-text-primary">
                 {stats.preparing}
               </div>
             </div>
 
             <div className={NerdPOSStyles.statsCard.base + " text-center"}>
-              <div className="text-4xl font-['Inter'] font-bold text-[#e2e2e6] mb-2">
+              <div className="text-4xl font-['Inter'] font-bold text-text-primary mb-2">
                 {stats.total}
               </div>
               <div
-                className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                className="text-sm font-['Almarai'] text-text-secondary"
                 dir="auto"
               >
                 {isRTL ? "إجمالي الطلبات" : "Total Orders"}
@@ -273,14 +273,14 @@ export default function OrdersScreen() {
               dir={isRTL ? "rtl" : "ltr"}
             />
             <Search
-              className="absolute w-5 h-5 text-[#c2c7ce] top-3.5"
+              className="absolute w-5 h-5 text-text-secondary top-3.5"
               style={{ [isRTL ? "right" : "left"]: "16px" }}
             />
           </div>
         </div>
 
         {/* Tabs - Matching POS category design */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-thin scrollbar-thumb-[rgba(255,255,255,0.1)] scrollbar-track-transparent">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-thin scrollbar-thumb-border-subtle scrollbar-track-transparent">
           {[
             {
               id: "all",
@@ -324,7 +324,7 @@ export default function OrdersScreen() {
               onClick={() => setActiveTab(tab.id as any)}
               className={`px-6 py-2.5 rounded-xl text-sm font-['Almarai'] transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? "bg-cyan-400 text-[#00373a] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
+                  ? "bg-primary text-on-primary shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
                   : NerdPOSStyles.button.secondary
               }`}
             >
@@ -336,16 +336,16 @@ export default function OrdersScreen() {
         {/* Orders Grid */}
         {filteredOrders.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-24 h-24 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center mb-4">
-              <ShoppingBag className="w-12 h-12 text-[#c2c7ce] opacity-50" />
+            <div className="w-24 h-24 rounded-full bg-surface-overlay flex items-center justify-center mb-4">
+              <ShoppingBag className="w-12 h-12 text-text-secondary opacity-50" />
             </div>
             <h3
-              className="text-xl font-['Almarai'] text-[#e2e2e6] mb-2"
+              className="text-xl font-['Almarai'] text-text-primary mb-2"
               dir="auto"
             >
               {isRTL ? "لا توجد طلبات" : "No Orders"}
             </h3>
-            <p className="text-base text-[#c2c7ce]" dir="auto">
+            <p className="text-base text-text-secondary" dir="auto">
               {isRTL ? "لم يتم العثور على أي طلبات" : "No orders found"}
             </p>
           </div>
@@ -375,7 +375,7 @@ export default function OrdersScreen() {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-lg font-['Inter'] font-bold text-cyan-400">
+                        <span className="text-lg font-['Inter'] font-bold text-primary">
                           #{order.orderNumber}
                         </span>
                         <div
@@ -398,7 +398,7 @@ export default function OrdersScreen() {
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-[#c2c7ce]">
+                      <div className="flex items-center gap-2 text-sm text-text-secondary">
                         <Clock className="w-4 h-4" />
                         <span className="font-['Almarai']" dir="auto">
                           {isRTL ? "منذ" : ""}{" "}
@@ -419,7 +419,7 @@ export default function OrdersScreen() {
                   {order.customerName && (
                     <div className="mb-3">
                       <div
-                        className="text-sm font-['Almarai'] text-[#e2e2e6]"
+                        className="text-sm font-['Almarai'] text-text-primary"
                         dir="auto"
                       >
                         {order.customerName}
@@ -435,19 +435,19 @@ export default function OrdersScreen() {
                         className="flex items-center justify-between text-sm"
                       >
                         <span
-                          className="font-['Almarai'] text-[#c2c7ce]"
+                          className="font-['Almarai'] text-text-secondary"
                           dir="auto"
                         >
                           {item.quantity}x {item.productName}
                         </span>
-                        <span className="font-['Inter'] text-[#e2e2e6]">
+                        <span className="font-['Inter'] text-text-primary">
                           {item.total.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
                         </span>
                       </div>
                     ))}
                     {order.items.length > 3 && (
                       <div
-                        className="text-xs text-[#c2c7ce] font-['Almarai']"
+                        className="text-xs text-text-secondary font-['Almarai']"
                         dir="auto"
                       >
                         {isRTL
@@ -460,15 +460,15 @@ export default function OrdersScreen() {
                   {/* Total */}
                   <div
                     className="flex items-center justify-between pt-3 border-t"
-                    style={{ borderColor: "rgba(255,255,255,0.1)" }}
+                    style={{ borderColor: "var(--border-subtle)" }}
                   >
                     <span
-                      className="text-sm font-['Almarai'] text-[#c2c7ce]"
+                      className="text-sm font-['Almarai'] text-text-secondary"
                       dir="auto"
                     >
                       {isRTL ? "الإجمالي" : "Total"}
                     </span>
-                    <span className="text-xl font-['Inter'] font-bold text-[#e2e2e6]">
+                    <span className="text-xl font-['Inter'] font-bold text-text-primary">
                       {order.total.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
                     </span>
                   </div>
