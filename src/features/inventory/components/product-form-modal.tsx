@@ -28,6 +28,8 @@ import type {
   Warehouse,
   Supplier,
 } from "../types/inventory.types";
+import { CustomDropdown } from "@/components/ui/custom-dropdown";
+import { StyledNumberInput } from "@/components/ui/styled-number-input";
 
 interface ProductFormModalProps {
   isOpen: boolean;
@@ -403,46 +405,45 @@ export function ProductFormModal({
                     <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                       الفئة <span className="text-red-400">*</span>
                     </label>
-                    <select
+                    <CustomDropdown
                       value={formData.categoryId}
-                      onChange={(e) =>
-                        setFormData({ ...formData, categoryId: e.target.value })
+                      onChange={(value) =>
+                        setFormData({ ...formData, categoryId: value })
                       }
-                      className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+                      options={[
+                        { value: "", label: "اختر الفئة" },
+                        ...categories.map((cat) => ({
+                          value: cat.id,
+                          label: cat.name,
+                        })),
+                      ]}
+                      placeholder="اختر الفئة"
                       dir="rtl"
-                      required
-                      disabled={isSubmitting}
-                    >
-                      <option value="">اختر الفئة</option>
-                      {categories.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                          {cat.name}
-                        </option>
-                      ))}
-                    </select>
+                      className="w-full"
+                    />
                   </div>
                   <div>
                     <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                       الوحدة <span className="text-red-400">*</span>
                     </label>
-                    <select
+                    <CustomDropdown
                       value={formData.unit}
-                      onChange={(e) =>
-                        setFormData({ ...formData, unit: e.target.value })
+                      onChange={(value) =>
+                        setFormData({ ...formData, unit: value })
                       }
-                      className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+                      options={[
+                        { value: "قطعة", label: "قطعة" },
+                        { value: "كوب", label: "كوب" },
+                        { value: "كيلو", label: "كيلو" },
+                        { value: "جرام", label: "جرام" },
+                        { value: "لتر", label: "لتر" },
+                        { value: "علبة", label: "علبة" },
+                        { value: "صندوق", label: "صندوق" },
+                      ]}
+                      placeholder="اختر الوحدة"
                       dir="rtl"
-                      required
-                      disabled={isSubmitting}
-                    >
-                      <option value="قطعة">قطعة</option>
-                      <option value="كوب">كوب</option>
-                      <option value="كيلو">كيلو</option>
-                      <option value="جرام">جرام</option>
-                      <option value="لتر">لتر</option>
-                      <option value="علبة">علبة</option>
-                      <option value="صندوق">صندوق</option>
-                    </select>
+                      className="w-full"
+                    />
                   </div>
                 </div>
 
@@ -452,43 +453,37 @@ export function ProductFormModal({
                     <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                       السعر (ر.س) <span className="text-red-400">*</span>
                     </label>
-                    <div className="relative">
-                      <DollarSign className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-400 pointer-events-none" />
-                      <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        value={formData.price}
-                        onChange={(e) =>
-                          setFormData({ ...formData, price: e.target.value })
-                        }
-                        placeholder="0.00"
-                        className="w-full pr-11 pl-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] placeholder:text-[#6b7280] focus:outline-none focus:border-cyan-400/50 transition-colors"
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
+                    <StyledNumberInput
+                      value={formData.price}
+                      onChange={(value) =>
+                        setFormData({ ...formData, price: value })
+                      }
+                      placeholder="0.00"
+                      min="0"
+                      step="0.01"
+                      icon={DollarSign}
+                      iconColor="text-green-400"
+                      disabled={isSubmitting}
+                      required
+                    />
                   </div>
                   <div>
                     <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                       التكلفة (ر.س) <span className="text-red-400">*</span>
                     </label>
-                    <div className="relative">
-                      <DollarSign className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-400 pointer-events-none" />
-                      <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        value={formData.cost}
-                        onChange={(e) =>
-                          setFormData({ ...formData, cost: e.target.value })
-                        }
-                        placeholder="0.00"
-                        className="w-full pr-11 pl-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] placeholder:text-[#6b7280] focus:outline-none focus:border-cyan-400/50 transition-colors"
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
+                    <StyledNumberInput
+                      value={formData.cost}
+                      onChange={(value) =>
+                        setFormData({ ...formData, cost: value })
+                      }
+                      placeholder="0.00"
+                      min="0"
+                      step="0.01"
+                      icon={DollarSign}
+                      iconColor="text-orange-400"
+                      disabled={isSubmitting}
+                      required
+                    />
                   </div>
                 </div>
 
@@ -498,46 +493,47 @@ export function ProductFormModal({
                     <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                       المورد
                     </label>
-                    <select
+                    <CustomDropdown
                       value={formData.supplierId}
-                      onChange={(e) =>
-                        setFormData({ ...formData, supplierId: e.target.value })
+                      onChange={(value) =>
+                        setFormData({ ...formData, supplierId: value })
                       }
-                      className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+                      options={[
+                        { value: "", label: "بدون مورد" },
+                        ...suppliers.map((sup) => ({
+                          value: sup.id,
+                          label: sup.name,
+                        })),
+                      ]}
+                      placeholder="اختر المورد"
                       dir="rtl"
-                      disabled={isSubmitting}
-                    >
-                      <option value="">بدون مورد</option>
-                      {suppliers.map((sup) => (
-                        <option key={sup.id} value={sup.id}>
-                          {sup.name}
-                        </option>
-                      ))}
-                    </select>
+                      className="w-full"
+                    />
                   </div>
                   <div>
                     <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                       حالة المنتج
                     </label>
-                    <select
+                    <CustomDropdown
                       value={formData.status}
-                      onChange={(e) =>
+                      onChange={(value) =>
                         setFormData({
                           ...formData,
-                          status: e.target.value as
+                          status: value as
                             | "active"
                             | "inactive"
                             | "discontinued",
                         })
                       }
-                      className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+                      options={[
+                        { value: "active", label: "نشط" },
+                        { value: "inactive", label: "غير نشط" },
+                        { value: "discontinued", label: "متوقف" },
+                      ]}
+                      placeholder="اختر الحالة"
                       dir="rtl"
-                      disabled={isSubmitting}
-                    >
-                      <option value="active">نشط</option>
-                      <option value="inactive">غير نشط</option>
-                      <option value="discontinued">متوقف</option>
-                    </select>
+                      className="w-full"
+                    />
                   </div>
                 </div>
 
@@ -577,18 +573,17 @@ export function ProductFormModal({
                         الحد الأدنى
                       </label>
                       <div className="relative">
-                        <TrendingDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-red-400 pointer-events-none" />
-                        <input
-                          type="number"
-                          min="0"
+                        <StyledNumberInput
                           value={formData.minStock}
-                          onChange={(e) =>
+                          onChange={(value) =>
                             setFormData({
                               ...formData,
-                              minStock: e.target.value,
+                              minStock: value,
                             })
                           }
-                          className="w-full pr-8 pl-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
+                          min="0"
+                          icon={TrendingDown}
+                          iconColor="text-red-400"
                           disabled={isSubmitting}
                         />
                       </div>
@@ -598,18 +593,17 @@ export function ProductFormModal({
                         نقطة الطلب
                       </label>
                       <div className="relative">
-                        <AlertCircle className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-400 pointer-events-none" />
-                        <input
-                          type="number"
-                          min="0"
+                        <StyledNumberInput
                           value={formData.reorderPoint}
-                          onChange={(e) =>
+                          onChange={(value) =>
                             setFormData({
                               ...formData,
-                              reorderPoint: e.target.value,
+                              reorderPoint: value,
                             })
                           }
-                          className="w-full pr-8 pl-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
+                          min="0"
+                          icon={AlertCircle}
+                          iconColor="text-orange-400"
                           disabled={isSubmitting}
                         />
                       </div>
@@ -619,18 +613,17 @@ export function ProductFormModal({
                         الحد الأقصى
                       </label>
                       <div className="relative">
-                        <TrendingUp className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-green-400 pointer-events-none" />
-                        <input
-                          type="number"
-                          min="0"
+                        <StyledNumberInput
                           value={formData.maxStock}
-                          onChange={(e) =>
+                          onChange={(value) =>
                             setFormData({
                               ...formData,
-                              maxStock: e.target.value,
+                              maxStock: value,
                             })
                           }
-                          className="w-full pr-8 pl-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
+                          min="0"
+                          icon={TrendingUp}
+                          iconColor="text-green-400"
                           disabled={isSubmitting}
                         />
                       </div>
@@ -666,20 +659,12 @@ export function ProductFormModal({
                         className="p-3 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)]"
                       >
                         <div className="grid grid-cols-[1fr,80px,80px,auto] gap-2 items-center">
-                          <select
+                          <CustomDropdown
                             value={ws.warehouseId}
-                            onChange={(e) =>
-                              updateWarehouseStock(
-                                index,
-                                "warehouseId",
-                                e.target.value
-                              )
+                            onChange={(value) =>
+                              updateWarehouseStock(index, "warehouseId", value)
                             }
-                            className="px-3 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Almarai'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
-                            dir="rtl"
-                            disabled={isSubmitting}
-                          >
-                            {warehouses
+                            options={warehouses
                               .filter(
                                 (w) =>
                                   w.id === ws.warehouseId ||
@@ -687,41 +672,31 @@ export function ProductFormModal({
                                     (wsi) => wsi.warehouseId === w.id
                                   )
                               )
-                              .map((wh) => (
-                                <option key={wh.id} value={wh.id}>
-                                  {wh.name}
-                                </option>
-                              ))}
-                          </select>
-                          <input
-                            type="number"
-                            min="0"
+                              .map((wh) => ({
+                                value: wh.id,
+                                label: wh.name,
+                              }))}
+                            placeholder="اختر المستودع"
+                            dir="rtl"
+                            className="w-full"
+                          />
+                          <StyledNumberInput
                             value={ws.quantity}
-                            onChange={(e) =>
-                              updateWarehouseStock(
-                                index,
-                                "quantity",
-                                e.target.value
-                              )
+                            onChange={(value) =>
+                              updateWarehouseStock(index, "quantity", value)
                             }
                             placeholder="الكمية"
-                            className="px-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
+                            min="0"
                             disabled={isSubmitting}
                           />
-                          <input
-                            type="number"
-                            min="0"
-                            max={ws.quantity}
+                          <StyledNumberInput
                             value={ws.reserved}
-                            onChange={(e) =>
-                              updateWarehouseStock(
-                                index,
-                                "reserved",
-                                e.target.value
-                              )
+                            onChange={(value) =>
+                              updateWarehouseStock(index, "reserved", value)
                             }
                             placeholder="محجوز"
-                            className="px-2 py-2 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[#e2e2e6] font-['Arial'] text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
+                            min="0"
+                            max={ws.quantity}
                             disabled={isSubmitting}
                           />
                           <button

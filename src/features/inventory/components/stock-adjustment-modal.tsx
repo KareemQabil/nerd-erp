@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import type { Product, Warehouse } from "../types/inventory.types";
 import { X, Plus, Minus, Package, AlertCircle } from "lucide-react";
+import { CustomDropdown } from "@/components/ui/custom-dropdown";
+import { StyledNumberInput } from "@/components/ui/styled-number-input";
 import { motion } from "motion/react";
 
 interface StockAdjustmentModalProps {
@@ -155,25 +157,24 @@ export function StockAdjustmentModal({
               <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                 المستودع
               </label>
-              <select
+              <CustomDropdown
                 value={selectedWarehouse}
-                onChange={(e) => setSelectedWarehouse(e.target.value)}
-                className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
-                dir="rtl"
-                required
-              >
-                {warehouses.map((warehouse) => {
+                onChange={(value) => setSelectedWarehouse(value)}
+                options={warehouses.map((warehouse) => {
                   const productWh = product.warehouses.find(
                     (w) => w.warehouseId === warehouse.id
                   );
-                  return (
-                    <option key={warehouse.id} value={warehouse.id}>
-                      {warehouse.name} - الكمية الحالية:{" "}
-                      {productWh?.quantity || 0} {product.unit}
-                    </option>
-                  );
+                  return {
+                    value: warehouse.id,
+                    label: `${warehouse.name} - الكمية الحالية: ${
+                      productWh?.quantity || 0
+                    } ${product.unit}`,
+                  };
                 })}
-              </select>
+                placeholder="اختر المستودع"
+                dir="rtl"
+                className="w-full"
+              />
             </div>
 
             {/* Current Stock Display */}
@@ -245,15 +246,13 @@ export function StockAdjustmentModal({
                 الكمية
               </label>
               <div className="relative">
-                <input
-                  type="number"
+                <StyledNumberInput
+                  value={quantity}
+                  onChange={(value) => setQuantity(value)}
+                  placeholder="أدخل الكمية"
                   min="0"
                   step="0.01"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  placeholder="أدخل الكمية"
-                  className="w-full px-4 py-3 pl-16 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] focus:outline-none focus:border-cyan-400/50 transition-colors"
-                  dir="rtl"
+                  disabled={isSubmitting}
                   required
                 />
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-['Almarai'] text-[#c2c7ce]">

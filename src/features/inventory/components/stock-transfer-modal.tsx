@@ -14,6 +14,8 @@ import {
   ArrowRight,
   Save,
 } from "lucide-react";
+import { CustomDropdown } from "@/components/ui/custom-dropdown";
+import { StyledNumberInput } from "@/components/ui/styled-number-input";
 import type { Product, Warehouse } from "../types/inventory.types";
 
 interface StockTransferModalProps {
@@ -207,36 +209,35 @@ export function StockTransferModal({
                 <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                   من المستودع <span className="text-red-400">*</span>
                 </label>
-                <select
+                <CustomDropdown
                   value={fromWarehouse}
-                  onChange={(e) => {
-                    setFromWarehouse(e.target.value);
+                  onChange={(value) => {
+                    setFromWarehouse(value);
                     setQuantity("");
                     setError("");
                   }}
-                  className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+                  options={[
+                    { value: "", label: "اختر المستودع" },
+                    ...product.warehouses
+                      .filter((w) => w.quantity > 0)
+                      .map((warehouseStock) => {
+                        const warehouse = warehouses.find(
+                          (wh) => wh.id === warehouseStock.warehouseId
+                        );
+                        return {
+                          value: warehouseStock.warehouseId,
+                          label: `${
+                            warehouse?.name || warehouseStock.warehouseName
+                          } - متاح: ${warehouseStock.available} ${
+                            product.unit
+                          }`,
+                        };
+                      }),
+                  ]}
+                  placeholder="اختر المستودع"
                   dir="rtl"
-                  required
-                  disabled={isSubmitting}
-                >
-                  <option value="">اختر المستودع</option>
-                  {product.warehouses
-                    .filter((w) => w.quantity > 0)
-                    .map((warehouseStock) => {
-                      const warehouse = warehouses.find(
-                        (wh) => wh.id === warehouseStock.warehouseId
-                      );
-                      return (
-                        <option
-                          key={warehouseStock.warehouseId}
-                          value={warehouseStock.warehouseId}
-                        >
-                          {warehouse?.name || warehouseStock.warehouseName} -
-                          متاح: {warehouseStock.available} {product.unit}
-                        </option>
-                      );
-                    })}
-                </select>
+                  className="w-full"
+                />
                 {fromWarehouse && (
                   <p className="text-xs font-['Almarai'] text-cyan-400 mt-2">
                     الكمية المتاحة: {getAvailableQuantity()} {product.unit}
@@ -261,26 +262,25 @@ export function StockTransferModal({
                 <label className="text-sm font-['Almarai'] font-bold text-[#e2e2e6] mb-2 block">
                   إلى المستودع <span className="text-red-400">*</span>
                 </label>
-                <select
+                <CustomDropdown
                   value={toWarehouse}
-                  onChange={(e) => {
-                    setToWarehouse(e.target.value);
+                  onChange={(value) => {
+                    setToWarehouse(value);
                     setError("");
                   }}
-                  className="w-full px-4 py-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Almarai'] focus:outline-none focus:border-cyan-400/50 transition-colors"
+                  options={[
+                    { value: "", label: "اختر المستودع" },
+                    ...warehouses
+                      .filter((w) => w.id !== fromWarehouse)
+                      .map((warehouse) => ({
+                        value: warehouse.id,
+                        label: warehouse.name,
+                      })),
+                  ]}
+                  placeholder="اختر المستودع"
                   dir="rtl"
-                  required
-                  disabled={isSubmitting}
-                >
-                  <option value="">اختر المستودع</option>
-                  {warehouses
-                    .filter((w) => w.id !== fromWarehouse)
-                    .map((warehouse) => (
-                      <option key={warehouse.id} value={warehouse.id}>
-                        {warehouse.name}
-                      </option>
-                    ))}
-                </select>
+                  className="w-full"
+                />
               </div>
             </div>
 
@@ -315,18 +315,15 @@ export function StockTransferModal({
                 الكمية المراد نقلها <span className="text-red-400">*</span>
               </label>
               <div className="relative">
-                <input
-                  type="number"
+                <StyledNumberInput
+                  value={quantity}
+                  onChange={(value) => setQuantity(value)}
+                  placeholder="أدخل الكمية"
                   min="0.01"
                   step="0.01"
                   max={getAvailableQuantity()}
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  placeholder="أدخل الكمية"
-                  className="w-full px-4 py-3 pl-16 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-[#e2e2e6] font-['Arial'] focus:outline-none focus:border-cyan-400/50 transition-colors"
-                  dir="rtl"
-                  required
                   disabled={!fromWarehouse || isSubmitting}
+                  required
                 />
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-['Almarai'] text-[#c2c7ce]">
                   {product.unit}

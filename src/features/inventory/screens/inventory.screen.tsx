@@ -20,25 +20,26 @@ import { WarehouseListModal } from "../components/warehouse-list-modal";
 import { StockTransferModal } from "../components/stock-transfer-modal";
 import { ProductFormModal } from "../components/product-form-modal";
 import {
-  Search,
-  X,
   Package,
-  TrendingUp,
-  TrendingDown,
-  AlertCircle,
-  Warehouse as WarehouseIcon,
+  Search,
   Filter,
+  MoreVertical,
+  Plus,
+  FileText,
   Download,
   Upload,
-  Plus,
-  BarChart3,
+  RefreshCw,
+  AlertCircle,
+  TrendingUp,
+  TrendingDown,
+  PackageCheck,
+  PackageX,
+  PackageMinus,
   Eye,
   Edit,
-  PackageX,
-  PackageCheck,
-  PackageMinus,
-  RefreshCw,
-  ArrowRightLeft,
+  Trash2,
+  Warehouse as WarehouseIcon,
+  X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -46,6 +47,7 @@ import {
   NerdPOSStyles,
   NerdPOSColors,
 } from "../../../core/theme/nerdpos-styles";
+import { CustomDropdown } from "@/components/ui/custom-dropdown";
 
 export default function InventoryScreen() {
   const { t } = useTranslation();
@@ -478,47 +480,48 @@ export default function InventoryScreen() {
             </div>
 
             {/* Category Filter */}
-            <select
+            <CustomDropdown
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className={NerdPOSLayout.filters.select}
-              dir="rtl"
-            >
-              <option value="all">كل الفئات</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name} ({cat.productCount})
-                </option>
-              ))}
-            </select>
+              onChange={setSelectedCategory}
+              options={[
+                { value: "all", label: "كل الفئات" },
+                ...categories.map((cat) => ({
+                  value: cat.id,
+                  label: `${cat.name} (${cat.productCount})`,
+                })),
+              ]}
+              placeholder="كل الفئات"
+              className="w-[180px]"
+            />
 
             {/* Warehouse Filter */}
-            <select
+            <CustomDropdown
               value={selectedWarehouse}
-              onChange={(e) => setSelectedWarehouse(e.target.value)}
-              className={NerdPOSLayout.filters.select}
-              dir="rtl"
-            >
-              <option value="all">كل المستودعات</option>
-              {warehouses.map((wh) => (
-                <option key={wh.id} value={wh.id}>
-                  {wh.name}
-                </option>
-              ))}
-            </select>
+              onChange={setSelectedWarehouse}
+              options={[
+                { value: "all", label: "كل المستودعات" },
+                ...warehouses.map((wh) => ({
+                  value: wh.id,
+                  label: wh.name,
+                })),
+              ]}
+              placeholder="كل المستودعات"
+              className="w-[180px]"
+            />
 
             {/* Stock Status Filter */}
-            <select
+            <CustomDropdown
               value={selectedStockStatus}
-              onChange={(e) => setSelectedStockStatus(e.target.value)}
-              className={NerdPOSLayout.filters.select}
-              dir="rtl"
-            >
-              <option value="all">كل الحالات</option>
-              <option value="in-stock">متوفر</option>
-              <option value="low-stock">منخفض</option>
-              <option value="out-of-stock">نفذ</option>
-            </select>
+              onChange={setSelectedStockStatus}
+              options={[
+                { value: "all", label: "كل الحالات" },
+                { value: "in-stock", label: "متوفر" },
+                { value: "low-stock", label: "منخفض" },
+                { value: "out-of-stock", label: "نفذ" },
+              ]}
+              placeholder="كل الحالات"
+              className="w-[180px]"
+            />
           </div>
         </div>
 

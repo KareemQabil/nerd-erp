@@ -31,6 +31,7 @@ import {
   NerdPOSLayout,
   NerdPOSStyles,
 } from "../../../core/theme/nerdpos-styles";
+import { CustomDropdown } from "@/components/ui/custom-dropdown";
 
 export default function CustomersScreen() {
   const { t, i18n } = useTranslation();
@@ -212,21 +213,20 @@ export default function CustomersScreen() {
 
           {/* Tier Filter Dropdown */}
           <div className="relative group">
-            <select
+            <CustomDropdown
               value={selectedTier}
-              onChange={(e) => setSelectedTier(e.target.value as any)}
-              className={NerdPOSLayout.filters.select + " h-12 min-w-[200px]"}
-              style={{ textAlign: isRTL ? "right" : "left" }}
+              onChange={(value) => setSelectedTier(value as any)}
+              options={[
+                { value: "all", label: isRTL ? "جميع المستويات" : "All Tiers" },
+                { value: "bronze", label: isRTL ? "برونزي" : "Bronze" },
+                { value: "silver", label: isRTL ? "فضي" : "Silver" },
+                { value: "gold", label: isRTL ? "ذهبي" : "Gold" },
+                { value: "platinum", label: isRTL ? "بلاتيني" : "Platinum" },
+              ]}
+              placeholder={isRTL ? "جميع المستويات" : "All Tiers"}
+              className="h-12 min-w-[200px]"
               dir={isRTL ? "rtl" : "ltr"}
-            >
-              <option value="all">
-                {isRTL ? "جميع المستويات" : "All Tiers"}
-              </option>
-              <option value="bronze">{isRTL ? "برونزي" : "Bronze"}</option>
-              <option value="silver">{isRTL ? "فضي" : "Silver"}</option>
-              <option value="gold">{isRTL ? "ذهبي" : "Gold"}</option>
-              <option value="platinum">{isRTL ? "بلاتيني" : "Platinum"}</option>
-            </select>
+            />
           </div>
         </div>
 
