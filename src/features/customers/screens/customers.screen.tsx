@@ -3,7 +3,7 @@
  * NerdPOS - Matching POS Screen Design
  */
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
   CustomersService,
@@ -17,7 +17,6 @@ import type {
 import {
   Users,
   Search,
-  Plus,
   Award,
   Phone,
   Mail,
@@ -33,7 +32,7 @@ import {
 import { CustomDropdown } from "@/components/ui/custom-dropdown";
 
 export default function CustomersScreen() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isRTL = i18n.language === "ar";
 
   const [loading, setLoading] = useState(true);

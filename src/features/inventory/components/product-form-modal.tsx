@@ -4,23 +4,19 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
   X,
   Package,
   Save,
   AlertCircle,
   Plus,
-  Minus,
   Trash2,
   DollarSign,
   Barcode,
   Tag,
-  FileText,
-  Warehouse as WarehouseIcon,
   TrendingUp,
   TrendingDown,
-  Image as ImageIcon,
 } from "lucide-react";
 import type {
   Product,

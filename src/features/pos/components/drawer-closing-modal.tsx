@@ -3,7 +3,7 @@
  * Cash drawer closing/reconciliation at end of shift
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   X,
@@ -55,7 +55,7 @@ export function DrawerClosingModal({
   cardSales,
   orderCount,
 }: DrawerClosingModalProps) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isRTL = i18n.language === "ar";
 
   const [denominations, setDenominations] = useState({

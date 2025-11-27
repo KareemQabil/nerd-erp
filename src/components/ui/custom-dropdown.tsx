@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils"; // Assuming this exists, or I'll use a simple join
 // If @/lib/utils doesn't exist, I'll use a local helper or clsx/tailwind-merge directly if installed.

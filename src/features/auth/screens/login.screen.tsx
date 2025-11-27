@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth, MOCK_USERS } from "../../../core/auth/auth.context";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export default function LoginScreen() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isRTL = i18n.language === "ar";
   const { selectedUser, selectUser, login } = useAuth();
   const navigate = useNavigate();

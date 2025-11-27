@@ -73,7 +73,7 @@ export function ComingSoonScreen({
             )}
 
             {/* Status Badge */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.1)] border border-cyan-400/30 rounded-full px-6 py-3">
+            <div className="inline-flex items-center gap-2 bg-linear-to-r from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.1)] border border-cyan-400/30 rounded-full px-6 py-3">
               <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
               <span
                 className="text-sm font-['Almarai'] font-bold text-cyan-400"
