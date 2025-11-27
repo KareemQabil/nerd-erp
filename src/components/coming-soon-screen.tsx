@@ -1,5 +1,3 @@
-import React from "react";
-import { MainNavigation } from "./main-navigation";
 import { type LucideIcon } from "lucide-react";
 
 interface ComingSoonScreenProps {
@@ -18,9 +16,7 @@ export function ComingSoonScreen({
   features,
 }: ComingSoonScreenProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#023047] to-[#001219] pr-20">
-      <MainNavigation />
-
+    <>
       <div className="flex items-center justify-center min-h-screen p-8">
         <div className="max-w-2xl w-full">
           <div className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-3xl p-12 border border-[#42474e] text-center">
@@ -89,6 +85,6 @@ export function ComingSoonScreen({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

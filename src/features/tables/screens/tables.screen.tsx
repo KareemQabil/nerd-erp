@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { TableService } from "../services/table.service";
 import type {
@@ -10,7 +10,7 @@ import type {
   TableStats,
   TableStatus,
 } from "../types/table.types";
-import { MainNavigation } from "../../../components/main-navigation";
+
 import { LoadingState } from "../../../components/loading-state";
 import {
   Grid3x3,
@@ -18,20 +18,15 @@ import {
   Search,
   X,
   Plus,
-  Filter,
   Calendar,
   Users,
   Clock,
   CheckCircle2,
   Circle,
   Loader2,
-  AlertCircle,
   Armchair,
   DoorOpen,
   QrCode,
-  ArrowRightLeft,
-  Combine,
-  Split,
   Settings,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -39,7 +34,6 @@ import { motion, AnimatePresence } from "motion/react";
 type ViewMode = "grid" | "list";
 
 export default function TablesScreen() {
-  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // ============================================================
@@ -57,7 +51,6 @@ export default function TablesScreen() {
   const [selectedSection, setSelectedSection] = useState<string>("all");
   const [selectedStatuses, setSelectedStatuses] = useState<TableStatus[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTable, setSelectedTable] = useState<Table | null>(null);
   const [showReservations, setShowReservations] = useState(false);
 
   const [feedback, setFeedback] = useState<{
@@ -70,6 +63,7 @@ export default function TablesScreen() {
   // ============================================================
   useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFloor, selectedSection, selectedStatuses, searchQuery]);
 
   useEffect(() => {
@@ -132,7 +126,7 @@ export default function TablesScreen() {
       await TableService.updateTableStatus(tableId, newStatus);
       await loadData();
       showFeedback("تم تحديث حالة الطاولة بنجاح", "success");
-    } catch (error) {
+    } catch {
       showFeedback("فشل تحديث حالة الطاولة", "error");
     }
   };
@@ -222,9 +216,7 @@ export default function TablesScreen() {
   // RENDER
   // ============================================================
   return (
-    <div className="min-h-screen bg-[#00161a] flex flex-col pr-20" dir="rtl">
-      <MainNavigation />
-
+    <>
       {/* Feedback Toast */}
       <AnimatePresence>
         {feedback && (
@@ -508,7 +500,6 @@ export default function TablesScreen() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: index * 0.02 }}
                       className={`relative p-4 rounded-2xl bg-gradient-to-br ${statusColor.bg} border ${statusColor.border} hover:scale-105 transition-all cursor-pointer group`}
-                      onClick={() => setSelectedTable(table)}
                     >
                       {/* VIP Badge */}
                       {table.isVIP && (
@@ -758,6 +749,6 @@ export default function TablesScreen() {
           </LoadingState>
         </div>
       </div>
-    </div>
+    </>
   );
 }

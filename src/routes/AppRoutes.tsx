@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { useAuth } from "@/core/auth/auth.context";
 import { Routes, Route, Navigate } from "react-router-dom";
+import MainLayout from "@/components/layouts/main-layout";
 
 // Lazy load feature routes
 const AuthRoutes = lazy(() => import("@/features/auth/routes"));
@@ -62,118 +63,29 @@ export default function AppRoutes() {
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
 
         {/* Protected Routes */}
+        {/* Protected Routes */}
         <Route
-          path="/dashboard/*"
           element={
             <ProtectedRoute>
-              <DashboardRoutes />
+              <MainLayout />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/pos/*"
-          element={
-            <ProtectedRoute>
-              <PosRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/orders/*"
-          element={
-            <ProtectedRoute>
-              <OrdersRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/customers/*"
-          element={
-            <ProtectedRoute>
-              <CustomersRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/inventory/*"
-          element={
-            <ProtectedRoute>
-              <InventoryRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/seating/*"
-          element={
-            <ProtectedRoute>
-              <TablesRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/reports/*"
-          element={
-            <ProtectedRoute>
-              <ReportsRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/b2b/*"
-          element={
-            <ProtectedRoute>
-              <B2BRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/hr/*"
-          element={
-            <ProtectedRoute>
-              <HRRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/cash/*"
-          element={
-            <ProtectedRoute>
-              <CashRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/delivery/*"
-          element={
-            <ProtectedRoute>
-              <DeliveryRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/kitchen/*"
-          element={
-            <ProtectedRoute>
-              <KitchenRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/analytics/*"
-          element={
-            <ProtectedRoute>
-              <AnalyticsRoutes />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/settings/*"
-          element={
-            <ProtectedRoute>
-              <SettingsRoutes />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route path="/dashboard/*" element={<DashboardRoutes />} />
+          <Route path="/pos/*" element={<PosRoutes />} />
+          <Route path="/orders/*" element={<OrdersRoutes />} />
+          <Route path="/customers/*" element={<CustomersRoutes />} />
+          <Route path="/inventory/*" element={<InventoryRoutes />} />
+          <Route path="/seating/*" element={<TablesRoutes />} />
+          <Route path="/reports/*" element={<ReportsRoutes />} />
+          <Route path="/b2b/*" element={<B2BRoutes />} />
+          <Route path="/hr/*" element={<HRRoutes />} />
+          <Route path="/cash/*" element={<CashRoutes />} />
+          <Route path="/delivery/*" element={<DeliveryRoutes />} />
+          <Route path="/kitchen/*" element={<KitchenRoutes />} />
+          <Route path="/analytics/*" element={<AnalyticsRoutes />} />
+          <Route path="/settings/*" element={<SettingsRoutes />} />
+        </Route>
 
         {/* Redirects */}
         <Route

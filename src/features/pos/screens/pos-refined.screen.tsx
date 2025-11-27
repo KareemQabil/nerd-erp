@@ -20,7 +20,7 @@ import type {
   Customer,
 } from "../types/pos.types";
 import { LoadingState } from "../../../components/loading-state";
-import { MainNavigation } from "../../../components/main-navigation";
+
 import { POSActionBar } from "../components/pos-action-bar";
 import { CartPanel } from "../components/cart-panel";
 import { PaymentModalRedesigned } from "../components/payment-modal-redesigned";
@@ -33,7 +33,7 @@ import { CustomerSelectorModal } from "../components/customer-selector-modal";
 import { BarcodeScannerModal } from "../components/barcode-scanner-modal";
 import { ProductModifiersModal } from "../components/product-modifiers-modal";
 import { ReturnsModal } from "../components/returns-modal";
-import { Search, ChevronDown, Zap, ChefHat } from "lucide-react";
+import { Search, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 // HeldOrder interface
@@ -82,7 +82,7 @@ export default function POSRefinedScreen() {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isReceiptPreviewOpen, setIsReceiptPreviewOpen] = useState(false);
   const [isKitchenSendOpen, setIsKitchenSendOpen] = useState(false);
-  const [isDrawerClosingOpen, setIsDrawerClosingOpen] = useState(false);
+
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
   const [isDiscountModalOpen, setIsDiscountModalOpen] = useState(false);
   const [isHoldOrdersModalOpen, setIsHoldOrdersModalOpen] = useState(false);
@@ -356,8 +356,7 @@ export default function POSRefinedScreen() {
   const handlePaymentComplete = async (
     method: PaymentMethod,
     amount: number,
-    change?: number,
-    split?: any
+    change?: number
   ) => {
     // Payment completed - show receipt preview
     const orderNumber = `INV${Date.now().toString().slice(-6)}`;
@@ -543,10 +542,7 @@ export default function POSRefinedScreen() {
     : products;
 
   return (
-    <div className="min-h-screen bg-background pr-20">
-      {/* Main Navigation Sidebar */}
-      <MainNavigation />
-
+    <>
       {/* Feedback Bar (Subtle, replaces toast) */}
       <AnimatePresence>
         {feedback && (
@@ -893,6 +889,6 @@ export default function POSRefinedScreen() {
         orderType={orderType}
         table={selectedTable}
       />
-    </div>
+    </>
   );
 }

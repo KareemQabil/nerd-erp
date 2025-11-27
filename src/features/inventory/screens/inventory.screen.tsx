@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+
 import { InventoryService } from "../services/inventory.service";
 import type {
   Product,
@@ -10,7 +9,7 @@ import type {
   InventoryStats,
   InventoryFilter,
 } from "../types/inventory.types";
-import { MainNavigation } from "../../../components/main-navigation";
+
 import { LoadingState } from "../../../components/loading-state";
 import { StockAlertCard } from "../components/stock-alert-card";
 import { ProductDetailModal } from "../components/product-detail-modal";
@@ -22,10 +21,7 @@ import { ProductFormModal } from "../components/product-form-modal";
 import {
   Package,
   Search,
-  Filter,
-  MoreVertical,
   Plus,
-  FileText,
   Download,
   Upload,
   RefreshCw,
@@ -37,7 +33,6 @@ import {
   PackageMinus,
   Eye,
   Edit,
-  Trash2,
   Warehouse as WarehouseIcon,
   X,
 } from "lucide-react";
@@ -45,14 +40,10 @@ import { motion, AnimatePresence } from "motion/react";
 import {
   NerdPOSLayout,
   NerdPOSStyles,
-  NerdPOSColors,
 } from "../../../core/theme/nerdpos-styles";
 import { CustomDropdown } from "@/components/ui/custom-dropdown";
 
 export default function InventoryScreen() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
   // ============================================================
   // STATE MANAGEMENT
   // ============================================================
@@ -87,9 +78,6 @@ export default function InventoryScreen() {
   const [stockTransferModalOpen, setStockTransferModalOpen] = useState(false);
   const [productFormModalOpen, setProductFormModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [selectedWarehouseId, setSelectedWarehouseId] = useState<string | null>(
-    null
-  );
 
   // ============================================================
   // DATA LOADING
@@ -97,6 +85,7 @@ export default function InventoryScreen() {
 
   useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory, selectedWarehouse, selectedStockStatus, searchQuery]);
 
   useEffect(() => {
@@ -115,7 +104,7 @@ export default function InventoryScreen() {
         warehouse: selectedWarehouse !== "all" ? selectedWarehouse : undefined,
         stockStatus:
           selectedStockStatus !== "all"
-            ? (selectedStockStatus as any)
+            ? (selectedStockStatus as InventoryFilter["stockStatus"])
             : undefined,
       };
 
@@ -164,7 +153,7 @@ export default function InventoryScreen() {
         alerts.map((a) => (a.id === alertId ? { ...a, acknowledged: true } : a))
       );
       showFeedback("تم وضع علامة على التنبيه", "success");
-    } catch (error) {
+    } catch {
       showFeedback("فشل تحديث التنبيه", "error");
     }
   };
@@ -226,17 +215,8 @@ export default function InventoryScreen() {
     loadData();
   };
 
-  const handleOpenWarehouseModal = () => {
-    setWarehouseModalOpen(true);
-  };
-
   const handleOpenWarehouseListModal = () => {
     setWarehouseListModalOpen(true);
-  };
-
-  const handleOpenStockTransferModal = (warehouseId: string) => {
-    setSelectedWarehouseId(warehouseId);
-    setStockTransferModalOpen(true);
   };
 
   const handleOpenProductFormModal = () => {
@@ -248,17 +228,7 @@ export default function InventoryScreen() {
   // ============================================================
 
   return (
-    <div
-      className={NerdPOSLayout.page.container}
-      style={{
-        background: NerdPOSColors.background.gradient,
-        paddingRight: "80px",
-      }}
-      dir="rtl"
-    >
-      {/* Navigation */}
-      <MainNavigation />
-
+    <>
       {/* Feedback Toast */}
       <AnimatePresence>
         {feedback && (
@@ -719,7 +689,7 @@ export default function InventoryScreen() {
               setProductDetailModalOpen(false);
               showFeedback("تحرير المنتج قريباً", "info");
             }}
-            onAdjustStock={async (warehouseId, quantity, type) => {
+            onAdjustStock={async () => {
               showFeedback("تم تعديل المخزون بنجاح", "success");
               await loadData();
             }}
@@ -737,7 +707,7 @@ export default function InventoryScreen() {
               setStockAdjustmentModalOpen(false);
               setSelectedProduct(null);
             }}
-            onAdjust={async (adjustment) => {
+            onAdjust={async () => {
               // Here you would call the API to adjust stock
               showFeedback("تم تعديل المخزون بنجاح", "success");
               await loadData();
@@ -765,7 +735,7 @@ export default function InventoryScreen() {
                   showFeedback("تم إضافة المستودع بنجاح", "success");
                 }
                 await loadData();
-              } catch (error) {
+              } catch {
                 showFeedback("فشل حفظ المستودع", "error");
               }
             }}
@@ -774,7 +744,7 @@ export default function InventoryScreen() {
                 await InventoryService.deleteWarehouse(warehouseId);
                 showFeedback("تم حذف المستودع بنجاح", "success");
                 await loadData();
-              } catch (error) {
+              } catch {
                 showFeedback("فشل حذف المستودع", "error");
               }
             }}
@@ -796,9 +766,8 @@ export default function InventoryScreen() {
               setWarehouseListModalOpen(false);
               setWarehouseModalOpen(true);
             }}
-            onEditWarehouse={(warehouse) => {
+            onEditWarehouse={() => {
               setWarehouseListModalOpen(false);
-              setSelectedWarehouseId(warehouse.id);
               setWarehouseModalOpen(true);
             }}
           />
@@ -833,7 +802,7 @@ export default function InventoryScreen() {
                 );
                 showFeedback("تم نقل المخزون بنجاح", "success");
                 await loadData();
-              } catch (error) {
+              } catch {
                 showFeedback("فشل نقل المخزون", "error");
               }
             }}
@@ -865,13 +834,13 @@ export default function InventoryScreen() {
                   showFeedback("تم إضافة المنتج بنجاح", "success");
                 }
                 await loadData();
-              } catch (error) {
+              } catch {
                 showFeedback("فشل حفظ المنتج", "error");
               }
             }}
           />
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }
