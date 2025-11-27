@@ -40,53 +40,60 @@ export default function OrdersScreen() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [stats, setStats] = useState<OrderStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [activeTab, setActiveTab] = useState<"all" | OrderStatus>("all");
-  const [filters, setFilters] = useState<OrderFilters>({});
+
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, activeTab]);
+  }, [activeTab, debouncedSearch]);
 
   const loadData = async () => {
     try {
       setLoading(true);
       const filterToApply: OrderFilters = {
-        ...filters,
         status: activeTab === "all" ? undefined : activeTab,
+        searchQuery: debouncedSearch || undefined,
       };
-      const [ordersData, statsData] = await Promise.all([
+
+      // Only fetch stats on initial load or if needed (optional optimization)
+      // For now we keep fetching both but don't block UI
+      const promises: [Promise<Order[]>, Promise<OrderStats>] = [
         OrdersService.getOrders(filterToApply),
         OrdersService.getOrderStats(),
-      ]);
+      ];
+
+      const [ordersData, statsData] = await Promise.all(promises);
       setOrders(ordersData);
       setStats(statsData);
     } catch (error) {
       console.error("Error loading orders:", error);
     } finally {
       setLoading(false);
+      setInitialLoading(false);
     }
   };
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query.trim()) {
-      setFilters({ ...filters, searchQuery: query });
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { searchQuery, ...rest } = filters;
-      setFilters(rest);
-    }
   };
 
-  const filteredOrders = searchQuery
-    ? orders.filter(
-        (order) =>
-          order.orderNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          order.customerName?.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : orders;
+  // Filter locally if needed, but we are doing server side search now via loadData
+  // However, keeping this for immediate feedback if we wanted client side,
+  // but since we moved to server side search in loadData, we just use orders directly.
+  // If the API returns filtered orders, we use them.
+  const filteredOrders = orders;
 
   const getStatusColor = (status: OrderStatus) => {
     switch (status) {
@@ -136,7 +143,7 @@ export default function OrdersScreen() {
     }
   };
 
-  if (loading) {
+  if (initialLoading) {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
@@ -325,7 +332,27 @@ export default function OrdersScreen() {
       </div>
 
       {/* Orders Grid */}
-      {filteredOrders.length === 0 ? (
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[...Array(2)].map((_, i) => (
+            <div
+              key={i}
+              className={NerdPOSStyles.card.base + " p-4 h-48 animate-pulse"}
+            >
+              <div className="flex justify-between mb-4">
+                <div className="h-6 bg-primary-container rounded w-24"></div>
+                <div className="h-6 bg-primary-container rounded w-16"></div>
+              </div>
+              <div className="h-4 bg-primary-container rounded w-32 mb-4"></div>
+              <div className="space-y-2">
+                <div className="h-4 bg-primary-container rounded w-full"></div>
+                <div className="h-4 bg-primary-container rounded w-full"></div>
+                <div className="h-4 bg-primary-container rounded w-2/3"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : filteredOrders.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <div className="w-24 h-24 rounded-full bg-surface-overlay flex items-center justify-center mb-4">
             <ShoppingBag className="w-12 h-12 text-text-secondary opacity-50" />
