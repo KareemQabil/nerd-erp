@@ -95,9 +95,9 @@ export function ProductDetailModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[rgba(255,255,255,0.1)] flex-shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[rgba(255,255,255,0.1)] shrink-0">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.2)] to-[rgba(0,99,153,0.1)] border border-cyan-400/30 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-xl bg-linear-to-br from-[rgba(34,211,238,0.2)] to-[rgba(0,99,153,0.1)] border border-cyan-400/30 flex items-center justify-center">
               <Package className="w-7 h-7 text-cyan-400" />
             </div>
             <div>
@@ -126,7 +126,7 @@ export function ProductDetailModal({
         </div>
 
         {/* Stats Bar */}
-        <div className="px-6 py-4 bg-[rgba(255,255,255,0.02)] border-b border-[rgba(255,255,255,0.1)] flex-shrink-0">
+        <div className="px-6 py-4 bg-[rgba(255,255,255,0.02)] border-b border-[rgba(255,255,255,0.1)] shrink-0">
           <div className="grid grid-cols-5 gap-4">
             <div>
               <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
@@ -178,7 +178,7 @@ export function ProductDetailModal({
         </div>
 
         {/* Tabs */}
-        <div className="px-6 border-b border-[rgba(255,255,255,0.1)] flex gap-1 flex-shrink-0">
+        <div className="px-6 border-b border-[rgba(255,255,255,0.1)] flex gap-1 shrink-0">
           <button
             onClick={() => setActiveTab("overview")}
             className={`px-4 py-3 font-['Almarai'] font-bold transition-all ${
@@ -337,7 +337,7 @@ export function ProductDetailModal({
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[rgba(139,92,246,0.2)] to-[rgba(124,58,237,0.1)] border border-purple-400/30 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-linear-to-br from-[rgba(139,92,246,0.2)] to-[rgba(124,58,237,0.1)] border border-purple-400/30 flex items-center justify-center">
                         <Warehouse className="w-5 h-5 text-purple-400" />
                       </div>
                       <div>
@@ -487,7 +487,7 @@ export function ProductDetailModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="px-6 py-4 border-t border-[rgba(255,255,255,0.1)] flex items-center justify-between flex-shrink-0">
+        <div className="px-6 py-4 border-t border-[rgba(255,255,255,0.1)] flex items-center justify-between shrink-0">
           <button className="px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 transition-all flex items-center gap-2">
             <Trash2 className="w-4 h-4" />
             <span className="font-['Almarai'] font-bold">حذف المنتج</span>

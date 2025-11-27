@@ -180,7 +180,7 @@ export function SplitBillModal({
 
             {/* Info */}
             <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
-              <DollarSign className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+              <DollarSign className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
               <p className="text-sm text-blue-500 font-['Almarai']" dir="rtl">
                 {splitType === "equal"
                   ? `سيتم تقسيم الفاتورة بالتساوي على ${numParts} أشخاص`

@@ -112,7 +112,7 @@ export function CartPanel({
                         <div className="flex items-center gap-2">
                           {/* Product Image - Small */}
                           {item.product.imageUrl && (
-                            <div className="w-12 h-12 rounded-md overflow-hidden flex-shrink-0 bg-[var(--surface)]">
+                            <div className="w-12 h-12 rounded-md overflow-hidden shrink-0 bg-[var(--surface)]">
                               <img
                                 src={item.product.imageUrl}
                                 alt={item.product.name}
@@ -181,7 +181,7 @@ export function CartPanel({
                           {/* Delete Button */}
                           <button
                             onClick={() => onRemoveItem(item.id)}
-                            className="w-7 h-7 rounded-md hover:bg-[var(--error-container)] hover:text-[var(--error)] text-[var(--on-surface-variant)] transition-colors flex items-center justify-center flex-shrink-0"
+                            className="w-7 h-7 rounded-md hover:bg-[var(--error-container)] hover:text-[var(--error)] text-[var(--on-surface-variant)] transition-colors flex items-center justify-center shrink-0"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>

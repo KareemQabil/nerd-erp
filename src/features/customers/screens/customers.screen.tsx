@@ -279,7 +279,7 @@ export default function CustomersScreen() {
 
                   {/* Avatar Circle */}
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center font-['Almarai'] text-lg font-bold flex-shrink-0"
+                    className="w-12 h-12 rounded-full flex items-center justify-center font-['Almarai'] text-lg font-bold shrink-0"
                     style={{
                       backgroundColor: isVIP
                         ? customer.loyaltyTier === "platinum"
@@ -296,14 +296,14 @@ export default function CustomersScreen() {
                 {/* Contact Info */}
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center gap-2 text-sm">
-                    <Phone className="w-4 h-4 text-text-secondary flex-shrink-0" />
+                    <Phone className="w-4 h-4 text-text-secondary shrink-0" />
                     <span className="font-['Inter'] text-text-primary truncate">
                       {customer.phone}
                     </span>
                   </div>
                   {customer.email && (
                     <div className="flex items-center gap-2 text-sm">
-                      <Mail className="w-4 h-4 text-text-secondary flex-shrink-0" />
+                      <Mail className="w-4 h-4 text-text-secondary shrink-0" />
                       <span className="font-['Inter'] text-text-primary truncate">
                         {customer.email}
                       </span>

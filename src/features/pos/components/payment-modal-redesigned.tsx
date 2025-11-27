@@ -222,7 +222,7 @@ export function PaymentModalRedesigned({
           className="relative w-full max-w-xl max-h-full bg-[#2a2d32] border border-[rgba(255,255,255,0.1)] rounded-2xl shadow-2xl overflow-hidden flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-[rgba(255,255,255,0.1)] flex-shrink-0">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-[rgba(255,255,255,0.1)] shrink-0">
             <div className="flex items-center gap-2">
               {selectedMethod && (
                 <button
@@ -277,7 +277,7 @@ export function PaymentModalRedesigned({
                     className="space-y-6"
                   >
                     {/* Total Display */}
-                    <div className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 rounded-2xl p-6">
+                    <div className="bg-linear-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 rounded-2xl p-6">
                       <div className="text-center">
                         <p
                           className="text-sm font-['Almarai'] text-cyan-400 mb-2"
@@ -517,7 +517,7 @@ export function PaymentModalRedesigned({
                     {/* Card/Digital Payment Info */}
                     {!selectedMethodData?.requiresCashInput && (
                       <div className="bg-[rgba(34,211,238,0.1)] border border-[rgba(34,211,238,0.2)] rounded-xl p-4 flex items-start gap-3">
-                        <Zap className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                        <Zap className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
                         <div>
                           <p
                             className="text-sm font-['Almarai'] font-bold text-cyan-400 mb-1 text-right"

@@ -100,7 +100,7 @@ export function KitchenSendModal({
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header - Fixed */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-[rgba(255,255,255,0.1)] flex-shrink-0">
+          <div className="flex items-center justify-between px-6 py-5 border-b border-[rgba(255,255,255,0.1)] shrink-0">
             <button
               onClick={onClose}
               disabled={isPrinting}
@@ -116,7 +116,7 @@ export function KitchenSendModal({
                 {isRTL ? `طلب رقم ${orderNumber}#` : `Order #${orderNumber}`}
               </p>
             </div>
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#ff6b35] to-[#f7931e] flex items-center justify-center">
+            <div className="w-14 h-14 rounded-xl bg-linear-to-br from-[#ff6b35] to-[#f7931e] flex items-center justify-center">
               <UtensilsCrossed className="w-7 h-7 text-white" />
             </div>
           </div>
@@ -178,9 +178,9 @@ export function KitchenSendModal({
                   </div>
 
                   {/* Warning Notice */}
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
+                  <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-orange-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-8 h-8 rounded-lg bg-orange-400/20 flex items-center justify-center shrink-0 mt-0.5">
                         <AlertCircle className="w-5 h-5 text-orange-400" />
                       </div>
                       <p className="text-xs font-['Almarai'] text-orange-300 leading-relaxed">
@@ -226,7 +226,7 @@ export function KitchenSendModal({
                         >
                           <div className="flex items-start justify-between mb-2">
                             <div className="flex items-start gap-3 flex-1">
-                              <div className="w-10 h-10 rounded-lg bg-black flex items-center justify-center flex-shrink-0">
+                              <div className="w-10 h-10 rounded-lg bg-black flex items-center justify-center shrink-0">
                                 <span className="text-sm font-['Arial'] font-bold text-white">
                                   {item.quantity}x
                                 </span>
@@ -275,7 +275,7 @@ export function KitchenSendModal({
           </div>
 
           {/* Footer - Fixed */}
-          <div className="px-6 py-4 border-t border-[rgba(255,255,255,0.1)] flex gap-3 flex-shrink-0">
+          <div className="px-6 py-4 border-t border-[rgba(255,255,255,0.1)] flex gap-3 shrink-0">
             <button
               onClick={onClose}
               disabled={isPrinting || printComplete}

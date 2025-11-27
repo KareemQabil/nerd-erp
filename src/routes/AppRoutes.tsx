@@ -25,7 +25,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#023047] to-[#001219] flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-b from-[#023047] to-[#001219] flex items-center justify-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-400"></div>
       </div>
     );
@@ -43,7 +43,7 @@ export default function AppRoutes() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#023047] to-[#001219] flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-b from-[#023047] to-[#001219] flex items-center justify-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-400"></div>
       </div>
     );
@@ -52,7 +52,7 @@ export default function AppRoutes() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-gradient-to-b from-[#023047] to-[#001219] flex items-center justify-center">
+        <div className="min-h-screen bg-linear-to-b from-[#023047] to-[#001219] flex items-center justify-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-400"></div>
         </div>
       }

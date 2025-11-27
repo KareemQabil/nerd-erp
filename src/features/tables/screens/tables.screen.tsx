@@ -246,7 +246,7 @@ export default function TablesScreen() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header Section */}
-        <div className="bg-gradient-to-b from-[#001f24] to-[#00161a] border-b border-[rgba(255,255,255,0.1)] px-6 py-6">
+        <div className="bg-linear-to-b from-[#001f24] to-[#00161a] border-b border-[rgba(255,255,255,0.1)] px-6 py-6">
           {/* Title and Actions */}
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -275,7 +275,7 @@ export default function TablesScreen() {
               <button className="px-4 py-2 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] hover:border-cyan-400/50 transition-all">
                 <Settings className="w-5 h-5" />
               </button>
-              <button className="px-4 py-2 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg transition-all">
+              <button className="px-4 py-2 rounded-xl bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg transition-all">
                 <div className="flex items-center gap-2">
                   <Plus className="w-5 h-5" />
                   <span className="font-['Almarai'] font-bold">
@@ -289,7 +289,7 @@ export default function TablesScreen() {
           {/* Stats Cards */}
           {stats && (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Armchair className="w-4 h-4 text-cyan-400" />
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
@@ -301,7 +301,7 @@ export default function TablesScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-green-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-green-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <CheckCircle2 className="w-4 h-4 text-green-400" />
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
@@ -313,7 +313,7 @@ export default function TablesScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-red-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-red-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Users className="w-4 h-4 text-red-400" />
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
@@ -325,7 +325,7 @@ export default function TablesScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Calendar className="w-4 h-4 text-orange-400" />
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
@@ -337,7 +337,7 @@ export default function TablesScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(59,130,246,0.1)] to-[rgba(37,99,235,0.05)] border border-blue-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(59,130,246,0.1)] to-[rgba(37,99,235,0.05)] border border-blue-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Loader2 className="w-4 h-4 text-blue-400" />
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
@@ -349,7 +349,7 @@ export default function TablesScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Users className="w-4 h-4 text-purple-400" />
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
@@ -361,7 +361,7 @@ export default function TablesScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Clock className="w-4 h-4 text-cyan-400" />
                   <span className="text-xs font-['Almarai'] text-[#c2c7ce]">
@@ -466,7 +466,7 @@ export default function TablesScreen() {
                   onClick={() => toggleStatusFilter(status)}
                   className={`px-3 py-1.5 rounded-lg border transition-all ${
                     isSelected
-                      ? `bg-gradient-to-br ${statusColor.bg} ${statusColor.border} ${statusColor.text}`
+                      ? `bg-linear-to-br ${statusColor.bg} ${statusColor.border} ${statusColor.text}`
                       : "bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/30"
                   }`}
                 >
@@ -499,11 +499,11 @@ export default function TablesScreen() {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: index * 0.02 }}
-                      className={`relative p-4 rounded-2xl bg-gradient-to-br ${statusColor.bg} border ${statusColor.border} hover:scale-105 transition-all cursor-pointer group`}
+                      className={`relative p-4 rounded-2xl bg-linear-to-br ${statusColor.bg} border ${statusColor.border} hover:scale-105 transition-all cursor-pointer group`}
                     >
                       {/* VIP Badge */}
                       {table.isVIP && (
-                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-full flex items-center justify-center shadow-lg">
+                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-linear-to-br from-[#f59e0b] to-[#d97706] rounded-full flex items-center justify-center shadow-lg">
                           <span className="text-xs font-['Arial'] font-bold text-white">
                             VIP
                           </span>
@@ -672,7 +672,7 @@ export default function TablesScreen() {
                                     {table.name}
                                   </p>
                                   {table.isVIP && (
-                                    <span className="px-2 py-0.5 rounded text-[10px] font-['Arial'] font-bold bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white">
+                                    <span className="px-2 py-0.5 rounded text-[10px] font-['Arial'] font-bold bg-linear-to-r from-[#f59e0b] to-[#d97706] text-white">
                                       VIP
                                     </span>
                                   )}

@@ -13,6 +13,7 @@ import type {
   OrderStatus,
 } from "../types/orders.types";
 import { OrdersService } from "../services/orders.service";
+import { LoadingState } from "../../../components/loading-state";
 import {
   TrendingUp,
   DollarSign,
@@ -332,169 +333,151 @@ export default function OrdersScreen() {
       </div>
 
       {/* Orders Grid */}
-      {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[...Array(2)].map((_, i) => (
-            <div
-              key={i}
-              className={NerdPOSStyles.card.base + " p-4 h-48 animate-pulse"}
-            >
-              <div className="flex justify-between mb-4">
-                <div className="h-6 bg-primary-container rounded w-24"></div>
-                <div className="h-6 bg-primary-container rounded w-16"></div>
-              </div>
-              <div className="h-4 bg-primary-container rounded w-32 mb-4"></div>
-              <div className="space-y-2">
-                <div className="h-4 bg-primary-container rounded w-full"></div>
-                <div className="h-4 bg-primary-container rounded w-full"></div>
-                <div className="h-4 bg-primary-container rounded w-2/3"></div>
-              </div>
+      <LoadingState loading={loading}>
+        {filteredOrders.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <div className="w-24 h-24 rounded-full bg-surface-overlay flex items-center justify-center mb-4">
+              <ShoppingBag className="w-12 h-12 text-text-secondary opacity-50" />
             </div>
-          ))}
-        </div>
-      ) : filteredOrders.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="w-24 h-24 rounded-full bg-surface-overlay flex items-center justify-center mb-4">
-            <ShoppingBag className="w-12 h-12 text-text-secondary opacity-50" />
+            <h3
+              className="text-xl font-['Almarai'] text-text-primary mb-2"
+              dir="auto"
+            >
+              {isRTL ? "لا توجد طلبات" : "No Orders"}
+            </h3>
+            <p className="text-base text-text-secondary" dir="auto">
+              {isRTL ? "لم يتم العثور على أي طلبات" : "No orders found"}
+            </p>
           </div>
-          <h3
-            className="text-xl font-['Almarai'] text-text-primary mb-2"
-            dir="auto"
-          >
-            {isRTL ? "لا توجد طلبات" : "No Orders"}
-          </h3>
-          <p className="text-base text-text-secondary" dir="auto">
-            {isRTL ? "لم يتم العثور على أي طلبات" : "No orders found"}
-          </p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredOrders.map((order, index) => {
-            const StatusIcon = getStatusIcon(order.status);
-            const statusColor = getStatusColor(order.status);
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredOrders.map((order, index) => {
+              const StatusIcon = getStatusIcon(order.status);
+              const statusColor = getStatusColor(order.status);
 
-            return (
-              <motion.div
-                key={order.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.03 }}
-                whileHover={{ scale: 1.02 }}
-                className={
-                  NerdPOSStyles.card.base +
-                  " " +
-                  NerdPOSStyles.card.hover +
-                  " p-4 cursor-pointer"
-                }
-                onClick={() => navigate(`/orders/${order.id}`)}
-                dir={isRTL ? "rtl" : "ltr"}
-              >
-                {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg font-['Inter'] font-bold text-primary">
-                        #{order.orderNumber}
-                      </span>
-                      <div
-                        className="px-2 py-1 rounded-md flex items-center gap-1"
-                        style={{
-                          backgroundColor: `${statusColor}20`,
-                          border: `1px solid ${statusColor}30`,
-                        }}
-                      >
-                        <StatusIcon
-                          className="w-3 h-3"
-                          style={{ color: statusColor }}
-                        />
-                        <span
-                          className="text-xs font-['Almarai']"
-                          style={{ color: statusColor }}
-                          dir="auto"
+              return (
+                <motion.div
+                  key={order.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.03 }}
+                  whileHover={{ scale: 1.02 }}
+                  className={
+                    NerdPOSStyles.card.base +
+                    " " +
+                    NerdPOSStyles.card.hover +
+                    " p-4 cursor-pointer"
+                  }
+                  onClick={() => navigate(`/orders/${order.id}`)}
+                  dir={isRTL ? "rtl" : "ltr"}
+                >
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-lg font-['Inter'] font-bold text-primary">
+                          #{order.orderNumber}
+                        </span>
+                        <div
+                          className="px-2 py-1 rounded-md flex items-center gap-1"
+                          style={{
+                            backgroundColor: `${statusColor}20`,
+                            border: `1px solid ${statusColor}30`,
+                          }}
                         >
-                          {getStatusLabel(order.status)}
+                          <StatusIcon
+                            className="w-3 h-3"
+                            style={{ color: statusColor }}
+                          />
+                          <span
+                            className="text-xs font-['Almarai']"
+                            style={{ color: statusColor }}
+                            dir="auto"
+                          >
+                            {getStatusLabel(order.status)}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-text-secondary">
+                        <Clock className="w-4 h-4" />
+                        <span className="font-['Almarai']" dir="auto">
+                          {isRTL ? "منذ" : ""}{" "}
+                          {new Date(order.createdAt).toLocaleTimeString(
+                            isRTL ? "ar" : "en",
+                            {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            }
+                          )}{" "}
+                          {!isRTL ? "ago" : ""}
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-text-secondary">
-                      <Clock className="w-4 h-4" />
-                      <span className="font-['Almarai']" dir="auto">
-                        {isRTL ? "منذ" : ""}{" "}
-                        {new Date(order.createdAt).toLocaleTimeString(
-                          isRTL ? "ar" : "en",
-                          {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          }
-                        )}{" "}
-                        {!isRTL ? "ago" : ""}
-                      </span>
-                    </div>
                   </div>
-                </div>
 
-                {/* Customer */}
-                {order.customerName && (
-                  <div className="mb-3">
-                    <div
-                      className="text-sm font-['Almarai'] text-text-primary"
-                      dir="auto"
-                    >
-                      {order.customerName}
-                    </div>
-                  </div>
-                )}
-
-                {/* Items */}
-                <div className="space-y-1.5 mb-3 max-h-24 overflow-y-auto">
-                  {order.items.slice(0, 3).map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between text-sm"
-                    >
-                      <span
-                        className="font-['Almarai'] text-text-secondary"
+                  {/* Customer */}
+                  {order.customerName && (
+                    <div className="mb-3">
+                      <div
+                        className="text-sm font-['Almarai'] text-text-primary"
                         dir="auto"
                       >
-                        {item.quantity}x {item.productName}
-                      </span>
-                      <span className="font-['Inter'] text-text-primary">
-                        {item.total.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
-                      </span>
-                    </div>
-                  ))}
-                  {order.items.length > 3 && (
-                    <div
-                      className="text-xs text-text-secondary font-['Almarai']"
-                      dir="auto"
-                    >
-                      {isRTL
-                        ? `+${order.items.length - 3} منتجات أخرى`
-                        : `+${order.items.length - 3} more items`}
+                        {order.customerName}
+                      </div>
                     </div>
                   )}
-                </div>
 
-                {/* Total */}
-                <div
-                  className="flex items-center justify-between pt-3 border-t"
-                  style={{ borderColor: "var(--border-subtle)" }}
-                >
-                  <span
-                    className="text-sm font-['Almarai'] text-text-secondary"
-                    dir="auto"
+                  {/* Items */}
+                  <div className="space-y-1.5 mb-3 max-h-24 overflow-y-auto">
+                    {order.items.slice(0, 3).map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between text-sm"
+                      >
+                        <span
+                          className="font-['Almarai'] text-text-secondary"
+                          dir="auto"
+                        >
+                          {item.quantity}x {item.productName}
+                        </span>
+                        <span className="font-['Inter'] text-text-primary">
+                          {item.total.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
+                        </span>
+                      </div>
+                    ))}
+                    {order.items.length > 3 && (
+                      <div
+                        className="text-xs text-text-secondary font-['Almarai']"
+                        dir="auto"
+                      >
+                        {isRTL
+                          ? `+${order.items.length - 3} منتجات أخرى`
+                          : `+${order.items.length - 3} more items`}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Total */}
+                  <div
+                    className="flex items-center justify-between pt-3 border-t"
+                    style={{ borderColor: "var(--border-subtle)" }}
                   >
-                    {isRTL ? "الإجمالي" : "Total"}
-                  </span>
-                  <span className="text-xl font-['Inter'] font-bold text-text-primary">
-                    {order.total.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
-                  </span>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      )}
+                    <span
+                      className="text-sm font-['Almarai'] text-text-secondary"
+                      dir="auto"
+                    >
+                      {isRTL ? "الإجمالي" : "Total"}
+                    </span>
+                    <span className="text-xl font-['Inter'] font-bold text-text-primary">
+                      {order.total.toFixed(2)} {isRTL ? "ر.س" : "SAR"}
+                    </span>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
+      </LoadingState>
     </>
   );
 }

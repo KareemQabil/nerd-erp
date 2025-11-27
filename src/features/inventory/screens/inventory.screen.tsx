@@ -290,7 +290,7 @@ export default function InventoryScreen() {
               </button>
               <button
                 onClick={handleOpenWarehouseListModal}
-                className="px-4 py-2 rounded-xl bg-gradient-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 shadow-lg transition-all"
+                className="px-4 py-2 rounded-xl bg-linear-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 shadow-lg transition-all"
               >
                 <div className="flex items-center gap-2">
                   <WarehouseIcon className="w-5 h-5" />
@@ -299,7 +299,7 @@ export default function InventoryScreen() {
               </button>
               <button
                 onClick={handleOpenProductFormModal}
-                className="px-4 py-2 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-on-primary hover:opacity-90 shadow-lg transition-all"
+                className="px-4 py-2 rounded-xl bg-linear-to-b from-[#22d3ee] to-[#006399] text-on-primary hover:opacity-90 shadow-lg transition-all"
               >
                 <div className="flex items-center gap-2">
                   <Plus className="w-5 h-5" />
@@ -319,7 +319,7 @@ export default function InventoryScreen() {
           {stats && (
             <div className={NerdPOSLayout.stats.grid + " lg:grid-cols-8"}>
               <div
-                className={`${NerdPOSLayout.stats.card} bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border-primary/20`}
+                className={`${NerdPOSLayout.stats.card} bg-linear-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border-primary/20`}
               >
                 <div className="flex items-center gap-2 mb-2">
                   <Package className="w-4 h-4 text-primary" />
@@ -332,7 +332,7 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-success/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-success/20">
                 <div className="flex items-center gap-2 mb-2">
                   <PackageCheck className="w-4 h-4 text-success" />
                   <span className="text-xs font-['Almarai'] text-text-secondary">
@@ -344,7 +344,7 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-warning/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-warning/20">
                 <div className="flex items-center gap-2 mb-2">
                   <PackageMinus className="w-4 h-4 text-warning" />
                   <span className="text-xs font-['Almarai'] text-text-secondary">
@@ -356,7 +356,7 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-error/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-error/20">
                 <div className="flex items-center gap-2 mb-2">
                   <PackageX className="w-4 h-4 text-error" />
                   <span className="text-xs font-['Almarai'] text-text-secondary">
@@ -368,7 +368,7 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
                 <div className="flex items-center gap-2 mb-2">
                   <WarehouseIcon className="w-4 h-4 text-purple-400" />
                   <span className="text-xs font-['Almarai'] text-text-secondary">
@@ -380,7 +380,7 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-primary/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-primary/20">
                 <div className="flex items-center gap-2 mb-2">
                   <TrendingUp className="w-4 h-4 text-primary" />
                   <span className="text-xs font-['Almarai'] text-text-secondary">
@@ -395,7 +395,7 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-primary/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-primary/20">
                 <div className="flex items-center gap-2 mb-2">
                   <TrendingDown className="w-4 h-4 text-primary" />
                   <span className="text-xs font-['Almarai'] text-text-secondary">
@@ -410,7 +410,7 @@ export default function InventoryScreen() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-error/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(239,68,68,0.1)] to-[rgba(220,38,38,0.05)] border border-error/20">
                 <div className="flex items-center gap-2 mb-2">
                   <AlertCircle className="w-4 h-4 text-error" />
                   <span className="text-xs font-['Almarai'] text-text-secondary">

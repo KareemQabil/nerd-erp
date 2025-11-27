@@ -1,10 +1,18 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { 
-  ShoppingCart, Receipt, Printer, Clock, User, 
-  RotateCcw, FileText, Tag, ChefHat, Scissors
-} from 'lucide-react';
-import { motion } from 'motion/react';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import {
+  ShoppingCart,
+  Receipt,
+  Printer,
+  Clock,
+  User,
+  RotateCcw,
+  FileText,
+  Tag,
+  ChefHat,
+  Scissors,
+} from "lucide-react";
+import { motion } from "motion/react";
 
 interface POSActionBarProps {
   cartItemsCount: number;
@@ -42,30 +50,30 @@ export function POSActionBar({
     label,
     onClick,
     disabled = false,
-    variant = 'default',
+    variant = "default",
     badge,
   }: {
     icon: React.ReactNode;
     label: string;
     onClick: () => void;
     disabled?: boolean;
-    variant?: 'default' | 'primary' | 'success' | 'warning';
+    variant?: "default" | "primary" | "success" | "warning";
     badge?: number;
   }) => {
     const getVariantClasses = () => {
       if (disabled) {
-        return 'bg-[rgba(255,255,255,0.05)] text-[#c2c7ce] opacity-50 cursor-not-allowed';
+        return "bg-[rgba(255,255,255,0.05)] text-[#c2c7ce] opacity-50 cursor-not-allowed";
       }
-      
+
       switch (variant) {
-        case 'primary':
-          return 'bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg';
-        case 'success':
-          return 'bg-gradient-to-b from-[#10b981] to-[#059669] text-white hover:opacity-90 shadow-lg';
-        case 'warning':
-          return 'bg-gradient-to-b from-[#f59e0b] to-[#d97706] text-white hover:opacity-90 shadow-lg';
+        case "primary":
+          return "bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg";
+        case "success":
+          return "bg-linear-to-b from-[#10b981] to-[#059669] text-white hover:opacity-90 shadow-lg";
+        case "warning":
+          return "bg-linear-to-b from-[#f59e0b] to-[#d97706] text-white hover:opacity-90 shadow-lg";
         default:
-          return 'bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] hover:border-cyan-400/50';
+          return "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] hover:border-cyan-400/50";
       }
     };
 
@@ -78,10 +86,13 @@ export function POSActionBar({
         className={`relative h-14 px-3 rounded-xl flex flex-col items-center justify-center gap-1 transition-all ${getVariantClasses()}`}
       >
         {icon}
-        <span className="text-[10px] font-['Almarai'] font-bold leading-tight whitespace-nowrap" dir="auto">
+        <span
+          className="text-[10px] font-['Almarai'] font-bold leading-tight whitespace-nowrap"
+          dir="auto"
+        >
           {label}
         </span>
-        
+
         {badge !== undefined && badge > 0 && (
           <div className="absolute -top-1 -right-1 bg-[#fb2c36] text-white rounded-full min-w-[20px] h-5 px-1 flex items-center justify-center text-[10px] font-['Arial'] font-bold border-2 border-[#023047]">
             {badge}
@@ -99,23 +110,23 @@ export function POSActionBar({
           <div className="flex items-center gap-2">
             <ActionButton
               icon={<ShoppingCart className="w-5 h-5" />}
-              label={t('pos.cart')}
+              label={t("pos.cart")}
               onClick={onOpenCart}
               variant="primary"
               badge={cartItemsCount}
             />
-            
+
             <div className="h-8 w-px bg-[rgba(255,255,255,0.1)]" />
-            
+
             <ActionButton
               icon={<User className="w-5 h-5" />}
-              label={t('pos.customer')}
+              label={t("pos.customer")}
               onClick={onSelectCustomer}
             />
-            
+
             <ActionButton
               icon={<Tag className="w-5 h-5" />}
-              label={t('pos.discount')}
+              label={t("pos.discount")}
               onClick={onApplyDiscount}
               disabled={!hasItems}
             />
@@ -125,15 +136,15 @@ export function POSActionBar({
           <div className="flex items-center gap-2">
             <ActionButton
               icon={<Clock className="w-5 h-5" />}
-              label={t('pos.hold')}
+              label={t("pos.hold")}
               onClick={onHoldOrder}
               disabled={!hasItems}
               variant="warning"
             />
-            
+
             <ActionButton
               icon={<RotateCcw className="w-5 h-5" />}
-              label={t('pos.pendingInvoices')}
+              label={t("pos.pendingInvoices")}
               onClick={onRetrieveOrder}
             />
 
@@ -145,7 +156,7 @@ export function POSActionBar({
                 disabled={!hasItems}
               />
             )}
-            
+
             <ActionButton
               icon={<FileText className="w-5 h-5" />}
               label="الطلبات"
@@ -165,13 +176,13 @@ export function POSActionBar({
           <div className="flex items-center gap-2">
             <ActionButton
               icon={<Printer className="w-5 h-5" />}
-              label={t('pos.print')}
+              label={t("pos.print")}
               onClick={onPrintReceipt}
               disabled={!hasItems}
             />
-            
+
             <div className="h-8 w-px bg-[rgba(255,255,255,0.1)]" />
-            
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -179,12 +190,12 @@ export function POSActionBar({
               disabled={!hasItems}
               className={`h-14 px-8 rounded-xl font-['Almarai'] font-bold text-base flex items-center gap-3 transition-all ${
                 hasItems
-                  ? 'bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]'
-                  : 'bg-[rgba(255,255,255,0.05)] text-[#c2c7ce] opacity-50 cursor-not-allowed'
+                  ? "bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_2px_6px_2px_rgba(0,0,0,0.15)]"
+                  : "bg-[rgba(255,255,255,0.05)] text-[#c2c7ce] opacity-50 cursor-not-allowed"
               }`}
             >
               <Receipt className="w-6 h-6" />
-              <span dir="auto">{t('pos.payment')}</span>
+              <span dir="auto">{t("pos.payment")}</span>
             </motion.button>
           </div>
         </div>

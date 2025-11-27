@@ -82,7 +82,7 @@ export function DiscountModal({
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#2a2f35] rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
+              className="bg-linear-to-b from-[#1a1c1e] via-[#1d2222] to-[#2a2f35] rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
             >
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-[rgba(255,255,255,0.1)]">
@@ -136,7 +136,7 @@ export function DiscountModal({
                         onClick={() => setSelectedDiscount(discount)}
                         className={`relative p-4 rounded-2xl transition-all ${
                           isSelected
-                            ? "bg-gradient-to-b from-[#22d3ee] to-[#006399] text-white shadow-lg"
+                            ? "bg-linear-to-b from-[#22d3ee] to-[#006399] text-white shadow-lg"
                             : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
                         }`}
                       >
@@ -172,7 +172,7 @@ export function DiscountModal({
                     }
                     className={`w-full p-4 rounded-2xl transition-all ${
                       selectedDiscount?.id === "d10"
-                        ? "bg-gradient-to-b from-[#22d3ee] to-[#006399] text-white shadow-lg"
+                        ? "bg-linear-to-b from-[#22d3ee] to-[#006399] text-white shadow-lg"
                         : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
                     }`}
                   >
@@ -260,7 +260,7 @@ export function DiscountModal({
                   className={`w-full py-4 rounded-2xl font-['Almarai'] font-bold text-lg transition-all ${
                     selectedDiscount &&
                     (selectedDiscount.id !== "d10" || customValue)
-                      ? "bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg"
+                      ? "bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg"
                       : "bg-[rgba(255,255,255,0.05)] text-[#c2c7ce] opacity-50 cursor-not-allowed"
                   }`}
                 >

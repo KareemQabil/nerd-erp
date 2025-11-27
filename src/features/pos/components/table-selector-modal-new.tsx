@@ -113,7 +113,7 @@ export function TableSelectorModal({
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#2a2f35] rounded-3xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden"
+              className="bg-linear-to-b from-[#1a1c1e] via-[#1d2222] to-[#2a2f35] rounded-3xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden"
               dir="rtl"
             >
               {/* Header */}
@@ -138,7 +138,7 @@ export function TableSelectorModal({
               <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.02)]">
                 <div className="grid grid-cols-3 gap-4">
                   <div className="flex items-center gap-3 bg-[rgba(255,255,255,0.05)] rounded-xl p-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg bg-linear-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
                       <span className="text-lg font-['Arial'] font-bold text-white">
                         {stats.total}
                       </span>
@@ -153,7 +153,7 @@ export function TableSelectorModal({
                     </div>
                   </div>
                   <div className="flex items-center gap-3 bg-[rgba(16,185,129,0.1)] rounded-xl p-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg bg-linear-to-br from-green-400 to-green-600 flex items-center justify-center">
                       <span className="text-lg font-['Arial'] font-bold text-white">
                         {stats.available}
                       </span>
@@ -168,7 +168,7 @@ export function TableSelectorModal({
                     </div>
                   </div>
                   <div className="flex items-center gap-3 bg-[rgba(239,68,68,0.1)] rounded-xl p-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg bg-linear-to-br from-red-400 to-red-600 flex items-center justify-center">
                       <span className="text-lg font-['Arial'] font-bold text-white">
                         {stats.occupied}
                       </span>
@@ -287,17 +287,17 @@ export function TableSelectorModal({
                                 : ""
                             } ${
                               table.status === "available"
-                                ? "bg-gradient-to-b from-[rgba(16,185,129,0.2)] to-[rgba(5,150,105,0.2)] border-2 border-[#10b981] hover:border-cyan-400 cursor-pointer"
+                                ? "bg-linear-to-b from-[rgba(16,185,129,0.2)] to-[rgba(5,150,105,0.2)] border-2 border-[#10b981] hover:border-cyan-400 cursor-pointer"
                                 : table.status === "occupied"
-                                ? "bg-gradient-to-b from-[rgba(239,68,68,0.2)] to-[rgba(220,38,38,0.2)] border-2 border-[#ef4444] cursor-not-allowed opacity-70"
+                                ? "bg-linear-to-b from-[rgba(239,68,68,0.2)] to-[rgba(220,38,38,0.2)] border-2 border-[#ef4444] cursor-not-allowed opacity-70"
                                 : table.status === "reserved"
-                                ? "bg-gradient-to-b from-[rgba(245,158,11,0.2)] to-[rgba(217,119,6,0.2)] border-2 border-[#f59e0b] cursor-not-allowed opacity-70"
-                                : "bg-gradient-to-b from-[rgba(107,114,128,0.2)] to-[rgba(75,85,99,0.2)] border-2 border-[#6b7280] cursor-not-allowed opacity-70"
+                                ? "bg-linear-to-b from-[rgba(245,158,11,0.2)] to-[rgba(217,119,6,0.2)] border-2 border-[#f59e0b] cursor-not-allowed opacity-70"
+                                : "bg-linear-to-b from-[rgba(107,114,128,0.2)] to-[rgba(75,85,99,0.2)] border-2 border-[#6b7280] cursor-not-allowed opacity-70"
                             }`}
                           >
                             {/* Status Badge */}
                             <div
-                              className={`absolute top-2 right-2 w-3 h-3 rounded-full bg-gradient-to-b ${getStatusColor(
+                              className={`absolute top-2 right-2 w-3 h-3 rounded-full bg-linear-to-b ${getStatusColor(
                                 table.status
                               )}`}
                             />

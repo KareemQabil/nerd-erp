@@ -86,7 +86,7 @@ export default function StockScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#023047] to-[#001219]">
+    <div className="min-h-screen bg-linear-to-b from-[#023047] to-[#001219]">
       {/* Header */}
       <div className="bg-[rgba(255,255,255,0.05)] border-b border-[rgba(255,255,255,0.1)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.3)]">
         <div className="container mx-auto px-4">
@@ -117,7 +117,7 @@ export default function StockScreen() {
       <div className="container mx-auto px-4 py-6">
         {/* Stats */}
         <div className="grid grid-cols-4 gap-4 mb-6">
-          <div className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-2xl p-4 border border-[#42474e]">
+          <div className="bg-linear-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-2xl p-4 border border-[#42474e]">
             <div className="flex items-center justify-between mb-2">
               <Package className="w-8 h-8 text-cyan-400" />
             </div>
@@ -132,7 +132,7 @@ export default function StockScreen() {
             </p>
           </div>
 
-          <div className="bg-gradient-to-b from-[rgba(245,158,11,0.2)] to-[rgba(217,119,6,0.2)] rounded-2xl p-4 border border-[#f59e0b]">
+          <div className="bg-linear-to-b from-[rgba(245,158,11,0.2)] to-[rgba(217,119,6,0.2)] rounded-2xl p-4 border border-[#f59e0b]">
             <div className="flex items-center justify-between mb-2">
               <AlertTriangle className="w-8 h-8 text-[#f59e0b]" />
             </div>
@@ -147,7 +147,7 @@ export default function StockScreen() {
             </p>
           </div>
 
-          <div className="bg-gradient-to-b from-[rgba(239,68,68,0.2)] to-[rgba(220,38,38,0.2)] rounded-2xl p-4 border border-[#ef4444]">
+          <div className="bg-linear-to-b from-[rgba(239,68,68,0.2)] to-[rgba(220,38,38,0.2)] rounded-2xl p-4 border border-[#ef4444]">
             <div className="flex items-center justify-between mb-2">
               <Package className="w-8 h-8 text-[#ef4444]" />
             </div>
@@ -162,7 +162,7 @@ export default function StockScreen() {
             </p>
           </div>
 
-          <div className="bg-gradient-to-b from-[rgba(34,211,238,0.2)] to-[rgba(0,99,153,0.2)] rounded-2xl p-4 border border-cyan-400">
+          <div className="bg-linear-to-b from-[rgba(34,211,238,0.2)] to-[rgba(0,99,153,0.2)] rounded-2xl p-4 border border-cyan-400">
             <div className="flex items-center justify-between mb-2">
               <WarehouseIcon className="w-8 h-8 text-cyan-400" />
             </div>
@@ -190,7 +190,7 @@ export default function StockScreen() {
             {warehouses.map((wh) => (
               <div
                 key={wh.id}
-                className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-2xl p-4 border border-[#42474e]"
+                className="bg-linear-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-2xl p-4 border border-[#42474e]"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -295,7 +295,7 @@ export default function StockScreen() {
             </p>
           </div>
         ) : (
-          <div className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-2xl border border-[#42474e] overflow-hidden">
+          <div className="bg-linear-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-2xl border border-[#42474e] overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-[rgba(255,255,255,0.05)] border-b border-[rgba(255,255,255,0.1)]">

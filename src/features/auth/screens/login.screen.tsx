@@ -134,7 +134,7 @@ export default function LoginScreen() {
                     dir={isRTL ? "rtl" : "ltr"}
                   >
                     {/* Avatar */}
-                    <div className="relative flex-shrink-0">
+                    <div className="relative shrink-0">
                       <div className="w-16 h-16 rounded-full overflow-hidden bg-surface border-2 border-primary">
                         {user.avatar ? (
                           <img
@@ -197,7 +197,7 @@ export default function LoginScreen() {
 
                     {/* Checkmark */}
                     {selectedUser?.id === user.id && (
-                      <Check className="w-6 h-6 flex-shrink-0 text-primary" />
+                      <Check className="w-6 h-6 shrink-0 text-primary" />
                     )}
                   </div>
                 </button>

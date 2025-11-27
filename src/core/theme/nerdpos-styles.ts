@@ -105,7 +105,7 @@ export const NerdPOSStyles = {
   // Stats card (like dashboard cards)
   statsCard: {
     base: `bg-surface-variant border border-border-subtle rounded-xl p-6`,
-    gradient: `bg-gradient-to-br from-surface-variant to-surface border border-border-subtle rounded-xl p-6`,
+    gradient: `bg-linear-to-br from-surface-variant to-surface border border-border-subtle rounded-xl p-6`,
   },
 
   // Button styles

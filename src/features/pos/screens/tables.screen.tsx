@@ -178,7 +178,7 @@ export default function TablesScreen() {
   }, [feedback]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#023047] to-[#001219]">
+    <div className="min-h-screen bg-linear-to-b from-[#023047] to-[#001219]">
       {/* Feedback */}
       <AnimatePresence>
         {feedback && (
@@ -230,7 +230,7 @@ export default function TablesScreen() {
       {/* Stats Bar */}
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-5 gap-4 mb-6">
-          <div className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-2xl p-4 border border-[#42474e]">
+          <div className="bg-linear-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-2xl p-4 border border-[#42474e]">
             <p
               className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1"
               dir="auto"
@@ -241,7 +241,7 @@ export default function TablesScreen() {
               {stats.total}
             </p>
           </div>
-          <div className="bg-gradient-to-b from-[rgba(16,185,129,0.2)] to-[rgba(5,150,105,0.2)] rounded-2xl p-4 border border-[#10b981]">
+          <div className="bg-linear-to-b from-[rgba(16,185,129,0.2)] to-[rgba(5,150,105,0.2)] rounded-2xl p-4 border border-[#10b981]">
             <p
               className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1"
               dir="auto"
@@ -252,7 +252,7 @@ export default function TablesScreen() {
               {stats.available}
             </p>
           </div>
-          <div className="bg-gradient-to-b from-[rgba(239,68,68,0.2)] to-[rgba(220,38,38,0.2)] rounded-2xl p-4 border border-[#ef4444]">
+          <div className="bg-linear-to-b from-[rgba(239,68,68,0.2)] to-[rgba(220,38,38,0.2)] rounded-2xl p-4 border border-[#ef4444]">
             <p
               className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1"
               dir="auto"
@@ -263,7 +263,7 @@ export default function TablesScreen() {
               {stats.occupied}
             </p>
           </div>
-          <div className="bg-gradient-to-b from-[rgba(245,158,11,0.2)] to-[rgba(217,119,6,0.2)] rounded-2xl p-4 border border-[#f59e0b]">
+          <div className="bg-linear-to-b from-[rgba(245,158,11,0.2)] to-[rgba(217,119,6,0.2)] rounded-2xl p-4 border border-[#f59e0b]">
             <p
               className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1"
               dir="auto"
@@ -274,7 +274,7 @@ export default function TablesScreen() {
               {stats.reserved}
             </p>
           </div>
-          <div className="bg-gradient-to-b from-[rgba(107,114,128,0.2)] to-[rgba(75,85,99,0.2)] rounded-2xl p-4 border border-[#6b7280]">
+          <div className="bg-linear-to-b from-[rgba(107,114,128,0.2)] to-[rgba(75,85,99,0.2)] rounded-2xl p-4 border border-[#6b7280]">
             <p
               className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1"
               dir="auto"
@@ -368,7 +368,7 @@ export default function TablesScreen() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className={`group relative bg-gradient-to-b ${
+                      className={`group relative bg-linear-to-b ${
                         table.status === "available"
                           ? "from-[rgba(16,185,129,0.2)] to-[rgba(5,150,105,0.2)] border-[#10b981]"
                           : table.status === "occupied"
@@ -405,7 +405,7 @@ export default function TablesScreen() {
 
                       {/* Status Badge */}
                       <div
-                        className={`absolute top-3 right-3 w-4 h-4 rounded-full bg-gradient-to-b ${getStatusColor(
+                        className={`absolute top-3 right-3 w-4 h-4 rounded-full bg-linear-to-b ${getStatusColor(
                           table.status
                         )}`}
                       />

@@ -285,7 +285,7 @@ export function TableFormModal({
           {/* Error Message */}
           {error && (
             <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center gap-2">
-              <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+              <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
               <p className="text-sm font-['Almarai'] text-red-400">{error}</p>
             </div>
           )}
@@ -305,7 +305,7 @@ export function TableFormModal({
             type="submit"
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
+            className="flex-1 px-6 py-3 rounded-xl bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
           >
             <Save className="w-5 h-5" />
             <span>

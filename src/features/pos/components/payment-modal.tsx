@@ -365,7 +365,7 @@ export function PaymentModal({
         </button>
         <button
           onClick={() => setCurrentStep("payment")}
-          className="py-4 rounded-2xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg transition-all flex items-center justify-center gap-2"
+          className="py-4 rounded-2xl bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg transition-all flex items-center justify-center gap-2"
         >
           <Receipt className="w-5 h-5" />
           <span className="font-['Almarai'] font-bold" dir="auto">
@@ -444,7 +444,7 @@ export function PaymentModal({
                     onClick={() => setSplitPeople(num)}
                     className={`py-3 rounded-xl font-['Arial'] font-bold transition-all ${
                       splitPeople === num
-                        ? "bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a]"
+                        ? "bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a]"
                         : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#e2e2e6] hover:border-cyan-400/50"
                     }`}
                   >
@@ -465,7 +465,7 @@ export function PaymentModal({
               </div>
               <button
                 onClick={handleSplitEqual}
-                className="w-full mt-3 py-3 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] font-['Almarai'] font-bold hover:opacity-90"
+                className="w-full mt-3 py-3 rounded-xl bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] font-['Almarai'] font-bold hover:opacity-90"
               >
                 <span dir="auto">تأكيد التقسيم</span>
               </button>
@@ -508,7 +508,7 @@ export function PaymentModal({
             >
               <button
                 onClick={handleSplitByItem}
-                className="w-full py-3 rounded-xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] font-['Almarai'] font-bold hover:opacity-90"
+                className="w-full py-3 rounded-xl bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] font-['Almarai'] font-bold hover:opacity-90"
               >
                 <span dir="auto">تأكيد التقسيم</span>
               </button>
@@ -566,7 +566,7 @@ export function PaymentModal({
               disabled={isProcessing}
               className={`relative p-4 rounded-2xl transition-all ${
                 selectedMethod === method.id
-                  ? `bg-gradient-to-b ${method.color} text-white shadow-lg`
+                  ? `bg-linear-to-b ${method.color} text-white shadow-lg`
                   : "bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[#c2c7ce] hover:border-cyan-400/50"
               } ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
             >
@@ -656,7 +656,7 @@ export function PaymentModal({
             disabled={!canCompleteCashPayment() || isProcessing}
             className={`w-full py-4 rounded-2xl font-['Almarai'] font-bold text-lg transition-all ${
               canCompleteCashPayment() && !isProcessing
-                ? "bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg"
+                ? "bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg"
                 : "bg-[rgba(255,255,255,0.05)] text-[#c2c7ce] opacity-50 cursor-not-allowed"
             }`}
           >
@@ -688,7 +688,7 @@ export function PaymentModal({
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-b from-[#10b981] to-[#059669] flex items-center justify-center"
+        className="w-20 h-20 mx-auto mb-6 rounded-full bg-linear-to-b from-[#10b981] to-[#059669] flex items-center justify-center"
       >
         <Check className="w-12 h-12 text-white" />
       </motion.div>
@@ -710,7 +710,7 @@ export function PaymentModal({
             onPrintReceipt();
             handleClose();
           }}
-          className="w-full py-4 rounded-2xl bg-gradient-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg transition-all flex items-center justify-center gap-2"
+          className="w-full py-4 rounded-2xl bg-linear-to-b from-[#22d3ee] to-[#006399] text-[#00373a] hover:opacity-90 shadow-lg transition-all flex items-center justify-center gap-2"
         >
           <Printer className="w-5 h-5" />
           <span className="font-['Almarai'] font-bold" dir="auto">
@@ -763,7 +763,7 @@ export function PaymentModal({
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#2a2f35] rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
+              className="bg-linear-to-b from-[#1a1c1e] via-[#1d2222] to-[#2a2f35] rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
             >
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-[rgba(255,255,255,0.1)]">

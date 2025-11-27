@@ -148,9 +148,9 @@ export function WarehouseModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header - Fixed */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[rgba(255,255,255,0.1)] flex-shrink-0">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[rgba(255,255,255,0.1)] shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[rgba(139,92,246,0.2)] to-[rgba(124,58,237,0.1)] border border-purple-400/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-linear-to-br from-[rgba(139,92,246,0.2)] to-[rgba(124,58,237,0.1)] border border-purple-400/30 flex items-center justify-center">
               <WarehouseIcon className="w-6 h-6 text-purple-400" />
             </div>
             <div>
@@ -177,7 +177,7 @@ export function WarehouseModal({
           <form onSubmit={handleSubmit} className="p-6 space-y-5">
             {/* Current Usage (Edit Mode Only) */}
             {isEditMode && warehouse && (
-              <div className="p-4 rounded-xl bg-gradient-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
+              <div className="p-4 rounded-xl bg-linear-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-['Almarai'] font-bold text-[#e2e2e6]">
                     الاستخدام الحالي
@@ -297,7 +297,7 @@ export function WarehouseModal({
             {/* Error Message */}
             {error && (
               <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
                 <p className="text-sm font-['Almarai'] text-red-400">{error}</p>
               </div>
             )}
@@ -305,7 +305,7 @@ export function WarehouseModal({
         </div>
 
         {/* Footer - Fixed */}
-        <div className="px-6 py-4 border-t border-[rgba(255,255,255,0.1)] flex gap-3 flex-shrink-0">
+        <div className="px-6 py-4 border-t border-[rgba(255,255,255,0.1)] flex gap-3 shrink-0">
           {/* Delete Button (Edit Mode Only) */}
           {isEditMode && onDelete && !showDeleteConfirm && (
             <button
@@ -334,7 +334,7 @@ export function WarehouseModal({
                 type="button"
                 onClick={handleDelete}
                 disabled={isSubmitting}
-                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-b from-red-500 to-red-600 text-white hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
+                className="flex-1 px-6 py-3 rounded-xl bg-linear-to-b from-red-500 to-red-600 text-white hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
               >
                 <Trash2 className="w-5 h-5" />
                 <span>{isSubmitting ? "جاري الحذف..." : "تأكيد الحذف"}</span>
@@ -357,7 +357,7 @@ export function WarehouseModal({
                 type="submit"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
+                className="flex-1 px-6 py-3 rounded-xl bg-linear-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 font-['Almarai'] font-bold transition-all disabled:opacity-50 shadow-lg flex items-center justify-center gap-2"
               >
                 <Save className="w-5 h-5" />
                 <span>

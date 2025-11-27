@@ -19,9 +19,9 @@ export function ComingSoonScreen({
     <>
       <div className="flex items-center justify-center min-h-screen p-8">
         <div className="max-w-2xl w-full">
-          <div className="bg-gradient-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-3xl p-12 border border-[#42474e] text-center">
+          <div className="bg-linear-to-b from-[#1a1c1e] via-[#1d2222] to-[#42474e] rounded-3xl p-12 border border-[#42474e] text-center">
             {/* Icon */}
-            <div className="inline-flex p-6 rounded-full bg-gradient-to-b from-[#22d3ee] to-[#006399] mb-6">
+            <div className="inline-flex p-6 rounded-full bg-linear-to-b from-[#22d3ee] to-[#006399] mb-6">
               <Icon className="w-16 h-16 text-[#00373a]" />
             </div>
 

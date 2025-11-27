@@ -73,9 +73,9 @@ export function WarehouseListModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header - Fixed */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[rgba(255,255,255,0.1)] flex-shrink-0">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[rgba(255,255,255,0.1)] shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[rgba(139,92,246,0.2)] to-[rgba(124,58,237,0.1)] border border-purple-400/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-linear-to-br from-[rgba(139,92,246,0.2)] to-[rgba(124,58,237,0.1)] border border-purple-400/30 flex items-center justify-center">
               <WarehouseIcon className="w-6 h-6 text-purple-400" />
             </div>
             <div>
@@ -90,7 +90,7 @@ export function WarehouseListModal({
           <div className="flex items-center gap-2">
             <button
               onClick={onAddWarehouse}
-              className="px-4 py-2 rounded-xl bg-gradient-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 shadow-lg transition-all flex items-center gap-2"
+              className="px-4 py-2 rounded-xl bg-linear-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 shadow-lg transition-all flex items-center gap-2"
             >
               <Plus className="w-5 h-5" />
               <span className="font-['Almarai'] font-bold">مستودع جديد</span>
@@ -105,9 +105,9 @@ export function WarehouseListModal({
         </div>
 
         {/* Stats Bar - Fixed */}
-        <div className="px-6 py-4 bg-[rgba(255,255,255,0.02)] border-b border-[rgba(255,255,255,0.1)] flex-shrink-0">
+        <div className="px-6 py-4 bg-[rgba(255,255,255,0.02)] border-b border-[rgba(255,255,255,0.1)] shrink-0">
           <div className="grid grid-cols-4 gap-4">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
+            <div className="p-3 rounded-xl bg-linear-to-br from-[rgba(139,92,246,0.1)] to-[rgba(124,58,237,0.05)] border border-purple-400/20">
               <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
                 إجمالي المستودعات
               </p>
@@ -115,7 +115,7 @@ export function WarehouseListModal({
                 {warehouses.length}
               </p>
             </div>
-            <div className="p-3 rounded-xl bg-gradient-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
+            <div className="p-3 rounded-xl bg-linear-to-br from-[rgba(34,211,238,0.1)] to-[rgba(0,99,153,0.05)] border border-cyan-400/20">
               <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
                 السعة الإجمالية
               </p>
@@ -125,7 +125,7 @@ export function WarehouseListModal({
                   .toLocaleString("ar-SA")}
               </p>
             </div>
-            <div className="p-3 rounded-xl bg-gradient-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
+            <div className="p-3 rounded-xl bg-linear-to-br from-[rgba(245,158,11,0.1)] to-[rgba(217,119,6,0.05)] border border-orange-400/20">
               <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
                 المستخدم
               </p>
@@ -135,7 +135,7 @@ export function WarehouseListModal({
                   .toLocaleString("ar-SA")}
               </p>
             </div>
-            <div className="p-3 rounded-xl bg-gradient-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-green-400/20">
+            <div className="p-3 rounded-xl bg-linear-to-br from-[rgba(16,185,129,0.1)] to-[rgba(5,150,105,0.05)] border border-green-400/20">
               <p className="text-xs font-['Almarai'] text-[#c2c7ce] mb-1">
                 المتاح
               </p>
@@ -165,7 +165,7 @@ export function WarehouseListModal({
                     {/* Header */}
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[rgba(139,92,246,0.2)] to-[rgba(124,58,237,0.1)] border border-purple-400/30 flex items-center justify-center flex-shrink-0">
+                        <div className="w-12 h-12 rounded-xl bg-linear-to-br from-[rgba(139,92,246,0.2)] to-[rgba(124,58,237,0.1)] border border-purple-400/30 flex items-center justify-center shrink-0">
                           <WarehouseIcon className="w-6 h-6 text-purple-400" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -174,7 +174,7 @@ export function WarehouseListModal({
                               {warehouse.name}
                             </h3>
                             {warehouse.isDefault && (
-                              <div className="px-2 py-0.5 rounded-md bg-cyan-400/20 border border-cyan-400/30 flex items-center gap-1 flex-shrink-0">
+                              <div className="px-2 py-0.5 rounded-md bg-cyan-400/20 border border-cyan-400/30 flex items-center gap-1 shrink-0">
                                 <CheckCircle className="w-3 h-3 text-cyan-400" />
                                 <span className="text-xs font-['Almarai'] text-cyan-400">
                                   افتراضي
@@ -183,7 +183,7 @@ export function WarehouseListModal({
                             )}
                           </div>
                           <div className="flex items-center gap-1 mt-1">
-                            <MapPin className="w-3 h-3 text-[#c2c7ce] flex-shrink-0" />
+                            <MapPin className="w-3 h-3 text-[#c2c7ce] shrink-0" />
                             <p className="text-xs font-['Almarai'] text-[#c2c7ce] truncate">
                               {warehouse.location}
                             </p>
@@ -192,7 +192,7 @@ export function WarehouseListModal({
                       </div>
                       <button
                         onClick={() => onEditWarehouse(warehouse)}
-                        className="p-2 rounded-lg bg-[rgba(255,255,255,0.05)] opacity-0 group-hover:opacity-100 hover:bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.1)] transition-all flex-shrink-0"
+                        className="p-2 rounded-lg bg-[rgba(255,255,255,0.05)] opacity-0 group-hover:opacity-100 hover:bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.1)] transition-all shrink-0"
                       >
                         <Edit className="w-4 h-4 text-[#c2c7ce]" />
                       </button>
@@ -278,7 +278,7 @@ export function WarehouseListModal({
                 </p>
                 <button
                   onClick={onAddWarehouse}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 shadow-lg transition-all flex items-center gap-2 mx-auto"
+                  className="px-6 py-3 rounded-xl bg-linear-to-b from-purple-400 to-purple-600 text-white hover:opacity-90 shadow-lg transition-all flex items-center gap-2 mx-auto"
                 >
                   <Plus className="w-5 h-5" />
                   <span className="font-['Almarai'] font-bold">

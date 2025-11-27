@@ -50,7 +50,7 @@ export function StockAlertCard({ alert, onAcknowledge }: StockAlertCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`relative p-4 rounded-xl bg-gradient-to-br border ${getAlertColor()} ${
+      className={`relative p-4 rounded-xl bg-linear-to-br border ${getAlertColor()} ${
         alert.acknowledged ? "opacity-50" : ""
       }`}
       dir="rtl"
